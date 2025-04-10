@@ -1,0 +1,28 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: romashka
+      changes:
+        - insert:
+            tableName: subscribers
+            columns:
+              - column:
+                  name: msisdn
+                  value: "+79001112233"
+            loadData: false
+
+        - insert:
+            tableName: subscribers
+            columns:
+              - column:
+                  name: msisdn
+                  value: "+79002223344"
+            loadData: false
+
+        - insert:
+            tableName: subscribers
+            columns:
+              - column:
+                  name: msisdn
+                  value: "+79003334455"
+            loadData: false
