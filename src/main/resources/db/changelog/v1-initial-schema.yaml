@@ -4,63 +4,75 @@ databaseChangeLog:
       author: romashka
       changes:
         - createTable:
-            tableName: subscribers
+            tableName: callers
             columns:
               - column:
-                  name: id
+                  name: callerId
                   type: BIGINT
                   autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: msisdn
-                  type: VARCHAR(20)
+                  name: callerNumber
+                  type: VARCHAR(11)
                   constraints:
                     nullable: false
                     unique: true
 
         - createTable:
-            tableName: calls
+            tableName: cdrData
             columns:
               - column:
-                  name: id
+                  name: callId
                   type: BIGINT
                   autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: call_type
+                  name: callType
                   type: VARCHAR(2)
                   constraints:
                     nullable: false
               - column:
-                  name: subscriber_id  # ← Изменили имя для ясности
-                  type: BIGINT        # ← Совпадает с subscribers.id
-                  constraints:
-                    nullable: false
-              - column:
-                  name: other_msisdn
+                  name: callerNumber
                   type: VARCHAR(20)
                   constraints:
                     nullable: false
               - column:
-                  name: call_start_time
+                  name: contactNumber
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: startTime
                   type: TIMESTAMP
                   constraints:
                     nullable: false
               - column:
-                  name: call_end_time
+                  name: endTime
                   type: TIMESTAMP
                   constraints:
                     nullable: false
 
-        - addForeignKeyConstraint:
-            baseTableName: calls
-            baseColumnNames: subscriber_id
-            constraintName: fk_call_subscriber
-            referencedTableName: subscribers
-            referencedColumnNames: id
-            onDelete: RESTRICT
-            onUpdate: RESTRICT
+        - createTable:
+            tableName: transactions
+            columns:
+              - column:
+                  name: transactionId
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: transactionStatus
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: send_time
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false

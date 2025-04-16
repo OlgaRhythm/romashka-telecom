@@ -1,28 +1,23 @@
 databaseChangeLog:
   - changeSet:
-      id: 1
+      id: 2
       author: romashka
       changes:
         - insert:
-            tableName: subscribers
+            tableName: callers
             columns:
               - column:
-                  name: msisdn
-                  value: "+79001112233"
-            loadData: false
-
+                  name: callerNumber
+                  value: "89001112233"
         - insert:
-            tableName: subscribers
+            tableName: callers
             columns:
               - column:
-                  name: msisdn
-                  value: "+79002223344"
-            loadData: false
-
+                  name: callerNumber
+                  value: "89002223344"
         - insert:
-            tableName: subscribers
+            tableName: callers
             columns:
               - column:
-                  name: msisdn
-                  value: "+79003334455"
-            loadData: false
+                  name: callerNumber
+                  value: "89003334455"
