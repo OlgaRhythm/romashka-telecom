@@ -1,6 +1,6 @@
 package com.romashka.romashka_telecom;
 
-import com.romashka.romashka_telecom.service.CDRService;
+import com.romashka.romashka_telecom.service.CallsService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,9 +14,10 @@ public class RomashkaTelecomApplication {
 	}
 
 	@Bean
-	public CommandLineRunner demo(CDRService cdrService) {
+	public CommandLineRunner demo(CallsService callsService) {
 		return args -> {
-			cdrService.generateCDR(); // Вызов здесь
+			callsService.generateCalls();
+			callsService.shutdown();
 		};
 	}
 }

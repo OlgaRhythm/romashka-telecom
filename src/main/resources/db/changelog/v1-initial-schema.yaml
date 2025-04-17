@@ -7,51 +7,51 @@ databaseChangeLog:
             tableName: callers
             columns:
               - column:
-                  name: callerId
+                  name: caller_id
                   type: BIGINT
                   autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: callerNumber
+                  name: caller_number
                   type: VARCHAR(11)
                   constraints:
                     nullable: false
                     unique: true
 
         - createTable:
-            tableName: cdrData
+            tableName: cdr_data
             columns:
               - column:
-                  name: callId
+                  name: call_id
                   type: BIGINT
                   autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: callType
+                  name: call_type
                   type: VARCHAR(2)
                   constraints:
                     nullable: false
               - column:
-                  name: callerNumber
+                  name: caller_number
                   type: VARCHAR(20)
                   constraints:
                     nullable: false
               - column:
-                  name: contactNumber
+                  name: contact_number
                   type: VARCHAR(20)
                   constraints:
                     nullable: false
               - column:
-                  name: startTime
+                  name: start_time
                   type: TIMESTAMP
                   constraints:
                     nullable: false
               - column:
-                  name: endTime
+                  name: end_time
                   type: TIMESTAMP
                   constraints:
                     nullable: false
@@ -60,14 +60,14 @@ databaseChangeLog:
             tableName: transactions
             columns:
               - column:
-                  name: transactionId
+                  name: transaction_id
                   type: BIGINT
                   autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: transactionStatus
+                  name: transaction_status
                   type: VARCHAR(20)
                   constraints:
                     nullable: false

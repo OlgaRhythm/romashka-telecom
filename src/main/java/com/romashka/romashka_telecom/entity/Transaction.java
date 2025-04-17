@@ -18,7 +18,7 @@ public class Transaction {
 
     private TransactionStatus transactionStatus;
 
-    // TODO: единый правильный формат времени
+    // TODO: единый формат времени гггг-мм-ддTчч:мм:сс
     private LocalDateTime sendTime;
 
 }

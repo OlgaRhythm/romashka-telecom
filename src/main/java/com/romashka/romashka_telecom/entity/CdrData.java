@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "cdrData")
+@Table(name = "cdr_data")
 public class CdrData {
 
     /**
@@ -28,23 +28,72 @@ public class CdrData {
     /**
      * Номер абонента, инициирующего звонок.
      */
-    // TODO: валидация
+    // TODO: валидация 7xxxxxxxxxx
     private String callerNumber;
 
     /**
      * Номер абонента, принимающего звонок.
      */
-    // TODO: валидация
+    // TODO: валидация 7xxxxxxxxxx (с какой цифры может начинаться номер?)
     private String contactNumber;
 
     /**
      * Дата и время начала звонка в формате ISO 8601.
      */
+    // TODO: гггг-мм-ддTчч:мм:сс
     private LocalDateTime startTime;
 
     /**
      * Дата и время окончания звонка в формате ISO 8601.
      */
+    // TODO: гггг-мм-ддTчч:мм:сс
     private LocalDateTime endTime;
 
+    public Long getCallId() {
+        return callId;
+    }
+
+//    public void setCallId(Long callId) {
+//        this.callId = callId;
+//    }
+
+    public CallType getCallType() {
+        return callType;
+    }
+
+    public void setCallType(CallType callType) {
+        this.callType = callType;
+    }
+
+    public String getCallerNumber() {
+        return callerNumber;
+    }
+
+    public void setCallerNumber(String callerNumber) {
+        this.callerNumber = callerNumber;
+    }
+
+    public String getContactNumber() {
+        return contactNumber;
+    }
+
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
+    }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public LocalDateTime getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(LocalDateTime endTime) {
+        this.endTime = endTime;
+    }
 }

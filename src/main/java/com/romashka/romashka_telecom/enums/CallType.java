@@ -1,7 +1,5 @@
 package com.romashka.romashka_telecom.enums;
 
-import com.fasterxml.jackson.annotation.JsonValue;
-
 import java.util.Arrays;
 
 public enum CallType {
@@ -14,7 +12,6 @@ public enum CallType {
         this.code = code;
     }
 
-    @JsonValue
     public String getCode() {
         return code;
     }

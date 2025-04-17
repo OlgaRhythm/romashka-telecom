@@ -21,16 +21,28 @@ public class Caller {
      * Номер телефона абонента.
      */
     // TODO: Сделать валидацию (11 символов)
+    // TODO: всегда ли номер телефона уникален?
+    @Column(name = "caller_number")
     private String callerNumber;
+
+    public Caller() {}
 
     /**
      * Конструктор для создания абонента с указанным номером.
      *
      * @param callerNumber Номер абонента.
      */
+
     public Caller(String callerNumber) {
         // TODO: Сделать валидацию (11 символов)
         this.callerNumber = callerNumber;
     }
 
+    public String getCallerNumber() {
+        return callerNumber;
+    }
+
+    public Object getId() {
+        return callerId;
+    }
 }
