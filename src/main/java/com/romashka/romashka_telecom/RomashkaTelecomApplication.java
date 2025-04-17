@@ -17,7 +17,7 @@ public class RomashkaTelecomApplication {
 	public CommandLineRunner demo(CallsService callsService) {
 		return args -> {
 			callsService.generateCalls();
-			callsService.shutdown();
+//			callsService.shutdown();
 		};
 	}
 }

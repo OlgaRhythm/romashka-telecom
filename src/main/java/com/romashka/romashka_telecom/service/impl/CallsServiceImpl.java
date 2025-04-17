@@ -6,9 +6,6 @@ import com.romashka.romashka_telecom.enums.CallType;
 import com.romashka.romashka_telecom.repository.CallerRepository;
 import com.romashka.romashka_telecom.repository.CdrDataRepository;
 import com.romashka.romashka_telecom.service.CallsService;
-import jakarta.annotation.PostConstruct;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -16,164 +13,175 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 import java.util.concurrent.locks.ReentrantLock;
-
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CallsServiceImpl implements CallsService {
-    private static final Logger logger = LoggerFactory.getLogger(CallsServiceImpl.class);
-    private final CallerRepository callerRepository;
-    private final CdrDataRepository cdrDataRepository;
-    private final Random random = new Random();
 
-    // Абоненты -> до какого времени они заняты
-    private final ConcurrentMap<String, LocalDateTime> subscriberBusyUntil = new ConcurrentHashMap<>();
-    // Абоненты -> объект блокировки
-    private final ConcurrentHashMap<String, ReentrantLock> subscriberLocks = new ConcurrentHashMap<>();
+    private final CallerRepository callerRepo;
+    private final CdrDataRepository cdrRepo;
+    private final Random rnd = new Random();
 
-    // TODO: значение задается в application.yml
-    @Value("${thread.pool.size:4}") // обычно берут количество ядер процессора
+    @Value("${thread.pool.size:4}")
     private int threadPoolSize;
-    private ExecutorService executor;
+
+    /** Пара звонков даёт 2 записи => totalPairs*2 записей */
+    @Value("${calls.total_pairs:3000}")
+    private int totalPairs;
 
     @Autowired
-    CallsServiceImpl(CallerRepository callerRepository, CdrDataRepository cdrDataRepository) {
-        this.callerRepository = callerRepository;
-        this.cdrDataRepository = cdrDataRepository;
+    public CallsServiceImpl(CallerRepository cR, CdrDataRepository dR) {
+        this.callerRepo = cR;
+        this.cdrRepo    = dR;
     }
 
-    @PostConstruct
-    public void init() {
-        executor = Executors.newFixedThreadPool(threadPoolSize);
-    }
-
-    /**
-     * Метод, запускающий генерацию звонков.
-     */
     @Override
     public void generateCalls() {
-        List<Caller> callers = callerRepository.findAll();
-        if (callers.size() < 2) {
-            throw new IllegalStateException("Недостаточно абонентов в базе данных");
+        List<Caller> callers = callerRepo.findAll();
+        if (callers.size() < 2)
+            throw new IllegalStateException("Нужно ≥2 абонента");
+
+        // 1) Генерируем и сортируем слоты времени
+        List<LocalDateTime> slots = new ArrayList<>(totalPairs);
+        for (int i = 0; i < totalPairs; i++) {
+            slots.add(randomDateTimeInYear());
+        }
+        slots.sort(Comparator.naturalOrder());
+
+        // 2) Подготовка синхронизации: теперь листы интервалов, а не один timestamp
+        ConcurrentMap<String, List<Interval>> busyIntervals = new ConcurrentHashMap<>();
+        ConcurrentMap<String, ReentrantLock> locks = new ConcurrentHashMap<>();
+        for (Caller c : callers) {
+            busyIntervals.put(c.getCallerNumber(), new ArrayList<>());
+            locks.put(c.getCallerNumber(), new ReentrantLock());
         }
 
-        // Инициализация структур данных для абонентов
-        callers.forEach(caller -> {
-            subscriberBusyUntil.putIfAbsent(caller.getCallerNumber(), LocalDateTime.MIN);
-            subscriberLocks.putIfAbsent(caller.getCallerNumber(), new ReentrantLock());
-        });
+        // 3) Пул для записи в БД
+        ExecutorService exec = Executors.newFixedThreadPool(threadPoolSize);
+        List<Future<?>> futures = new ArrayList<>();
 
-        // Увеличиваем количество генерируемых звонков
-        for (int i = 0; i < 100; i++) {
-            executor.submit(() -> {
-                try {
-                    generateAndSaveCallPair(callers);
-                } catch (Exception e) {
-                    logger.error("Ошибка при генерации звонка", e);
+        // 4) Каждый слот — в своё generateAt
+        for (LocalDateTime start : slots) {
+            futures.add(exec.submit(() -> {
+                generateAt(start, callers, busyIntervals, locks);
+            }));
+        }
+
+        // 5) Ждём сохранения
+        for (Future<?> f : futures) {
+            try { f.get(); }
+            catch (Exception e) { throw new RuntimeException(e); }
+        }
+        exec.shutdown();
+    }
+
+    /** Генерирует ровно одну пару звонков в заданный момент start */
+    private void generateAt(
+            LocalDateTime start,
+            List<Caller> callers,
+            ConcurrentMap<String, List<Interval>> busyIntervals,
+            Map<String, ReentrantLock> locks
+    ) {
+        while (true) {
+            Caller a = callers.get(rnd.nextInt(callers.size()));
+            Caller b;
+            do { b = callers.get(rnd.nextInt(callers.size())); }
+            while (b.getCallerNumber().equals(a.getCallerNumber()));
+
+            String an = a.getCallerNumber(), bn = b.getCallerNumber();
+            // Сначала меньший ключ, чтобы не было deadlock
+            String k1 = an.compareTo(bn) < 0 ? an : bn;
+            String k2 = an.compareTo(bn) < 0 ? bn : an;
+            ReentrantLock l1 = locks.get(k1), l2 = locks.get(k2);
+
+            l1.lock(); l2.lock();
+            try {
+                long dur = 60 + rnd.nextInt(14 * 60);
+                LocalDateTime end = start.plusSeconds(dur);
+
+                List<Interval> listA = busyIntervals.get(an);
+                List<Interval> listB = busyIntervals.get(bn);
+
+                // Проверка полного пересечения в двух списках
+                if (!overlapsAny(listA, start, end) && !overlapsAny(listB, start, end)) {
+                    // Бронируем оба интервала
+                    listA.add(new Interval(start, end));
+                    listB.add(new Interval(start, end));
+                    // Сохраняем, разбивая через полночь
+                    savePair(a, b, start, end);
+                    return;
                 }
-            });
+            } finally {
+                l2.unlock();
+                l1.unlock();
+            }
+            // иначе пробуем снова
         }
     }
 
-    /**
-     * Генерирует один случайный звонок с учетом синхронизации по абонентам.
-     */
-    private void generateAndSaveCallPair(List<Caller> callers) {
-        final int MAX_ATTEMPTS = 500; // Увеличиваем количество попыток
-        int attempts = 0;
-
-        while (attempts++ < MAX_ATTEMPTS) {
-            Caller caller = getRandomCaller(callers);
-            Caller contact = getRandomCaller(callers);
-
-            if (caller.getCallerNumber().equals(contact.getCallerNumber())) {
-                continue;
-            }
-
-            // Упрощаем блокировку - блокируем только на время проверки/обновления
-            synchronized (this) {
-                LocalDateTime start = generateRandomDateTime();
-                long duration = 60 + random.nextInt(540);
-                LocalDateTime end = start.plusSeconds(duration);
-
-                // Проверяем только пересечение интервалов
-                if (subscriberBusyUntil.get(caller.getCallerNumber()).isAfter(start) ||
-                        subscriberBusyUntil.get(contact.getCallerNumber()).isAfter(start)) {
-                    continue;
-                }
-
-                // Обновляем время занятости
-                subscriberBusyUntil.put(caller.getCallerNumber(), end);
-                subscriberBusyUntil.put(contact.getCallerNumber(), end);
-
-                // Сохраняем записи
-                saveCallRecords(caller, contact, start, end);
-                return;
+    private boolean overlapsAny(List<Interval> list, LocalDateTime s, LocalDateTime e) {
+        for (Interval iv : list) {
+            if (s.isBefore(iv.end) && e.isAfter(iv.start)) {
+                return true;
             }
         }
-        logger.warn("Не удалось сгенерировать звонок после {} попыток", MAX_ATTEMPTS);
+        return false;
     }
 
-
-    private Caller getRandomCaller(List<Caller> subscribers) {
-        return subscribers.get(random.nextInt(subscribers.size()));
+    // Простой DTO для интервалов
+    private static class Interval {
+        final LocalDateTime start, end;
+        Interval(LocalDateTime s, LocalDateTime e) { this.start = s; this.end = e; }
     }
 
-    private LocalDateTime generateRandomDateTime() {
-        LocalDate startOfYear = LocalDate.now().withDayOfYear(1);
-        int randomDayOfYear = random.nextInt(startOfYear.lengthOfYear());
-        LocalDate randomDate = startOfYear.plusDays(randomDayOfYear);
-
-        LocalTime randomTime = LocalTime.of(random.nextInt(24), random.nextInt(60), random.nextInt(60));
-
-        return LocalDateTime.of(randomDate, randomTime);
+    private LocalDateTime randomDateTimeInYear() {
+        LocalDate base = LocalDate.now().withDayOfYear(1);
+        int day  = rnd.nextInt(base.lengthOfYear());
+        LocalDate d = base.plusDays(day);
+        LocalTime t = LocalTime.of(rnd.nextInt(24), rnd.nextInt(60), rnd.nextInt(60));
+        return LocalDateTime.of(d, t);
     }
 
-    @Transactional
-    protected void saveCallRecords(Caller caller, Caller contact, LocalDateTime start, LocalDateTime end) {
-        // Сохраняем исходящий звонок
-        saveSingleCall(caller, contact, CallType.OUTGOING, start, end);
-        // Сохраняем входящий звонок
-        saveSingleCall(contact, caller, CallType.INCOMING, start, end);
-    }
-
-    @Transactional
-    protected void saveSingleCall(Caller caller, Caller contact, CallType callType,
-                                  LocalDateTime start, LocalDateTime end) {
+    /** Разбивает на две записи, если звонок проходит через полночь */
+    private void savePair(Caller a, Caller b, LocalDateTime start, LocalDateTime end) {
         if (start.toLocalDate().equals(end.toLocalDate())) {
-            // Звонок в пределах одного дня
-            saveCall(caller, contact, callType, start, end);
+            // в пределах одного дня
+            saveSegment(a, b, start, end);
         } else {
-            // Звонок через полночь - разбиваем на две части
-            LocalDateTime midnight = LocalDateTime.of(start.toLocalDate(), LocalTime.MAX);
-            saveCall(caller, contact, callType, start, midnight);
-            saveCall(caller, contact, callType, midnight.plusSeconds(1), end);
+            // первая часть до конца дня
+            LocalDateTime endOfDay = LocalDateTime.of(start.toLocalDate(), LocalTime.MAX)
+                    .truncatedTo(ChronoUnit.SECONDS);
+            saveSegment(a, b, start, endOfDay);
+            // вторая часть от начала следующего дня
+            LocalDateTime startNext = endOfDay.plusSeconds(1);
+            saveSegment(a, b, startNext, end);
         }
     }
 
-    private void saveCall(Caller caller, Caller contact, CallType callType,
-                          LocalDateTime start, LocalDateTime end) {
-        CdrData call = new CdrData();
-        call.setCallType(callType);
-        call.setCallerNumber(caller.getCallerNumber());
-        call.setContactNumber(contact.getCallerNumber());
-        call.setStartTime(start);
-        call.setEndTime(end);
+    /** Сохраняет один исходящий + один входящий сегмент */
+    private void saveSegment(Caller a, Caller b,
+                             LocalDateTime s, LocalDateTime e) {
+        CdrData out = new CdrData();
+        out.setCallType(CallType.OUTGOING);
+        out.setCallerNumber(a.getCallerNumber());
+        out.setContactNumber(b.getCallerNumber());
+        out.setStartTime(s);
+        out.setEndTime(e);
 
-        cdrDataRepository.save(call);
-        logger.info("Сохранён звонок: {} [{}] -> {}, {} - {}",
-                caller.getCallerNumber(), callType, contact.getCallerNumber(), start, end);
-    }
+        CdrData in = new CdrData();
+        in.setCallType(CallType.INCOMING);
+        in.setCallerNumber(b.getCallerNumber());
+        in.setContactNumber(a.getCallerNumber());
+        in.setStartTime(s);
+        in.setEndTime(e);
 
-    @Override
-    public void shutdown() {
-        executor.shutdown();
+        cdrRepo.saveAll(List.of(out, in));
     }
 }
