@@ -1,7 +1,6 @@
 package com.romashka.romashka_telecom.service;
 
-public interface CallsService {
+public interface CallsGenerationService {
     public void generateCalls();
 
-//    public void shutdown();
 }

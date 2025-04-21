@@ -2,11 +2,16 @@ package com.romashka.romashka_telecom.entity;
 
 import com.romashka.romashka_telecom.enums.CallType;
 import jakarta.persistence.*;
+
+import java.io.IOException;
+import java.io.Serializable;
 import java.time.LocalDateTime;
+
+// RabbitMQ требует, чтобы класс реализовывал Serializable
 
 @Entity
 @Table(name = "cdr_data")
-public class CdrData {
+public class CdrData implements Serializable {
 
     /**
      * Уникальный идентификатор записи.
@@ -96,4 +101,18 @@ public class CdrData {
     public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
     }
+
+    private void writeObject(java.io.ObjectOutputStream out) throws IOException {
+        out.defaultWriteObject();
+        out.writeObject(startTime.toString());
+        out.writeObject(endTime.toString());
+    }
+
+    private void readObject(java.io.ObjectInputStream in)
+            throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
+        startTime = LocalDateTime.parse((String) in.readObject());
+        endTime = LocalDateTime.parse((String) in.readObject());
+    }
+
 }

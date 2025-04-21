@@ -43,3 +43,15 @@ https://mts-link.ru/blog/konferenc-svyaz-mts/
 
 Потоки могут работать в случайной последовательности.
 Можно генерировать очередь из времени начала звонков.
+
+#### 5
+
+Запуск контейнера:
+
+gradle clean build
+docker build -t romashka-telecom .
+docker compose down
+// docker compose up -d
+docker-compose up --build
+
+docker compose logs -f romashka-telecom

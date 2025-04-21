@@ -1,6 +1,26 @@
+# ---------------------------------------------------------
+# Общие настройки RabbitMQ (всегда активны)
+# ---------------------------------------------------------
+rabbitmq:
+  exchange:
+    name: cdr.exchange
+  queue:
+    name: cdr.queue
+  routing:
+    key: cdr.routingkey
+
+---
+# ---------------------------------------------------------
+# Default‑профиль (локальная разработка)
+# ---------------------------------------------------------
 spring:
+  config:
+    activate:
+      on-profile: default
+
   application:
     name: romashka-telecom
+
   sql:
     init:
       mode: always
@@ -27,3 +47,48 @@ spring:
       settings:
         trace: false
         web-allow-others: true
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    connection-timeout: 5000
+    template:
+      message-converter: messageConverter
+      retry:
+        enabled: true
+        initial-interval: 2000ms
+        max-interval: 10000ms
+        max-attempts: 3
+
+---
+# ---------------------------------------------------------
+# Docker‑профиль (в контейнере)
+# ---------------------------------------------------------
+spring:
+  config:
+    activate:
+      on-profile: docker
+
+  rabbitmq:
+    host: rabbitmq
+    port: 5672
+    username: guest
+    password: guest
+    template:
+      message-converter: simpleMessageConverter
+
+# Настройки приложения
+app:
+  export:
+    batch-size: 10
+    retry-attempts: 3
+    retry-delay: 1000
+
+# Логирование
+logging:
+  level:
+    org.springframework.amqp: DEBUG
+    com.romashka.romashka_telecom: INFO
+    root: WARN

@@ -3,11 +3,13 @@ package com.romashka.romashka_telecom.service.impl;
 import com.romashka.romashka_telecom.entity.Caller;
 import com.romashka.romashka_telecom.entity.CdrData;
 import com.romashka.romashka_telecom.enums.CallType;
+import com.romashka.romashka_telecom.event.CallsGenerationCompletedEvent;
 import com.romashka.romashka_telecom.repository.CallerRepository;
 import com.romashka.romashka_telecom.repository.CdrDataRepository;
-import com.romashka.romashka_telecom.service.CallsService;
+import com.romashka.romashka_telecom.service.CallsGenerationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -23,13 +25,14 @@ import java.util.concurrent.*;
 import java.util.concurrent.locks.ReentrantLock;
 
 @Service
-public class CallsServiceImpl implements CallsService {
+public class CallsGenerationServiceImpl implements CallsGenerationService {
 
+    private final ApplicationEventPublisher eventPublisher;
     private final CallerRepository callerRepo;
     private final CdrDataRepository cdrRepo;
     private final Random rnd = new Random();
 
-    @Value("${thread.pool.size:4}")
+    @Value("${thread.pool.size:8}")
     private int threadPoolSize;
 
     /** Пара звонков даёт 2 записи => totalPairs*2 записей */
@@ -37,9 +40,14 @@ public class CallsServiceImpl implements CallsService {
     private int totalPairs;
 
     @Autowired
-    public CallsServiceImpl(CallerRepository cR, CdrDataRepository dR) {
+    public CallsGenerationServiceImpl(
+            CallerRepository cR,
+            CdrDataRepository dR,
+            ApplicationEventPublisher eventPublisher
+    ) {
         this.callerRepo = cR;
         this.cdrRepo    = dR;
+        this.eventPublisher = eventPublisher;
     }
 
     @Override
@@ -55,7 +63,7 @@ public class CallsServiceImpl implements CallsService {
         }
         slots.sort(Comparator.naturalOrder());
 
-        // 2) Подготовка синхронизации: теперь листы интервалов, а не один timestamp
+        // 2) Подготовка синхронизации: листы интервалов
         ConcurrentMap<String, List<Interval>> busyIntervals = new ConcurrentHashMap<>();
         ConcurrentMap<String, ReentrantLock> locks = new ConcurrentHashMap<>();
         for (Caller c : callers) {
@@ -80,6 +88,9 @@ public class CallsServiceImpl implements CallsService {
             catch (Exception e) { throw new RuntimeException(e); }
         }
         exec.shutdown();
+
+        // 6) Событие завершения
+        eventPublisher.publishEvent(new CallsGenerationCompletedEvent(totalPairs * 2));
     }
 
     /** Генерирует ровно одну пару звонков в заданный момент start */
