@@ -58,3 +58,7 @@ docker-compose up --build
 docker run -d -p 8080:8080 --name romashka-telecom romashka-telecom
 
 docker compose logs -f romashka-telecom
+
+#### 6
+
+Добавила ломбок в проект

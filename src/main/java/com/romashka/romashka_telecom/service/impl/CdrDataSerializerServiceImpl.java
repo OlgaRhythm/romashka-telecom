@@ -30,54 +30,10 @@ import java.util.stream.Stream;
 @Service
 public class CdrDataSerializerServiceImpl implements CdrDataSerializerService {
 
-    private static final Logger log = LoggerFactory.getLogger(CdrDataSerializerServiceImpl.class);
     private static final DateTimeFormatter DTF = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
-    private final CdrDataRepository cdrRepo;
-    private final RabbitTemplate rabbitTemplate;
-
-    @Value("${rabbitmq.exchange.name}")
-    private String exchangeName;
-
-    @Value("${rabbitmq.routing.key}")
-    private String routingKey;
-
-    @Value("${export.batch.size:10}")
-    private int batchSize;
-
-    @Autowired
-    public CdrDataSerializerServiceImpl(
-            CdrDataRepository cdrRepo,
-            RabbitTemplate rabbitTemplate
-    ) {
-        this.cdrRepo = cdrRepo;
-        this.rabbitTemplate = rabbitTemplate;
-    }
-
     @Override
-    @Transactional(readOnly = true)
-    public void exportCallsData() {
-        log.info("Starting exportCallsData, batchSize={}", batchSize);
-
-        // streamAllBy должен быть объявлен в репозитории как:
-        // Stream<CdrData> streamAllBy(Sort sort);
-        try (Stream<CdrData> stream = cdrRepo.streamAllBy(Sort.by("startTime").ascending())) {
-            Iterator<CdrData> it = stream.iterator();
-            List<CdrData> batch = new ArrayList<>(batchSize);
-
-            while (it.hasNext()) {
-                batch.add(it.next());
-                if (batch.size() == batchSize || !it.hasNext()) {
-                    String csv = convertToCsv(batch);
-                    sendCsvBatch(csv, batch.size());
-                    batch.clear();
-                }
-            }
-        }
-        log.info("exportCallsData completed");
-    }
-
-    private String convertToCsv(List<CdrData> batch) {
+    public String convertToCsv(List<CdrData> batch) {
         try (ByteArrayOutputStream baos = new ByteArrayOutputStream();
              Writer w = new OutputStreamWriter(baos, StandardCharsets.UTF_8)) {
 
@@ -103,32 +59,5 @@ public class CdrDataSerializerServiceImpl implements CdrDataSerializerService {
         if (s == null) return "";
         String r = s.replace("\"", "\"\"");
         return r.contains(",") ? "\"" + r + "\"" : r;
-    }
-
-    private void sendCsvBatch(String csv, int count) {
-        log.info("Sending batch of {} records", count);
-        try {
-            rabbitTemplate.convertAndSend(exchangeName, routingKey, csv, msg -> {
-                msg.getMessageProperties().setContentType("text/csv");
-                msg.getMessageProperties().setContentEncoding("UTF-8");
-                return msg;
-            });
-        } catch (Exception e) {
-            log.error("Failed to send batch to RabbitMQ", e);
-        }
-    }
-
-    @Async
-    @EventListener
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public void handleCallsGenerationComplete(CallsGenerationCompletedEvent event) {
-        try {
-            System.out.printf("Starting export of %d records...%n", event.getGeneratedRecords());
-            exportCallsData();
-            System.out.println("Export completed successfully");
-        } catch (Exception e) {
-            System.err.println("Export failed: " + e.getMessage());
-            // Можно добавить дополнительную обработку ошибок
-        }
     }
 }

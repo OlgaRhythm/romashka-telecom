@@ -1,6 +1,7 @@
 package com.romashka.romashka_telecom.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 /**
  * Класс для представления абонента.
@@ -8,6 +9,11 @@ import jakarta.persistence.*;
  */
 @Entity
 @Table(name = "callers")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class Caller {
 
     /**
@@ -25,24 +31,13 @@ public class Caller {
     @Column(name = "caller_number")
     private String callerNumber;
 
-    public Caller() {}
-
     /**
      * Конструктор для создания абонента с указанным номером.
      *
      * @param callerNumber Номер абонента.
      */
-
     public Caller(String callerNumber) {
         // TODO: Сделать валидацию (11 символов)
         this.callerNumber = callerNumber;
-    }
-
-    public String getCallerNumber() {
-        return callerNumber;
-    }
-
-    public Object getId() {
-        return callerId;
     }
 }

@@ -7,6 +7,9 @@ import com.romashka.romashka_telecom.event.CallsGenerationCompletedEvent;
 import com.romashka.romashka_telecom.repository.CallerRepository;
 import com.romashka.romashka_telecom.repository.CdrDataRepository;
 import com.romashka.romashka_telecom.service.CallsGenerationService;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationEventPublisher;
@@ -24,7 +27,14 @@ import java.util.Random;
 import java.util.concurrent.*;
 import java.util.concurrent.locks.ReentrantLock;
 
+/**
+ * Сервис генерации звонков между абонентами.
+ * Создаёт пары записей о звонках (входящий и исходящий) с учётом занятости абонентов и реалистичных временных интервалов.
+ */
 @Service
+@Getter
+@Setter
+@RequiredArgsConstructor
 public class CallsGenerationServiceImpl implements CallsGenerationService {
 
     private final ApplicationEventPublisher eventPublisher;
@@ -39,29 +49,18 @@ public class CallsGenerationServiceImpl implements CallsGenerationService {
     @Value("${calls.total_pairs:3000}")
     private int totalPairs;
 
-    @Autowired
-    public CallsGenerationServiceImpl(
-            CallerRepository cR,
-            CdrDataRepository dR,
-            ApplicationEventPublisher eventPublisher
-    ) {
-        this.callerRepo = cR;
-        this.cdrRepo    = dR;
-        this.eventPublisher = eventPublisher;
-    }
+    private static final int MIN_CALL_DURATION = 60; // минимальная продолжительность звонка в секундах
+    private static final int MAX_CALL_DURATION = 14 * 60; // максимальная продолжительность звонка в секундах
 
+    /**
+     * Основной метод генерации звонков.
+     * Выполняет генерацию слотов, распределение задач, синхронизацию и сохранение в БД.
+     */
     @Override
     public void generateCalls() {
-        List<Caller> callers = callerRepo.findAll();
-        if (callers.size() < 2)
-            throw new IllegalStateException("Нужно ≥2 абонента");
-
+        List<Caller> callers = getCallers();
         // 1) Генерируем и сортируем слоты времени
-        List<LocalDateTime> slots = new ArrayList<>(totalPairs);
-        for (int i = 0; i < totalPairs; i++) {
-            slots.add(randomDateTimeInYear());
-        }
-        slots.sort(Comparator.naturalOrder());
+        List<LocalDateTime> slots = generateSortedTimeSlots();
 
         // 2) Подготовка синхронизации: листы интервалов
         ConcurrentMap<String, List<Interval>> busyIntervals = new ConcurrentHashMap<>();
@@ -73,27 +72,82 @@ public class CallsGenerationServiceImpl implements CallsGenerationService {
 
         // 3) Пул для записи в БД
         ExecutorService exec = Executors.newFixedThreadPool(threadPoolSize);
-        List<Future<?>> futures = new ArrayList<>();
 
         // 4) Каждый слот — в своё generateAt
-        for (LocalDateTime start : slots) {
-            futures.add(exec.submit(() -> {
-                generateAt(start, callers, busyIntervals, locks);
-            }));
-        }
+        List<Future<?>> futures = submitCallGenerationTasks(slots, callers, busyIntervals, locks, exec);
 
         // 5) Ждём сохранения
-        for (Future<?> f : futures) {
-            try { f.get(); }
-            catch (Exception e) { throw new RuntimeException(e); }
-        }
+        waitForCompletion(futures);
+
         exec.shutdown();
 
         // 6) Событие завершения
         eventPublisher.publishEvent(new CallsGenerationCompletedEvent(totalPairs * 2));
     }
 
-    /** Генерирует ровно одну пару звонков в заданный момент start */
+    /**
+     * Получает список всех абонентов.
+     * @return список абонентов
+     * @throws IllegalStateException если абонентов меньше двух
+     */
+    private List<Caller> getCallers() {
+        List<Caller> callers = callerRepo.findAll();
+        if (callers.size() < 2) {
+            throw new IllegalStateException("Нужно ≥2 абонента");
+        }
+        return callers;
+    }
+
+    /**
+     * Генерирует отсортированный список случайных временных слотов в пределах года.
+     * @return отсортированный список временных слотов
+     */
+    private List<LocalDateTime> generateSortedTimeSlots() {
+        List<LocalDateTime> slots = new ArrayList<>(totalPairs);
+        for (int i = 0; i < totalPairs; i++) {
+            slots.add(randomDateTimeInYear());
+        }
+        slots.sort(Comparator.naturalOrder());
+        return slots;
+    }
+
+    /**
+     * Отправляет задачи генерации звонков в пул потоков.
+     * @param slots временные слоты
+     * @param callers список абонентов
+     * @param busyIntervals занятые интервалы
+     * @param locks блокировки для синхронизации
+     * @param exec пул потоков
+     * @return список Future задач
+     */
+    private List<Future<?>> submitCallGenerationTasks(List<LocalDateTime> slots, List<Caller> callers,
+                                                      ConcurrentMap<String, List<Interval>> busyIntervals,
+                                                      ConcurrentMap<String, ReentrantLock> locks, ExecutorService exec) {
+        List<Future<?>> futures = new ArrayList<>();
+        for (LocalDateTime start : slots) {
+            futures.add(exec.submit(() -> generateAt(start, callers, busyIntervals, locks)));
+        }
+        return futures;
+    }
+
+    /**
+     * Ожидает завершения всех задач генерации звонков.
+     * @param futures список Future задач
+     */
+    private void waitForCompletion(List<Future<?>> futures) {
+        for (Future<?> f : futures) {
+            try {
+                f.get();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    /**
+     * Генерирует одну пару звонков (входящий и исходящий) в заданный момент времени.
+     * Проверяет, чтобы абоненты были свободны в этот период.
+     */
     private void generateAt(
             LocalDateTime start,
             List<Caller> callers,
@@ -101,21 +155,18 @@ public class CallsGenerationServiceImpl implements CallsGenerationService {
             Map<String, ReentrantLock> locks
     ) {
         while (true) {
-            Caller a = callers.get(rnd.nextInt(callers.size()));
-            Caller b;
-            do { b = callers.get(rnd.nextInt(callers.size())); }
-            while (b.getCallerNumber().equals(a.getCallerNumber()));
+            Caller a = getRandomCaller(callers);
+            Caller b = getRandomCallerExcluding(a, callers);;
 
             String an = a.getCallerNumber(), bn = b.getCallerNumber();
-            // Сначала меньший ключ, чтобы не было deadlock
             String k1 = an.compareTo(bn) < 0 ? an : bn;
             String k2 = an.compareTo(bn) < 0 ? bn : an;
             ReentrantLock l1 = locks.get(k1), l2 = locks.get(k2);
 
             l1.lock(); l2.lock();
             try {
-                long dur = 60 + rnd.nextInt(14 * 60);
-                LocalDateTime end = start.plusSeconds(dur);
+                long duration = MIN_CALL_DURATION + rnd.nextInt(MAX_CALL_DURATION - MIN_CALL_DURATION);
+                LocalDateTime end = start.plusSeconds(duration);
 
                 List<Interval> listA = busyIntervals.get(an);
                 List<Interval> listB = busyIntervals.get(bn);
@@ -133,25 +184,37 @@ public class CallsGenerationServiceImpl implements CallsGenerationService {
                 l2.unlock();
                 l1.unlock();
             }
-            // иначе пробуем снова
         }
     }
 
+    /**
+     * Возвращает случайного абонента.
+     */
+    private Caller getRandomCaller(List<Caller> callers) {
+        return callers.get(rnd.nextInt(callers.size()));
+    }
+
+    /**
+     * Возвращает случайного абонента, отличного от указанного.
+     */
+    private Caller getRandomCallerExcluding(Caller excluded, List<Caller> callers) {
+        Caller b;
+        do {
+            b = callers.get(rnd.nextInt(callers.size()));
+        } while (b.getCallerNumber().equals(excluded.getCallerNumber()));
+        return b;
+    }
+
+    /**
+     * Проверяет, пересекается ли указанный интервал с любым из списка.
+     */
     private boolean overlapsAny(List<Interval> list, LocalDateTime s, LocalDateTime e) {
-        for (Interval iv : list) {
-            if (s.isBefore(iv.end) && e.isAfter(iv.start)) {
-                return true;
-            }
-        }
-        return false;
+        return list.stream().anyMatch(iv -> s.isBefore(iv.end) && e.isAfter(iv.start));
     }
 
-    // Простой DTO для интервалов
-    private static class Interval {
-        final LocalDateTime start, end;
-        Interval(LocalDateTime s, LocalDateTime e) { this.start = s; this.end = e; }
-    }
-
+    /**
+     * Возвращает случайный момент времени в пределах текущего года.
+     */
     private LocalDateTime randomDateTimeInYear() {
         LocalDate base = LocalDate.now().withDayOfYear(1);
         int day  = rnd.nextInt(base.lengthOfYear());
@@ -160,8 +223,10 @@ public class CallsGenerationServiceImpl implements CallsGenerationService {
         return LocalDateTime.of(d, t);
     }
 
-    /** Разбивает на две записи, если звонок проходит через полночь */
-    private void savePair(Caller a, Caller b, LocalDateTime start, LocalDateTime end) {
+    /**
+     * Сохраняет пару звонков (входящий и исходящий), разбивая при необходимости по дням.
+     */
+    public void savePair(Caller a, Caller b, LocalDateTime start, LocalDateTime end) {
         if (start.toLocalDate().equals(end.toLocalDate())) {
             // в пределах одного дня
             saveSegment(a, b, start, end);
@@ -176,7 +241,9 @@ public class CallsGenerationServiceImpl implements CallsGenerationService {
         }
     }
 
-    /** Сохраняет один исходящий + один входящий сегмент */
+    /**
+     * Сохраняет один сегмент звонка: исходящий и входящий.
+     */
     private void saveSegment(Caller a, Caller b,
                              LocalDateTime s, LocalDateTime e) {
         CdrData out = new CdrData();
@@ -194,5 +261,13 @@ public class CallsGenerationServiceImpl implements CallsGenerationService {
         in.setEndTime(e);
 
         cdrRepo.saveAll(List.of(out, in));
+    }
+
+    /**
+     * Простая структура интервала для хранения начального и конечного времени.
+     */
+    private static class Interval {
+        final LocalDateTime start, end;
+        Interval(LocalDateTime s, LocalDateTime e) { this.start = s; this.end = e; }
     }
 }
