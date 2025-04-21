@@ -3,63 +3,6 @@ databaseChangeLog:
       id: 2
       author: romashka
       changes:
-        - insert:
-            tableName: callers
-            columns:
-              - column:
-                  name: caller_number
-                  value: "89001112233"
-        - insert:
-            tableName: callers
-            columns:
-              - column:
-                  name: caller_number
-                  value: "89002223344"
-        - insert:
-            tableName: callers
-            columns:
-              - column:
-                  name: caller_number
-                  value: "89003334455"
-        - insert:
-            tableName: callers
-            columns:
-              - column:
-                  name: caller_number
-                  value: "89004445566"
-        - insert:
-            tableName: callers
-            columns:
-              - column:
-                  name: caller_number
-                  value: "89005556677"
-        - insert:
-            tableName: callers
-            columns:
-              - column:
-                  name: caller_number
-                  value: "89006667788"
-        - insert:
-            tableName: callers
-            columns:
-              - column:
-                  name: caller_number
-                  value: "89007778899"
-        - insert:
-            tableName: callers
-            columns:
-              - column:
-                  name: caller_number
-                  value: "89008889900"
-        - insert:
-            tableName: callers
-            columns:
-              - column:
-                  name: caller_number
-                  value: "89009990011"
-        - insert:
-            tableName: callers
-            columns:
-              - column:
-                  name: caller_number
-                  value: "89001001122"
+        - sqlFile:
+            path: db/sql/v2-add-data.sql
+            relativeToChangelogFile: false

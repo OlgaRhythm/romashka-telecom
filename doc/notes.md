@@ -52,6 +52,9 @@ gradle clean build
 docker build -t romashka-telecom .
 docker compose down
 // docker compose up -d
+    - для корректной работы RabbitMQ
 docker-compose up --build
+    - для проверки базы данных:
+docker run -d -p 8080:8080 --name romashka-telecom romashka-telecom
 
 docker compose logs -f romashka-telecom
