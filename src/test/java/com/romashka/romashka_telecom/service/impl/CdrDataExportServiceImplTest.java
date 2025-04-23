@@ -6,6 +6,7 @@ import com.romashka.romashka_telecom.service.CdrDataSerializerService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
+import org.springframework.amqp.core.MessagePostProcessor;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.data.domain.Sort;
@@ -64,7 +65,7 @@ public class CdrDataExportServiceImplTest {
         // Assert
         verify(serializer, times(2)).convertToCsv(anyList());
         verify(rabbitTemplate, times(2)).convertAndSend(eq("test-exchange"), eq("test-routing-key"),
-                eq("csv-data"), any(CorrelationData.class));
+                eq("csv-data"), any(MessagePostProcessor.class));
     }
 
     @Test
@@ -88,6 +89,6 @@ public class CdrDataExportServiceImplTest {
         exportService.exportCallsData();
 
         verify(serializer).convertToCsv(anyList());
-        verify(rabbitTemplate).convertAndSend(anyString(), anyString(), anyString(), any(CorrelationData.class));
+        verify(rabbitTemplate).convertAndSend(anyString(), anyString(), anyString(), any(MessagePostProcessor.class));
     }
 }
