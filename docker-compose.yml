@@ -16,12 +16,13 @@ services:
       timeout: 5s
       retries: 5
 
-  romashka-telecom:
-    build: .
-    container_name: romashka-telecom
+  cdr:
+    build:
+      context: ./cdr
+      dockerfile: Dockerfile
+    container_name: cdr
     ports:
       - "8080:8080"
-      - "9090:9090"  # Для H2 Console, если нужно
     depends_on:
       rabbitmq:
         condition: service_healthy
