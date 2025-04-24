@@ -8,7 +8,7 @@ plugins {
 
 
 springBoot {
-	mainClass = 'com.romashka.brt.BRTApplication'
+	mainClass = 'com.romashka.romashka_telecom.brt.BRTApplication'
 }
 
 dependencies {
