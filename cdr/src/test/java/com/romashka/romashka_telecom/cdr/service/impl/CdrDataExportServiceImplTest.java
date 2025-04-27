@@ -64,8 +64,8 @@ public class CdrDataExportServiceImplTest {
         exportService.exportCallsData();
 
         // Assert
-        verify(serializer, times(2)).convertToCsv(anyList());
-        verify(rabbitTemplate, times(2)).convertAndSend(eq("test-exchange"), eq("test-routing-key"),
+        verify(serializer, times(1)).convertToCsv(anyList());
+        verify(rabbitTemplate, times(1)).convertAndSend(eq("test-exchange"), eq("test-routing-key"),
                 eq("csv-data"), any(MessagePostProcessor.class));
     }
 

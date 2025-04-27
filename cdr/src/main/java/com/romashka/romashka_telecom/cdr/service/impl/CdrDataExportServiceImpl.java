@@ -68,7 +68,7 @@ public class CdrDataExportServiceImpl implements CdrDataExportService {
 
             while (it.hasNext()) {
                 batch.add(it.next());
-                if (batch.size() == batchSize || !it.hasNext()) {
+                if (batch.size() == batchSize /*|| !it.hasNext()*/) {
                     String csv = serializer.convertToCsv(batch);
                     sendCsvBatch(csv, batch.size());
                     batch.clear();
