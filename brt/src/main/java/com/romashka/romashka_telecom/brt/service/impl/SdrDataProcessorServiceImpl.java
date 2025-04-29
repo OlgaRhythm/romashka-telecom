@@ -19,6 +19,7 @@ public class SdrDataProcessorServiceImpl implements SdrDataProcessorService {
                         r.getCallType(), r.getCallerNumber(), r.getContactNumber(),
                         r.getStartTime(), r.getEndTime()
                 )
+                // TODO: вызываем фильтр и записываем в БД
         );
     }
 

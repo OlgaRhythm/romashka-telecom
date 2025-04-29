@@ -11,6 +11,8 @@ import org.springframework.stereotype.Component;
 import com.romashka.romashka_telecom.brt.model.CdrRecord;
 import com.romashka.romashka_telecom.brt.service.CdrCsvParser;
 
+import java.util.List;
+
 
 @Slf4j
 @Component
@@ -25,7 +27,9 @@ public class CdrDataListenerServiceImpl implements CdrDataListenerService {
     @RabbitListener(queues = "${rabbitmq.queue.name:cdr.queue:" + DEFAULT_QUEUE + "}")
     public void handleFile(String csv) {
         log.info("Получили CSV-пакет ({} байт)", csv.length());
-        // можешь тут сохранить файл на диск или обработать как нужно
+        List<CdrRecord> records = parser.parse(csv);
+        log.info("Распарсили {} записей", records.size());
+        processor.process(records);
     }
 
 }

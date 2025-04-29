@@ -4,5 +4,5 @@ databaseChangeLog:
       author: romashka
       changes:
         - sqlFile:
-            path: db/sql/v1-initial-schema.sql
-            relativeToChangelogFile: false
+            path: classpath:db/changelog/sql/v1-initial-schema.sql
+            encoding: UTF-8
