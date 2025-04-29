@@ -49,7 +49,8 @@ https://mts-link.ru/blog/konferenc-svyaz-mts/
 Запуск контейнера:
 
 gradle clean build
-docker build -t romashka-telecom .
+docker build -t romashka-telecom/cdr cdr
+docker build -t romashka-telecom/brt brt
 docker compose down
 // docker compose up -d
     - для корректной работы RabbitMQ
@@ -58,3 +59,11 @@ docker-compose up --build
 docker run -d -p 8080:8080 --name romashka-telecom romashka-telecom
 
 docker compose logs -f romashka-telecom
+
+#### 6
+
+Добавила ломбок в проект
+
+#### 7
+
+Если остаются звонки, не собирающиеся в пакет по 10, то они не отправляются

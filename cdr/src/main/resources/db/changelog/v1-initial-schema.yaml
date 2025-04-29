@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: romashka
+      changes:
+        - sqlFile:
+            path: db/sql/v1-initial-schema.sql
+            relativeToChangelogFile: false
