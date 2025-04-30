@@ -1,0 +1,5 @@
+rootProject.name = 'romashka-telecom'
+
+
+
+include 'cdr', 'brt' /*, 'hrs', 'crm' */
