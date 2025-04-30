@@ -4,5 +4,5 @@ databaseChangeLog:
       author: romashka
       changes:
         - sqlFile:
-            path: db/sql/v2-add-data.sql
-            relativeToChangelogFile: false
+            path: classpath:db/changelog/sql/v2-add-data.sql
+            encoding: UTF-8
