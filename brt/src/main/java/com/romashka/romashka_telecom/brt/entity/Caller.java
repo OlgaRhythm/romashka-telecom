@@ -39,8 +39,6 @@ public class Caller {
     @Column(name = "number", nullable = false, length = 20)
     private String number;
 
-    //TODO: добавить тип исходящий или входящий звонок
-
     /**
      * Идентификатор тарифного плана.
      */

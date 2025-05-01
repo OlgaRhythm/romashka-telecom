@@ -24,6 +24,8 @@ public class Call {
     @Column(name = "call_id")
     private Long callId;
 
+    //TODO: добавить тип исходящий или входящий звонок
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "caller_id", nullable = false)
     private Caller callerId;

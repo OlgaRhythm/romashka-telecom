@@ -1,5 +1,6 @@
 package com.romashka.romashka_telecom.cdr.service.impl;
 
+import com.romashka.romashka_telecom.cdr.config.TimeProperties;
 import com.romashka.romashka_telecom.cdr.entity.CdrData;
 import com.romashka.romashka_telecom.cdr.repository.CdrDataRepository;
 import com.romashka.romashka_telecom.cdr.service.CdrDataExportService;
@@ -9,9 +10,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
+import org.springframework.scheduling.TaskScheduler;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -44,6 +50,9 @@ public class CdrDataExportServiceImpl implements CdrDataExportService {
     /** Сервис сериализации CDR-данных в формат CSV */
     private final CdrDataSerializerService serializer;
 
+    private final TaskScheduler scheduler;
+    private final TimeProperties timeProps;
+
     @Value("${rabbitmq.exchange.name}")
     private String exchangeName;
 
@@ -68,14 +77,33 @@ public class CdrDataExportServiceImpl implements CdrDataExportService {
 
             while (it.hasNext()) {
                 batch.add(it.next());
-                if (batch.size() == batchSize /*|| !it.hasNext()*/) {
+                if (batch.size() == batchSize) {
                     String csv = serializer.convertToCsv(batch);
-                    sendCsvBatch(csv, batch.size());
-                    batch.clear();
+                    scheduleCsvBatch(csv, batch);
+//                    sendCsvBatch(csv, batch.size());
+//                    batch.clear();
                 }
             }
         }
         log.info("exportCallsData completed");
+    }
+
+    /**
+     * Расчёт задержки на основе времени последней записи в batch и планирование отправки.
+     */
+    private void scheduleCsvBatch(String csv, List<CdrData> batch) {
+        LocalDateTime lastEnd = batch.get(batch.size() - 1).getEndTime();
+        // смещение симуляционного времени от начала периода
+        Duration simOffset = Duration.between(timeProps.getStart(), lastEnd);
+        long delay = (long)(simOffset.toMillis() / timeProps.getCoefficient());
+        Instant sendAt = Instant.now().plusMillis(delay);
+
+        scheduler.schedule(() -> sendCsvBatch(csv, batch.size(), lastEnd), sendAt);
+
+        log.info("Scheduled CSV batch of {} records at modelTime={} (delay={}ms, coef={})",
+                batch.size(), lastEnd, delay, timeProps.getCoefficient());
+
+        batch.clear();
     }
 
     /**
@@ -84,8 +112,8 @@ public class CdrDataExportServiceImpl implements CdrDataExportService {
      * @param csv   строка в формате CSV
      * @param count количество записей в партии
      */
-    private void sendCsvBatch(String csv, int count) {
-        log.info("Sending batch of {} records", count);
+    private void sendCsvBatch(String csv, int count, LocalDateTime modelTime) {
+        log.info("Sending batch of {} records [modelTime={}, actualTime={}]", count, modelTime, LocalDateTime.now());
         try {
             rabbitTemplate.convertAndSend(exchangeName, routingKey, csv, msg -> {
                 msg.getMessageProperties().setContentType("text/csv");
