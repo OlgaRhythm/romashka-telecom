@@ -5,16 +5,22 @@ import com.romashka.romashka_telecom.brt.entity.Caller;
 import com.romashka.romashka_telecom.brt.model.CdrRecord;
 import com.romashka.romashka_telecom.brt.repository.CallRepository;
 import com.romashka.romashka_telecom.brt.repository.CallerRepository;
+import com.romashka.romashka_telecom.brt.service.BillingService;
 import com.romashka.romashka_telecom.brt.service.SdrDataFilter;
 import com.romashka.romashka_telecom.brt.service.SdrDataProcessorService;
+import com.romashka.romashka_telecom.common.config.TimeProperties;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.TaskScheduler;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.*;
+import java.util.concurrent.ScheduledFuture;
 import java.util.stream.Collectors;
 
 
@@ -23,9 +29,20 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class SdrDataProcessorServiceImpl implements SdrDataProcessorService {
 
+    private final TimeProperties timeProperties;
+    private final TaskScheduler scheduler;
+    private final BillingService billingService;
+
     private final SdrDataFilter filterService;
     private final CallerRepository callerRepo;
     private final CallRepository callRepo;
+    /** последний «модельный» момент, который мы видели */
+    private volatile LocalDateTime lastModelTime;
+    /** за какой последний день уже списали */
+    private volatile LocalDate lastBillingDate;
+    /** handle на запланированный запуск (можно отменять) */
+    private volatile ScheduledFuture<?> nextBillingFuture;
+    private volatile boolean billingStarted = false;
 
     @Override
     public void process(List<CdrRecord> records) {
@@ -64,6 +81,76 @@ public class SdrDataProcessorServiceImpl implements SdrDataProcessorService {
         // 5) Сохраняем пачкой
         callRepo.saveAll(callsToSave);
         log.info("Сохранено {} звонков в таблицу calls", callsToSave.size());
+
+        // TODO: синхронизация модельного времени
+        LocalDateTime maxModel = filtered.stream()
+                .map(CdrRecord::getEndTime)
+                .max(Comparator.naturalOrder())
+                .orElseThrow();
+
+        if (!billingStarted) {
+            // === первый файл ===
+            billingStarted   = true;
+            lastModelTime    = maxModel;
+            // последний день, за который уже не платили — тот, что до даты maxModel
+            lastBillingDate  = maxModel.toLocalDate().minusDays(1);
+            // запускаем первый раз, «догнав» эту модельную точку
+            scheduleNextBilling();
+        } else {
+            // === не первый файл ===
+            // 3) сглаживаем «назад» и «до 5 мин. вперёд»
+            Duration jump = Duration.between(lastModelTime, maxModel);
+            if (jump.isNegative() || jump.toMinutes() <= 5) {
+                maxModel = lastModelTime;
+            }
+
+            // 4) отрабатываем пропущенные дни
+            for (LocalDate d = lastBillingDate.plusDays(1);
+                 !d.isAfter(maxModel.toLocalDate());
+                 d = d.plusDays(1)) {
+                billingService.chargeMonthlyFee(d);
+                lastBillingDate = d;
+            }
+
+            lastModelTime = maxModel;
+
+            // 5) если этот CDR «догнал» запланированный запуск раньше — выполняем догоняющего биллинга
+            if (nextBillingFuture != null && nextBillingFuture.cancel(false)) {
+                scheduleNextBilling(); // пересчитаем «следующую» модельную полуночь
+            }
+        }
     }
 
+    /**
+     * Вычисляем реальный Instant для следующей модельной полуночи
+     * и ставим одноразовый запуск.
+     */
+    private void scheduleNextBilling() {
+        // когда в модельном времени у нас будет следующий день в 00:00?
+        LocalDateTime nextModelMidnight = lastBillingDate.plusDays(1).atStartOfDay();
+        // сколько в милисекундах модельного времени до него?
+        Duration modelDelta = Duration.between(lastModelTime, nextModelMidnight);
+        if (modelDelta.isNegative() || modelDelta.isZero()) {
+            // если уже «прошла» — запускаем немедленно
+            billingService.chargeMonthlyFee(nextModelMidnight.toLocalDate());
+            lastBillingDate = nextModelMidnight.toLocalDate();
+            lastModelTime   = nextModelMidnight;
+            // и рекурсивно запланируем дальше
+            scheduleNextBilling();
+            return;
+        }
+        // переводим модельный интервал в реальный
+        long realDelay = (long)(modelDelta.toMillis() / timeProperties.getCoefficient());
+        Instant runAt = Instant.now().plusMillis(realDelay);
+
+        nextBillingFuture = scheduler.schedule(
+                () -> {
+                    billingService.chargeMonthlyFee(nextModelMidnight.toLocalDate());
+                    lastBillingDate = nextModelMidnight.toLocalDate();
+                    lastModelTime   = nextModelMidnight;
+                    scheduleNextBilling();  // рекурсивно на следующий день
+                },
+                runAt
+        );
+    }
 }

@@ -1,15 +1,13 @@
-package com.romashka.romashka_telecom.cdr.config;
+package com.romashka.romashka_telecom.common.config;
 
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@Component
 @ConfigurationProperties(prefix = "time")
 public class TimeProperties {
     /** Дата-время старта моделирования, например 2023-01-01T00:00 */

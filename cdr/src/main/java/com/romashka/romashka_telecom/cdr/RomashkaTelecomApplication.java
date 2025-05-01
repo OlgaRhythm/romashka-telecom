@@ -3,9 +3,11 @@ package com.romashka.romashka_telecom.cdr;
 import com.romashka.romashka_telecom.cdr.config.RabbitMQConfig;
 import com.romashka.romashka_telecom.cdr.repository.CdrDataRepository;
 import com.romashka.romashka_telecom.cdr.service.CallsGenerationService;
+import com.romashka.romashka_telecom.common.config.TimeProperties;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -14,6 +16,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @EnableAsync
 @EnableScheduling
+@EnableConfigurationProperties(TimeProperties.class)
 @Import(RabbitMQConfig.class)
 public class RomashkaTelecomApplication {
 

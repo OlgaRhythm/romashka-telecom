@@ -1,6 +1,7 @@
 package com.romashka.romashka_telecom.cdr.service.impl;
 
-import com.romashka.romashka_telecom.cdr.config.TimeProperties;
+import com.romashka.romashka_telecom.common.config.TimeProperties;
+
 import com.romashka.romashka_telecom.cdr.entity.CdrData;
 import com.romashka.romashka_telecom.cdr.repository.CdrDataRepository;
 import com.romashka.romashka_telecom.cdr.service.CdrDataExportService;
@@ -17,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -117,6 +117,7 @@ public class CdrDataExportServiceImpl implements CdrDataExportService {
         try {
             rabbitTemplate.convertAndSend(exchangeName, routingKey, csv, msg -> {
                 msg.getMessageProperties().setContentType("text/csv");
+                msg.getMessageProperties().setHeader("fileName", "cdr_" + modelTime + ".csv");
                 msg.getMessageProperties().setContentEncoding("UTF-8");
                 return msg;
             });

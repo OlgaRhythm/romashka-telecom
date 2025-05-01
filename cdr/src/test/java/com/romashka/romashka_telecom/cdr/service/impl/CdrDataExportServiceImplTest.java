@@ -1,10 +1,10 @@
 package com.romashka.romashka_telecom.cdr.service.impl;
 
-import com.romashka.romashka_telecom.cdr.config.TimeProperties;
+import com.romashka.romashka_telecom.common.config.TimeProperties;
+
 import com.romashka.romashka_telecom.cdr.entity.CdrData;
 import com.romashka.romashka_telecom.cdr.repository.CdrDataRepository;
 import com.romashka.romashka_telecom.cdr.service.CdrDataSerializerService;
-import com.romashka.romashka_telecom.cdr.service.impl.CdrDataExportServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;

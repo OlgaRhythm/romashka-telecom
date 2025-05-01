@@ -1,6 +1,7 @@
 package com.romashka.romashka_telecom.cdr.service.impl;
 
-import com.romashka.romashka_telecom.cdr.config.TimeProperties;
+import com.romashka.romashka_telecom.common.config.TimeProperties;
+
 import com.romashka.romashka_telecom.cdr.entity.Caller;
 import com.romashka.romashka_telecom.cdr.entity.CdrData;
 import com.romashka.romashka_telecom.cdr.enums.CallType;
@@ -16,7 +17,6 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
