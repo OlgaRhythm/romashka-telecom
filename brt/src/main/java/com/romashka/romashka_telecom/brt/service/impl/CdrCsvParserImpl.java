@@ -24,6 +24,7 @@ public class CdrCsvParserImpl implements CdrCsvParser {
 
     @Override
     public List<CdrRecord> parse(String csv) {
+        // TODO: проверять правильность файла
         List<CdrRecord> result = new ArrayList<>();
         if (csv == null || csv.isBlank()) {
             return result;
