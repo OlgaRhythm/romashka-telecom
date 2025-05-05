@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,22 +23,26 @@ public class CdrCsvParserImpl implements CdrCsvParser {
     private static final String LINE_SEPARATOR = "\n";
     private static final String FIELD_SEPARATOR = ",";
 
+
     @Override
     public List<CdrRecord> parse(String csv) {
-        // TODO: проверять правильность файла
         List<CdrRecord> result = new ArrayList<>();
         if (csv == null || csv.isBlank()) {
             return result;
         }
+
         String[] lines = csv.split(LINE_SEPARATOR);
         // предполагаем, что первая строка — заголовок
         for (int i = 1; i < lines.length; i++) {
             String line = lines[i].trim();
             if (line.isEmpty()) continue;
+            
             String[] cols = line.split(FIELD_SEPARATOR, -1);
             if (cols.length < 5) {
                 throw new IllegalArgumentException("Неверное количество колонок в CDR: " + line);
             }
+
+
             try {
                 CdrRecord rec = new CdrRecord(
                         cols[0],
@@ -54,4 +59,5 @@ public class CdrCsvParserImpl implements CdrCsvParser {
         }
         return result;
     }
+
 }
