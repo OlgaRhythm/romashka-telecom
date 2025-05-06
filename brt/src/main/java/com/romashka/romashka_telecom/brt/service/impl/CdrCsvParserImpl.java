@@ -1,5 +1,6 @@
 package com.romashka.romashka_telecom.brt.service.impl;
 
+import com.romashka.romashka_telecom.brt.enums.CallType;
 import com.romashka.romashka_telecom.brt.model.CdrRecord;
 import com.romashka.romashka_telecom.brt.service.CdrCsvParser;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +11,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /**
  * Простейшая реализация {@link CdrCsvParser} для формата:
@@ -20,7 +22,7 @@ import java.util.regex.Pattern;
 public class CdrCsvParserImpl implements CdrCsvParser {
 
     private static final DateTimeFormatter DTF = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
-    private static final String LINE_SEPARATOR = "\n";
+    private static final String LINE_SEPARATOR = "\\R";
     private static final String FIELD_SEPARATOR = ",";
     private static final String HEADER_CALLS = "call_type,caller_number,contact_number,start_time,end_time";
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
@@ -36,31 +38,30 @@ public class CdrCsvParserImpl implements CdrCsvParser {
         }
 
         String[] lines = csv.split(LINE_SEPARATOR);
+        List<CdrRecord> result = new ArrayList<>(lines.length - 1);
 
-        // По заголовку определяем, что это за тип файла (звонки)
-        if (HEADER_CALLS.equals(lines[0].trim())) {
-            return parseCallLines(lines);
-        }
-        else {
-            log.warn("Некорректный заголовок CSV: {}", lines[0]);
+        if (HEADER_CALLS.equals(lines[0])) {
+            // пропускаем 0-ю строку (заголовок), начинаем с 1
+            for (int i = 1; i < lines.length; i++) {
+                String line = lines[i].trim();
+                if (line.isEmpty()) {
+                    continue;
+                }
+                parseLine(line).ifPresent(result::add);
+            }
+            return result;
+        } else {
             return Collections.emptyList();
         }
     }
 
-    private List<CdrRecord> parseCallLines(String[] lines) {
-        List<CdrRecord> records = new ArrayList<>();
-
-        for (int i = 1; i < lines.length; i++) {
-            String line = lines[i].trim();
-            if (line.isEmpty()) {
-                continue;
-            }
-
-            parseLine(line).ifPresent(records::add);
-        }
-
-        return records;
-    }
+//    private List<CdrRecord> parseCallLines(List<String> lines) {
+//        List<CdrRecord> records = new ArrayList<>(lines.size());
+//        for (String line : lines) {
+//            parseLine(line).ifPresent(records::add);
+//        }
+//        return records;
+//    }
 
     private Optional<CdrRecord> parseLine(String line) {
         try {
@@ -78,13 +79,13 @@ public class CdrCsvParserImpl implements CdrCsvParser {
     }
 
     private CdrRecord createRecord(String[] fields) {
-        return new CdrRecord(
-                fields[0],
-                fields[1],
-                fields[2],
-                LocalDateTime.parse(fields[3], DATE_TIME_FORMATTER),
-                LocalDateTime.parse(fields[4], DATE_TIME_FORMATTER)
-        );
+        return CdrRecord.builder()
+                .callType(CallType.fromCode(fields[0]))
+                .callerNumber(fields[1])
+                .contactNumber(fields[2])
+                .startTime(LocalDateTime.parse(fields[3], DATE_TIME_FORMATTER))
+                .endTime(  LocalDateTime.parse(fields[4], DATE_TIME_FORMATTER))
+                .build();
     }
 
     private Boolean isValid(String csvLine) throws IllegalArgumentException {

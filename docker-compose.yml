@@ -30,7 +30,7 @@ services:
       - brt_pgdata:/var/lib/postgresql/data
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}" ]
-      interval: 10s
+      interval: 5s
       timeout: 5s
       retries: 5
 
@@ -50,7 +50,7 @@ services:
       SPRING_RABBITMQ_PORT: 5672
       SPRING_RABBITMQ_USERNAME: guest
       SPRING_RABBITMQ_PASSWORD: guest
-      TIME_COEFFICIENT: "87600.0" # "175200.0" # в реальной системе: TIME_COEFFICIENT: "1.0"
+      TIME_COEFFICIENT: "175200.0" # "87600.0" # в реальной системе: TIME_COEFFICIENT: "1.0"
       TIME_START: "2025-01-01T00:00:00"
       TIME_END: "2025-12-31T23:59:59"
 

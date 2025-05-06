@@ -2,10 +2,7 @@ package com.romashka.romashka_telecom.brt.entity;
 
 import com.romashka.romashka_telecom.brt.enums.CallType;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 

@@ -91,6 +91,12 @@ spring:
     password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
+  # пытаюсь исправить блокировку
+#  sql:
+#    init:
+#      mode: always
+#      schema-locations: classpath:db/clear_liquibase_lock.sql
+
   jpa:
     hibernate:
       ddl-auto: none
@@ -101,10 +107,9 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
   liquibase:
-    enabled: true
-    change-log: classpath:db/changelog/db.changelog-master.yaml
-    # удаление чек-сумм
-    clear-check-sums: true
+    enabled: false
+#    enabled: true
+#    change-log: classpath:db/changelog/db.changelog-master.yaml
 
   server:
     port: 8081
