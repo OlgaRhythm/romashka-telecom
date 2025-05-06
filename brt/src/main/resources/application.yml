@@ -77,6 +77,13 @@ spring:
     port: 5672
     username: guest
     password: guest
+    connection-timeout: 10000
+    template:
+        retry:
+          enabled: true
+          initial-interval: 3000
+          max-interval: 10000
+          max-attempts: 3
 
   datasource:
     url: ${SPRING_DATASOURCE_URL}
@@ -96,6 +103,8 @@ spring:
   liquibase:
     enabled: true
     change-log: classpath:db/changelog/db.changelog-master.yaml
+    # удаление чек-сумм
+    clear-check-sums: true
 
   server:
     port: 8081

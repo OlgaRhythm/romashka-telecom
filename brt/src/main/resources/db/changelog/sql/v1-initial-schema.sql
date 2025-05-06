@@ -31,6 +31,3 @@ CREATE TABLE resourse_type (
     resourse_type_id SERIAL PRIMARY KEY,
     resourse_type_name VARCHAR(20) NOT NULL
 );
-
-
-

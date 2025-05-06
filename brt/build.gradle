@@ -4,9 +4,6 @@ plugins {
 }
 
 
-
-
-
 springBoot {
 	mainClass = 'com.romashka.romashka_telecom.brt.BRTApplication'
 }
