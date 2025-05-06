@@ -1,7 +1,5 @@
 package com.romashka.romashka_telecom.cdr.enums;
 
-import com.romashka.romashka_telecom.cdr.enums.CallType;
-import com.romashka.romashka_telecom.cdr.enums.CallTypeConverter;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

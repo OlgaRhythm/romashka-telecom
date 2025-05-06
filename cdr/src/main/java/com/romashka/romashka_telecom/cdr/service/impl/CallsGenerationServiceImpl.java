@@ -1,5 +1,7 @@
 package com.romashka.romashka_telecom.cdr.service.impl;
 
+import com.romashka.romashka_telecom.common.config.TimeProperties;
+
 import com.romashka.romashka_telecom.cdr.entity.Caller;
 import com.romashka.romashka_telecom.cdr.entity.CdrData;
 import com.romashka.romashka_telecom.cdr.enums.CallType;
@@ -14,7 +16,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
@@ -35,6 +37,8 @@ import java.util.concurrent.locks.ReentrantLock;
 @Setter
 @RequiredArgsConstructor
 public class CallsGenerationServiceImpl implements CallsGenerationService {
+
+    private final TimeProperties timeProps;
 
     private final ApplicationEventPublisher eventPublisher;
     private final CallerRepository callerRepo;
@@ -102,9 +106,13 @@ public class CallsGenerationServiceImpl implements CallsGenerationService {
      * @return отсортированный список временных слотов
      */
     private List<LocalDateTime> generateSortedTimeSlots() {
+        LocalDateTime start = timeProps.getStart();
+        Duration fullSpan = Duration.between(start, timeProps.getEnd());
         List<LocalDateTime> slots = new ArrayList<>(totalPairs);
         for (int i = 0; i < totalPairs; i++) {
-            slots.add(randomDateTimeInYear());
+            // равномерно-случайный сдвиг
+            long randomMillis = (long)(rnd.nextDouble() * fullSpan.toMillis());
+            slots.add(start.plus(randomMillis, ChronoUnit.MILLIS));
         }
         slots.sort(Comparator.naturalOrder());
         return slots;
@@ -209,17 +217,6 @@ public class CallsGenerationServiceImpl implements CallsGenerationService {
      */
     private boolean overlapsAny(List<Interval> list, LocalDateTime s, LocalDateTime e) {
         return list.stream().anyMatch(iv -> s.isBefore(iv.end) && e.isAfter(iv.start));
-    }
-
-    /**
-     * Возвращает случайный момент времени в пределах текущего года.
-     */
-    private LocalDateTime randomDateTimeInYear() {
-        LocalDate base = LocalDate.now().withDayOfYear(1);
-        int day  = rnd.nextInt(base.lengthOfYear());
-        LocalDate d = base.plusDays(day);
-        LocalTime t = LocalTime.of(rnd.nextInt(24), rnd.nextInt(60), rnd.nextInt(60));
-        return LocalDateTime.of(d, t);
     }
 
     /**

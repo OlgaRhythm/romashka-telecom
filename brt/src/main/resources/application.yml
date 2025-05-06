@@ -1,4 +1,13 @@
 # ---------------------------------------------------------
+# Общие настройки сервиса
+# ---------------------------------------------------------
+
+time:
+  start: ${TIME_START:2025-01-01T00:00:00}
+  end: ${TIME_END:2025-12-31T23:59:59}
+  coefficient: ${TIME_COEFFICIENT:175200.0}  # 87600.0
+
+# ---------------------------------------------------------
 # Общие настройки RabbitMQ (всегда активны)
 # ---------------------------------------------------------
 rabbitmq:
@@ -21,20 +30,15 @@ spring:
   application:
     name: romashka-telecom
 
-  sql:
-    init:
-      mode: always
-
   datasource:
-    url: jdbc:h2:mem:roaming_cdr_db
+    url: jdbc:h2:mem:roaming_brt_db;
     driver-class-name: org.h2.Driver
     username: sa
     password: password
 
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     show-sql: true
     properties:
       hibernate:
@@ -44,9 +48,6 @@ spring:
     console:
       enabled: true
       path: /h2-console
-      settings:
-        trace: false
-        web-allow-others: true
 
   rabbitmq:
     host: localhost
@@ -64,7 +65,7 @@ spring:
 
 ---
 # ---------------------------------------------------------
-# Docker‑профиль (в контейнере)
+# Docker‑профиль (PostgreSQL + Liquibase)
 # ---------------------------------------------------------
 spring:
   config:
@@ -76,31 +77,42 @@ spring:
     port: 5672
     username: guest
     password: guest
+    connection-timeout: 10000
     template:
-      message-converter: simpleMessageConverter
+        retry:
+          enabled: true
+          initial-interval: 3000
+          max-interval: 10000
+          max-attempts: 3
 
   datasource:
-    url: jdbc:h2:mem:roaming_cdr_db
-    driver-class-name: org.h2.Driver
-    username: sa
-    password: password
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+  # пытаюсь исправить блокировку
+#  sql:
+#    init:
+#      mode: always
+#      schema-locations: classpath:db/clear_liquibase_lock.sql
 
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     show-sql: true
     properties:
       hibernate:
         format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
 
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
-      settings:
-        trace: false
-        web-allow-others: true
+  liquibase:
+    enabled: false
+#    enabled: true
+#    change-log: classpath:db/changelog/db.changelog-master.yaml
+
+  server:
+    port: 8081
 
 # Настройки приложения
 app:
@@ -115,3 +127,4 @@ logging:
     org.springframework.amqp: DEBUG
     com.romashka.romashka_telecom: INFO
     root: WARN
+    liquibase: DEBUG

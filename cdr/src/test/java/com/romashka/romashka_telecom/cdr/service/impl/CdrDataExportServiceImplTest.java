@@ -1,9 +1,10 @@
 package com.romashka.romashka_telecom.cdr.service.impl;
 
+import com.romashka.romashka_telecom.common.config.TimeProperties;
+
 import com.romashka.romashka_telecom.cdr.entity.CdrData;
 import com.romashka.romashka_telecom.cdr.repository.CdrDataRepository;
 import com.romashka.romashka_telecom.cdr.service.CdrDataSerializerService;
-import com.romashka.romashka_telecom.cdr.service.impl.CdrDataExportServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
@@ -11,7 +12,10 @@ import org.springframework.amqp.core.MessagePostProcessor;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.data.domain.Sort;
+import org.springframework.scheduling.TaskScheduler;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Stream;
 
@@ -25,6 +29,11 @@ public class CdrDataExportServiceImplTest {
 
     @Mock
     private CdrDataSerializerService serializer;
+    @Mock
+    private TaskScheduler scheduler;
+
+    @Mock
+    private TimeProperties timeProperties;
 
     @InjectMocks
     private CdrDataExportServiceImpl exportService;
@@ -35,7 +44,18 @@ public class CdrDataExportServiceImplTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        exportService = new CdrDataExportServiceImpl(cdrRepo, rabbitTemplate, serializer);
+
+        when(timeProperties.getStart()).thenReturn(LocalDateTime.of(2025,1,1,0,0));
+        when(timeProperties.getEnd()).thenReturn(LocalDateTime.of(2025,12,31,23,59));
+        when(timeProperties.getCoefficient()).thenReturn(1.0);
+
+        // scheduler сразу выполняет задачу
+        doAnswer(invocation -> {
+            Runnable task = invocation.getArgument(0);
+            task.run();
+            return null;
+        }).when(scheduler).schedule(any(Runnable.class), any(Instant.class));
+
 
         // задаём приватные поля через reflection
         setField(exportService, "exchangeName", "test-exchange");
@@ -60,6 +80,7 @@ public class CdrDataExportServiceImplTest {
         when(cdrRepo.streamAllBy(Sort.by("startTime").ascending())).thenReturn(dataList.stream());
         when(serializer.convertToCsv(anyList())).thenReturn("csv-data");
 
+        dataList.forEach(d -> d.setEndTime(LocalDateTime.of(2025,1,1,0,0)));
         // Act
         exportService.exportCallsData();
 
@@ -85,7 +106,9 @@ public class CdrDataExportServiceImplTest {
         when(cdrRepo.streamAllBy(any())).thenReturn(dataList.stream());
         when(serializer.convertToCsv(anyList())).thenReturn("csv-data");
         doThrow(new RuntimeException("RabbitMQ is down")).when(rabbitTemplate)
-                .convertAndSend(anyString(), anyString(), anyString(), any(CorrelationData.class));
+                .convertAndSend(anyString(), anyString(), anyString(), any(MessagePostProcessor.class));
+
+        dataList.forEach(d -> d.setEndTime(LocalDateTime.of(2025,1,1,0,0)));
 
         exportService.exportCallsData();
 

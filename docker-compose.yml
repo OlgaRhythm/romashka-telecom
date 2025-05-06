@@ -15,6 +15,24 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+      start_period: 30s
+
+  postgres-brt:
+    image: postgres:15
+    container_name: romashka-brt-postgres
+    environment:
+      POSTGRES_DB: brt_db
+      POSTGRES_USER: brt_user
+      POSTGRES_PASSWORD: brt_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - brt_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   cdr:
     build:
@@ -27,11 +45,14 @@ services:
       rabbitmq:
         condition: service_healthy
     environment:
-      SPRING_PROFILES_ACTIVE: docker
+      SPRING_PROFILES_ACTIVE: docker,simulation
       SPRING_RABBITMQ_HOST: rabbitmq
       SPRING_RABBITMQ_PORT: 5672
       SPRING_RABBITMQ_USERNAME: guest
       SPRING_RABBITMQ_PASSWORD: guest
+      TIME_COEFFICIENT: "175200.0" # "87600.0" # в реальной системе: TIME_COEFFICIENT: "1.0"
+      TIME_START: "2025-01-01T00:00:00"
+      TIME_END: "2025-12-31T23:59:59"
 
   brt:
     build:
@@ -43,9 +64,20 @@ services:
     depends_on:
       rabbitmq:
         condition: service_healthy
+      postgres-brt:
+        condition: service_healthy
     environment:
       SPRING_PROFILES_ACTIVE: docker
       SPRING_RABBITMQ_HOST: rabbitmq
       SPRING_RABBITMQ_PORT: 5672
       SPRING_RABBITMQ_USERNAME: guest
       SPRING_RABBITMQ_PASSWORD: guest
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-brt:5432/brt_db
+      SPRING_DATASOURCE_USERNAME: brt_user
+      SPRING_DATASOURCE_PASSWORD: brt_pass
+      TIME_COEFFICIENT: "87600.0" # "175200.0" # в реальной системе: TIME_COEFFICIENT: "1.0"
+      TIME_START: "2025-01-01T00:00:00"
+      TIME_END: "2025-12-31T23:59:59"
+
+volumes:
+  brt_pgdata:

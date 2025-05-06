@@ -1,5 +1,7 @@
 package com.romashka.romashka_telecom.brt.model;
 
+import com.romashka.romashka_telecom.brt.enums.CallType;
+import lombok.Builder;
 import lombok.Value;
 
 import java.time.LocalDateTime;
@@ -7,12 +9,13 @@ import java.time.LocalDateTime;
 /**
  * DTO одной записи CDR (Call Detail Record).
  */
+@Builder
 @Value
 public class CdrRecord {
     /**
      * Тип звонка (OUTGOING или INCOMING).
      */
-    String callType;
+    CallType callType;
 
     /**
      * Номер абонента, инициировавшего звонок.

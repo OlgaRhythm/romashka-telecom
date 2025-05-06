@@ -22,7 +22,7 @@ public class CdrDataSerializerServiceImpl implements CdrDataSerializerService {
             w.write("call_type,caller_number,contact_number,start_time,end_time\n");
             for (CdrData d : batch) {
                 w.write(String.format("%s,%s,%s,%s,%s%n",
-                        escape(d.getCallType().name()),
+                        escape(d.getCallType().getCode()),
                         escape(d.getCallerNumber()),
                         escape(d.getContactNumber()),
                         d.getStartTime().format(DTF),
