@@ -71,7 +71,7 @@ public class SdrDataProcessorServiceImpl implements SdrDataProcessorService {
                 continue;
             }
             Call call = new Call();
-            call.setCallerId(caller);
+            call.setCallerId(caller.getCallerId());
             call.setContactNumber(rec.getContactNumber());
             call.setStartTime(rec.getStartTime());
             call.setEndTime(rec.getEndTime());

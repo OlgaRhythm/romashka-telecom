@@ -1,0 +1,38 @@
+package com.romashka.romashka_telecom.brt.entity;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Column;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+import java.math.BigDecimal;
+
+@Entity
+@Table(name = "caller_resources")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+public class CallerResource {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "caller_id")
+    private Long callerId;
+
+    @ManyToOne
+    @JoinColumn(name = "resourse_type_id", nullable = false)
+    private ResourseType resourseType;
+
+    @Column(name = "current_balance", nullable = false)
+    private BigDecimal currentBalance;
+}

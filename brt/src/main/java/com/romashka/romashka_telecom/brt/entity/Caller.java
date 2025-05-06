@@ -3,6 +3,7 @@ package com.romashka.romashka_telecom.brt.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -26,10 +27,6 @@ public class Caller {
     /**
      * Внешний ключ на таблицу subscribers.
      */
-    // TODO: нужен ли нам вся информация о абоненте?
-//    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-//    @JoinColumn(name = "subscriber_id", nullable = false)
-//    private Subscriber subscriberId;
     @Column(name = "subscriber_id")
     private Long subscriberId;
 
@@ -50,4 +47,10 @@ public class Caller {
      */
     @Column(name = "rate_date", nullable = false)
     private LocalDateTime rateDate;
+
+    /**
+     * Баланс абонента.
+     */
+    @Column(name = "balance", nullable = false)
+    private BigDecimal balance;
 }
