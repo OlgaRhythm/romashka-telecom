@@ -91,7 +91,7 @@ public class CdrDataExportServiceImpl implements CdrDataExportService {
     /**
      * Расчёт задержки на основе времени последней записи в batch и планирование отправки.
      */
-    private void scheduleCsvBatch(String csv, List<CdrData> batch) {
+    public void scheduleCsvBatch(String csv, List<CdrData> batch) {
         LocalDateTime lastEnd = batch.get(batch.size() - 1).getEndTime();
         // смещение симуляционного времени от начала периода
         Duration simOffset = Duration.between(timeProps.getStart(), lastEnd);

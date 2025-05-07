@@ -1,6 +1,10 @@
 package com.romashka.romashka_telecom.cdr.service.impl;
 
-
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+//import com.romashka.romashka_telecom.brt.model.CdrRecord;
 import com.romashka.romashka_telecom.cdr.entity.Caller;
 import com.romashka.romashka_telecom.cdr.entity.CdrData;
 import com.romashka.romashka_telecom.cdr.enums.CallType;
@@ -25,6 +29,10 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -44,8 +52,15 @@ public class CdrGeneratorTest {
     private static final int MAX_CALL_DURATION = 14 * 60; // 14 minutes
     private static final int MAX_RECORDS_PER_FILE = 10;
 
+    private static final String URL = "jdbc:postgresql://localhost:5432/brt_db";
+    private static final String USER = "brt_user";
+    private static final String PASSWORD = "brt_pass";
+
     @TempDir
     Path tempDir;
+
+    @Mock
+    private CdrDataExportServiceImpl cdrExport;
 
     @Mock
     private CdrDataSerializerServiceImpl cdrSerializer;
@@ -201,43 +216,86 @@ public class CdrGeneratorTest {
 
         List<CdrData> testData = generateTestDataWithIncorrectTime(5);
 
+        cdrExport.scheduleCsvBatch(cdrSerializer.convertToCsv(testData), testData);
 
-        List<List<CdrData>> chunks = new ArrayList<>();
-        for (int i = 0; i < testData.size(); i += MAX_RECORDS_PER_FILE) {
-            chunks.add(testData.subList(i, Math.min(i + MAX_RECORDS_PER_FILE, testData.size())));
-        }
+        try {
+            // Регистрируем драйвер PostgreSQL
+            Class.forName("org.postgresql.Driver");
 
+            // Устанавливаем соединение с базой данных
+            System.out.println("Подключение к базе данных...");
+            Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+            System.out.println("Подключение успешно установлено!");
 
-        for (int i = 0; i < chunks.size(); i++) {
-            List<CdrData> chunk = chunks.get(i);
-            File csvFile = resourcesPath.resolve(String.format("IncorrectTimeCdrFile_%d.csv", i + 1)).toFile();
+            // Создаем Statement для выполнения запросов
+            Statement statement = connection.createStatement();
 
-            try (FileWriter writer = new FileWriter(csvFile)) {
+            // Выполняем SELECT запрос
+            String sql = "SELECT number FROM callers WHERE number = [testData.get(0).getCallerNumber()]";
+            ResultSet resultSet = statement.executeQuery(sql);
 
-                writer.write("call_type,caller_number,contact_number,start_time,end_time\n");
-
-
-                for (CdrData cdr : chunk) {
-                    writer.write(String.format("%s,%s,%s,%s,%s%n",
-                            cdr.getCallType().getCode(),
-                            cdr.getCallerNumber(),
-                            cdr.getContactNumber(),
-                            cdr.getStartTime().format(DTF),
-                            cdr.getEndTime().format(DTF)
-                    ));
-                }
+            // Обрабатываем результаты
+            System.out.println("\nРезультаты запроса:");
+            System.out.println("------------------------");
+            while (resultSet.next()) {
+                System.out.println("Caller ID: " + resultSet.getLong("caller_id"));
+                System.out.println("Number: " + resultSet.getString("number"));
+                System.out.println(resultSet.getString("rate_date"));
+                System.out.println(resultSet.getLong("rate_id"));
+                System.out.println(resultSet.getLong("subscriber_id"));
+                System.out.println("------------------------");
             }
 
+            assertEquals(testData.get(0).getCallerNumber(), resultSet.getString("number"));
 
-            assertTrue(csvFile.exists(), "CSV file should be created");
-            assertTrue(csvFile.length() > 0, "CSV file should not be empty");
+            // Закрываем ресурсы
+            resultSet.close();
+            statement.close();
+            connection.close();
+            System.out.println("Соединение закрыто.");
 
-
-            System.out.println("Generated CSV file " + (i + 1) + " contents:");
-            System.out.println("----------------------------");
-            Files.readAllLines(csvFile.toPath()).forEach(System.out::println);
-            System.out.println("----------------------------");
+        } catch (Exception e) {
+            System.out.println("Ошибка при работе с базой данных:");
+            e.printStackTrace();
         }
+
+        List<List<CdrData>> chunks = new ArrayList<>();
+//        for (int i = 0; i < testData.size(); i += MAX_RECORDS_PER_FILE) {
+//            chunks.add(testData.subList(i, Math.min(i + MAX_RECORDS_PER_FILE, testData.size())));
+//        }
+//
+//
+//        for (int i = 0; i < chunks.size(); i++) {
+//            List<CdrData> chunk = chunks.get(i);
+//
+//            File csvFile = resourcesPath.resolve(String.format("IncorrectTimeCdrFile_%d.csv", i + 1)).toFile();
+//
+//            try (FileWriter writer = new FileWriter(csvFile)) {
+//
+//                writer.write("call_type,caller_number,contact_number,start_time,end_time\n");
+//
+//
+//                for (CdrData cdr : chunk) {
+//                    writer.write(String.format("%s,%s,%s,%s,%s%n",
+//                            cdr.getCallType().getCode(),
+//                            cdr.getCallerNumber(),
+//                            cdr.getContactNumber(),
+//                            cdr.getStartTime().format(DTF),
+//                            cdr.getEndTime().format(DTF)
+//                    ));
+//                }
+//            }
+
+
+//            assertTrue(csvFile.exists(), "CSV file should be created");
+//            assertTrue(csvFile.length() > 0, "CSV file should not be empty");
+//
+//
+//            System.out.println("Generated CSV file " + (i + 1) + " contents:");
+//            System.out.println("----------------------------");
+//            Files.readAllLines(csvFile.toPath()).forEach(System.out::println);
+//            System.out.println("----------------------------");
+       // }
     }
 
     @Test

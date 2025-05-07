@@ -1,6 +1,7 @@
 package com.romashka.romashka_telecom.brt.service.impl;
 
 import com.romashka.romashka_telecom.brt.model.CdrRecord;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,6 +25,7 @@ class CdrCsvParserImplTest {
     private CdrCsvParserImpl parser;
     private CdrCsvParserImpl parserMock;
 
+
     @BeforeEach
     void setUp() {
         parser = new CdrCsvParserImpl();
@@ -36,6 +38,8 @@ class CdrCsvParserImplTest {
         String csvContent = loadTestData(new ClassPathResource("test-data/cdr-validation-cases.csv"));
         
         // when
+
+//        cdrExport.scheduleCsvBatch(csvContent, records);
         List<CdrRecord> records = parser.parse(csvContent);
         
         // then

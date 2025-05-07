@@ -91,6 +91,23 @@ public class CdrDataExportServiceImplTest {
     }
 
     @Test
+    void exportCallsData() {
+        // Arrange
+        List<CdrData> dataList = Arrays.asList(new CdrData(), new CdrData(), new CdrData());
+        when(cdrRepo.streamAllBy(Sort.by("startTime").ascending())).thenReturn(dataList.stream());
+        when(serializer.convertToCsv(anyList())).thenReturn("csv-data");
+
+        dataList.forEach(d -> d.setEndTime(LocalDateTime.of(2025,1,1,0,0)));
+        // Act
+        exportService.exportCallsData();
+
+        // Assert
+        verify(serializer, times(1)).convertToCsv(anyList());
+        verify(rabbitTemplate, times(1)).convertAndSend(eq("test-exchange"), eq("test-routing-key"),
+                eq("csv-data"), any(MessagePostProcessor.class));
+    }
+
+    @Test
     void exportCallsData_shouldHandleEmptyDataGracefully() {
         when(cdrRepo.streamAllBy(any())).thenReturn(Stream.empty());
 

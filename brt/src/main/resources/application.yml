@@ -22,18 +22,19 @@ spring:
     name: romashka-telecom
 
   datasource:
-    url: jdbc:h2:mem:roaming_brt_db;
-    driver-class-name: org.h2.Driver
-    username: sa
-    password: password
+    url: jdbc:postgresql://localhost:5432/brt_db
+    username: brt_user
+    password: brt_pass
+    driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
         format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
 
   h2:
     console:
@@ -89,7 +90,7 @@ spring:
     change-log: classpath:db/changelog/db.changelog-master.yaml
 
   server:
-    port: 8081
+    port: 8080
 
 # Настройки приложения
 app:
