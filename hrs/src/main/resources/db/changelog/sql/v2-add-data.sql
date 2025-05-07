@@ -18,5 +18,5 @@ VALUES
 -- Вставка в таблицу rate_params
 INSERT INTO rate_params (rate_id, param_id, param_value)
 VALUES
-(1, 1, '500'),  
-(2, 1, '2000');
+(11, 1, '500'),
+(12, 1, '2000');

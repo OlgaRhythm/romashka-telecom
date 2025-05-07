@@ -26,8 +26,8 @@ public class LiquibaseConfig {
                     .findCorrectDatabaseImplementation(new liquibase.database.jvm.JdbcConnection(dataSource.getConnection()));
 
             // Снятие блокировки
-            LockService lockService = LockServiceFactory.getInstance().getLockService(database);
-            lockService.forceReleaseLock();
+//            LockService lockService = LockServiceFactory.getInstance().getLockService(database);
+//            lockService.forceReleaseLock();
 
         } catch (SQLException e) {
             // оборачиваем SQLException в LiquibaseException
