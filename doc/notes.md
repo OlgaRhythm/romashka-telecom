@@ -51,6 +51,7 @@ https://mts-link.ru/blog/konferenc-svyaz-mts/
 gradle clean build
 docker build -t romashka-telecom/cdr cdr
 docker build -t romashka-telecom/brt brt
+docker build -t romashka-telecom/hrs hrs
 docker compose down
 // docker compose up -d
     - для корректной работы RabbitMQ

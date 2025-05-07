@@ -23,7 +23,9 @@ import java.util.*;
 import java.util.concurrent.ScheduledFuture;
 import java.util.stream.Collectors;
 
-
+/**
+ * Пока работает только в модельном режиме
+ */
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -83,7 +85,6 @@ public class SdrDataProcessorServiceImpl implements SdrDataProcessorService {
         callRepo.saveAll(callsToSave);
         log.info("Сохранено {} звонков в таблицу calls", callsToSave.size());
 
-        // TODO: синхронизация модельного времени
         LocalDateTime maxModel = filtered.stream()
                 .map(CdrRecord::getEndTime)
                 .max(Comparator.naturalOrder())

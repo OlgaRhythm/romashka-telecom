@@ -5,7 +5,7 @@ plugins {
 
 
 springBoot {
-	mainClass = 'com.romashka.romashka_telecom.brt.BRTApplication'
+	mainClass = 'com.romashka.romashka_telecom.hrs.HRSApplication'
 }
 
 dependencies {
@@ -26,6 +26,6 @@ dependencies {
 }
 
 bootJar {
-	archiveBaseName = 'brt'
+	archiveBaseName = 'hrs'
 	archiveVersion =  version
 }
