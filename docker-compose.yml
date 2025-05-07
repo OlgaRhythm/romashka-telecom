@@ -34,6 +34,23 @@ services:
       timeout: 5s
       retries: 5
 
+  postgres-hrs:
+    image: postgres:15
+    container_name: romashka-hrs-postgres
+    environment:
+      POSTGRES_DB: hrs_db
+      POSTGRES_USER: hrs_user
+      POSTGRES_PASSWORD: hrs_pass
+    ports:
+      - "5433:5432"
+    volumes:
+      - hrs_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
   cdr:
     build:
       context: ./cdr
@@ -79,5 +96,31 @@ services:
       TIME_START: "2025-01-01T00:00:00"
       TIME_END: "2025-12-31T23:59:59"
 
+  hrs:
+    build:
+      context: ./hrs
+      dockerfile: Dockerfile
+    container_name: hrs
+    ports:
+      - "8082:8082"
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      postgres-hrs:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_RABBITMQ_PORT: 5672
+      SPRING_RABBITMQ_USERNAME: guest
+      SPRING_RABBITMQ_PASSWORD: guest
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-hrs:5432/hrs_db
+      SPRING_DATASOURCE_USERNAME: hrs_user
+      SPRING_DATASOURCE_PASSWORD: hrs_pass
+      TIME_COEFFICIENT: "87600.0" # "175200.0" # в реальной системе: TIME_COEFFICIENT: "1.0"
+      TIME_START: "2025-01-01T00:00:00"
+      TIME_END: "2025-12-31T23:59:59"
+
 volumes:
   brt_pgdata:
+  hrs_pgdata:
