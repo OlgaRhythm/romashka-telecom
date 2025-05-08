@@ -11,12 +11,20 @@ time:
 # Общие настройки RabbitMQ (всегда активны)
 # ---------------------------------------------------------
 rabbitmq:
-  exchange:
-    name: cdr.exchange
-  queue:
-    name: cdr.queue
-  routing:
-    key: cdr.routingkey
+  hrs:
+    exchange:
+      name: brt.exchange
+    queue:
+      name: brt.queue
+    routing:
+      key: brt.routingkey
+  cdr:
+    exchange:
+      name: cdr.exchange
+    queue:
+      name: cdr.queue
+    routing:
+      key: cdr.routingkey
 
 ---
 # ---------------------------------------------------------
@@ -50,11 +58,19 @@ spring:
       path: /h2-console
 
   rabbitmq:
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME:guest}
+    password: ${RABBITMQ_PASSWORD:guest}
     connection-timeout: 5000
+    listener:
+      simple:
+        retry:
+          enabled: true
+          initial-interval: 2000ms
+          max-interval: 10000ms
+          max-attempts: 3
+        missing-queues-fatal: false
     template:
       message-converter: messageConverter
       retry:
@@ -78,12 +94,20 @@ spring:
     username: guest
     password: guest
     connection-timeout: 10000
-    template:
+    listener:
+      simple:
         retry:
           enabled: true
-          initial-interval: 3000
-          max-interval: 10000
+          initial-interval: 3000ms
+          max-interval: 10000ms
           max-attempts: 3
+    template:
+      retry:
+        enabled: true
+        initial-interval: 3000
+        max-interval: 10000
+        max-attempts: 3
+      missing-queues-fatal: false
 
   datasource:
     url: ${SPRING_DATASOURCE_URL}

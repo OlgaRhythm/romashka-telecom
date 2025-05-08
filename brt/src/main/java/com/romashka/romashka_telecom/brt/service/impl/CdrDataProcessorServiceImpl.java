@@ -6,10 +6,9 @@ import com.romashka.romashka_telecom.brt.model.CdrRecord;
 import com.romashka.romashka_telecom.brt.repository.CallRepository;
 import com.romashka.romashka_telecom.brt.repository.CallerRepository;
 import com.romashka.romashka_telecom.brt.service.BillingService;
-import com.romashka.romashka_telecom.brt.service.SdrDataFilter;
-import com.romashka.romashka_telecom.brt.service.SdrDataProcessorService;
+import com.romashka.romashka_telecom.brt.service.CdrDataFilter;
+import com.romashka.romashka_telecom.brt.service.CdrDataProcessorService;
 import com.romashka.romashka_telecom.common.config.TimeProperties;
-import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.TaskScheduler;
@@ -20,6 +19,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ScheduledFuture;
 import java.util.stream.Collectors;
 
@@ -29,13 +29,13 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class SdrDataProcessorServiceImpl implements SdrDataProcessorService {
+public class CdrDataProcessorServiceImpl implements CdrDataProcessorService {
 
     private final TimeProperties timeProperties;
     private final TaskScheduler scheduler;
     private final BillingService billingService;
 
-    private final SdrDataFilter filterService;
+    private final CdrDataFilter filterService;
     private final CallerRepository callerRepo;
     private final CallRepository callRepo;
     /** последний «модельный» момент, который мы видели */
@@ -145,14 +145,19 @@ public class SdrDataProcessorServiceImpl implements SdrDataProcessorService {
         long realDelay = (long)(modelDelta.toMillis() / timeProperties.getCoefficient());
         Instant runAt = Instant.now().plusMillis(realDelay);
 
-        nextBillingFuture = scheduler.schedule(
-                () -> {
-                    billingService.chargeMonthlyFee(nextModelMidnight.toLocalDate());
-                    lastBillingDate = nextModelMidnight.toLocalDate();
-                    lastModelTime   = nextModelMidnight;
-                    scheduleNextBilling();  // рекурсивно на следующий день
-                },
-                runAt
-        );
+        try {
+            nextBillingFuture = scheduler.schedule(
+                    () -> {
+                        billingService.chargeMonthlyFee(nextModelMidnight.toLocalDate());
+                        lastBillingDate = nextModelMidnight.toLocalDate();
+                        lastModelTime = nextModelMidnight;
+                        scheduleNextBilling();  // рекурсивно на следующий день
+                    },
+                    runAt
+            );
+        }
+        catch (RejectedExecutionException ex) {
+            log.warn("Scheduler is shutting down, skipping next billing task", ex);
+        }
     }
 }
