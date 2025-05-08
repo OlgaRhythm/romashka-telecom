@@ -6,11 +6,13 @@ import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.core.TopicExchange;
+import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
+import org.springframework.amqp.support.converter.SimpleMessageConverter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -101,15 +103,61 @@ public class RabbitMQConfig {
                 .with(cdrRoutingKey);
     }
 
+    // CDR сообщения
     @Bean
-    public MessageConverter messageConverter() {
+    public MessageConverter cdrMessageConverter() {
+        return new SimpleMessageConverter();
+    }
+
+    // HRS сообщения
+    @Bean
+    public MessageConverter hrsMessageConverter() {
         return new Jackson2JsonMessageConverter();
     }
 
+    // Фабрика для CDR
     @Bean
-    public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory, MessageConverter converter) {
+    public SimpleRabbitListenerContainerFactory cdrListenerContainerFactory(
+            ConnectionFactory connectionFactory
+    ) {
+        SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
+        factory.setConnectionFactory(connectionFactory);
+        // только 1 поток
+        factory.setConcurrentConsumers(1);
+        factory.setMessageConverter(cdrMessageConverter());
+        return factory;
+    }
+
+    // Фабрика для HRS
+    @Bean
+    public SimpleRabbitListenerContainerFactory hrsListenerContainerFactory(
+            ConnectionFactory connectionFactory
+    ) {
+        SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
+        factory.setConnectionFactory(connectionFactory);
+        factory.setMessageConverter(hrsMessageConverter());
+        return factory;
+    }
+
+    // RabbitTemplate для HRS (JSON)
+    @Bean
+    public RabbitTemplate hrsRabbitTemplate(
+            ConnectionFactory connectionFactory
+    ) {
         RabbitTemplate template = new RabbitTemplate(connectionFactory);
-        template.setMessageConverter(converter);
+        template.setMessageConverter(hrsMessageConverter());
+        template.setExchange(hrsExchangeName);
         return template;
     }
+
+    // RabbitTemplate для CDR (оставлен для совместимости)
+    @Bean
+    public RabbitTemplate rabbitTemplate(
+            ConnectionFactory connectionFactory
+    ) {
+        RabbitTemplate template = new RabbitTemplate(connectionFactory);
+        template.setMessageConverter(cdrMessageConverter());
+        return template;
+    }
+
 }

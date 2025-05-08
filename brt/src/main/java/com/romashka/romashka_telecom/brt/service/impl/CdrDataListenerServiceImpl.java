@@ -24,7 +24,10 @@ public class CdrDataListenerServiceImpl implements CdrDataListenerService {
 
     // TODO: название очереди должно браться из одного места в разных классах
     private static final String DEFAULT_QUEUE = "cdr.queue";
-    @RabbitListener(queues = "${rabbitmq.queue.name:" + DEFAULT_QUEUE + "}")
+    @RabbitListener(
+            queues = "${rabbitmq.queue.name:" + DEFAULT_QUEUE + "}",
+            containerFactory = "cdrListenerContainerFactory"
+    )
     public void handleFile(String csv) {
         log.info("Получили CSV-пакет ({} байт)", csv.length());
         List<CdrRecord> records = parser.parse(csv);

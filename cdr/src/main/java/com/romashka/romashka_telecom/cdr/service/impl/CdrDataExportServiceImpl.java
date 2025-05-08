@@ -62,6 +62,9 @@ public class CdrDataExportServiceImpl implements CdrDataExportService {
     @Value("${export.batch.size:10}")
     private int batchSize;
 
+    private long prevDelay = 0;
+    private final Object lock = new Object();
+
     /**
      * Выполняет экспорт данных о звонках:
      * читает данные из базы, сериализует в CSV и отправляет по RabbitMQ партиями.
@@ -79,6 +82,7 @@ public class CdrDataExportServiceImpl implements CdrDataExportService {
                 batch.add(it.next());
                 if (batch.size() == batchSize) {
                     String csv = serializer.convertToCsv(batch);
+                    log.info(csv);
                     scheduleCsvBatch(csv, batch);
 //                    sendCsvBatch(csv, batch.size());
 //                    batch.clear();
@@ -96,10 +100,16 @@ public class CdrDataExportServiceImpl implements CdrDataExportService {
         // смещение симуляционного времени от начала периода
         Duration simOffset = Duration.between(timeProps.getStart(), lastEnd);
         long delay = (long)(simOffset.toMillis() / timeProps.getCoefficient());
+
+        synchronized (lock) {
+            if (delay <= prevDelay) {
+                delay = prevDelay + 1; // Гарантируем, что текущий батч отправляется после предыдущего
+            }
+            prevDelay = delay; // Обновляем значение
+        }
+
         Instant sendAt = Instant.now().plusMillis(delay);
-
         scheduler.schedule(() -> sendCsvBatch(csv, batch.size(), lastEnd), sendAt);
-
         log.info("Scheduled CSV batch of {} records at modelTime={} (delay={}ms, coef={})",
                 batch.size(), lastEnd, delay, timeProps.getCoefficient());
 
