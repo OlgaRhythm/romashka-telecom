@@ -55,22 +55,17 @@ public class CdrDataProcessorServiceImpl implements CdrDataProcessorService {
             return;
         }
 
-        // 2) Собираем все уникальные callerNumber
-        Set<String> callerNums = filtered.stream()
-                .map(CdrRecord::getCallerNumber)
-                .collect(Collectors.toSet());
-
-        // 3) Один запрос в БД, чтобы получить Caller по номерам
-        List<Caller> callers = callerRepo.findAllByNumberIn(new ArrayList<>(callerNums));
-        Map<String, Caller> byNumber = callers.stream()
-                .collect(Collectors.toMap(Caller::getNumber, c -> c));
-
         // 2–5) Мапим, сохраняем, логируем
         List<Call> callsToSave = mapAndCollectCalls(filtered);
         callRepo.saveAll(callsToSave);
         log.info("Сохранено {} звонков в таблицу calls", callsToSave.size());
 
-        LocalDateTime maxModel = findMaxModelTime(filtered);
+       // 6) Обновляем modelTime
+        LocalDateTime maxModel = filtered.stream()
+                .map(CdrRecord::getEndTime)
+                .max(LocalDateTime::compareTo)
+                .orElse(lastModelTime != null ? lastModelTime : LocalDateTime.now());
+        lastModelTime = maxModel;
 
         // Если текущий день, то отправляем запросы по 1 на каждый звонок
 
@@ -159,15 +154,6 @@ public class CdrDataProcessorServiceImpl implements CdrDataProcessorService {
         }
     }
 
-    // ---------------------------------------------------
-    // Помощник: найти максимальное endTime
-    // ---------------------------------------------------
-    private LocalDateTime findMaxModelTime(List<CdrRecord> records) {
-        return records.stream()
-                .map(CdrRecord::getEndTime)
-                .max(LocalDateTime::compareTo)
-                .orElseThrow();
-    }
 
     /**
      * Вычисляем реальный Instant для следующей модельной полуночи
