@@ -13,15 +13,23 @@ import org.springframework.test.context.ActiveProfiles;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @ActiveProfiles("test")
 public class BrtAuthorizationTest {
+
+    private static final String URL = "jdbc:postgresql://localhost:5432/brt_db";
+    private static final String USER = "brt_user";
+    private static final String PASSWORD = "brt_pass";
+    private Connection connection;
+    private Statement statement;
+
     @Autowired
     private ExportCdrRToRabbit exportCdrRToRabbit;
 
@@ -31,13 +39,13 @@ public class BrtAuthorizationTest {
     @Autowired
     private ContainerLogReader containerLogReader;
 
-    //private CdrCsvParser cdrCsvParser;
+
 
     private static final String VALID_FILE_PATH = "test-data/ValidCdr.csv";
     private static final String QUEUE_NAME = "cdr.queue";
 
     @BeforeEach
-    void setUp() throws IOException {
+    void setUp() throws IOException, SQLException, ClassNotFoundException {
         // Очищаем очередь перед каждым тестом
         rabbitTemplate.execute(channel -> {
             channel.queuePurge(QUEUE_NAME);
@@ -45,10 +53,37 @@ public class BrtAuthorizationTest {
         });
         Path csvFile = new ClassPathResource(VALID_FILE_PATH).getFile().toPath();
         exportCdrRToRabbit.sendCsvToRabbit(csvFile);
+
+        Class.forName("org.postgresql.Driver");
+        connection = DriverManager.getConnection(URL, USER, PASSWORD);
+        statement = connection.createStatement();
+
+
     }
 
     @Test
-    void shouldSendCsvToRabbit() throws IOException {
+    void callsShoulAddToDb() throws IOException {
+        try {
+
+            // Выполняем SELECT запрос
+            String sql = "SELECT * FROM calls c JOIN callers cs ON c.caller_id = cs.caller_id WHERE  contact_number = '79872332221' ";
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            assertFalse(resultSet.wasNull(), "Должны найти хотя бы одну запись");
+
+            // Закрываем ресурсы
+            resultSet.close();
+            statement.close();
+            connection.close();
+            System.out.println("Соединение закрыто.");
+
+
+
+
+        } catch (Exception e) {
+            System.out.println("Ошибка при работе с базой данных:");
+            e.printStackTrace();
+        }
 
 
     }
