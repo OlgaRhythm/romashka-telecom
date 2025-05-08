@@ -34,10 +34,10 @@ public class CdrDataProcessorServiceImpl implements CdrDataProcessorService {
     private final TimeProperties timeProperties;
     private final TaskScheduler scheduler;
     private final BillingService billingService;
-
     private final CdrDataFilter filterService;
     private final CallerRepository callerRepo;
     private final CallRepository callRepo;
+
     /** последний «модельный» момент, который мы видели */
     private volatile LocalDateTime lastModelTime;
     /** за какой последний день уже списали */
@@ -48,79 +48,125 @@ public class CdrDataProcessorServiceImpl implements CdrDataProcessorService {
 
     @Override
     public void process(List<CdrRecord> records) {
-        // Фильтрация абонентов оператора
+        // 1) Фильтрация абонентов оператора
         List<CdrRecord> filtered = filterService.filter(records);
         if (filtered.isEmpty()) {
             log.info("Нет записей CDR для обработки");
             return;
         }
+
         // 2) Собираем все уникальные callerNumber
         Set<String> callerNums = filtered.stream()
                 .map(CdrRecord::getCallerNumber)
                 .collect(Collectors.toSet());
 
-        // 3) Один запрос в БД, чтобы получить Caller-ы по номерам
+        // 3) Один запрос в БД, чтобы получить Caller по номерам
         List<Caller> callers = callerRepo.findAllByNumberIn(new ArrayList<>(callerNums));
         Map<String, Caller> byNumber = callers.stream()
                 .collect(Collectors.toMap(Caller::getNumber, c -> c));
 
-        // 4) Смапим CdrRecord → Call
-        List<Call> callsToSave = new ArrayList<>(filtered.size());
-        for (CdrRecord rec : filtered) {
-            Caller caller = byNumber.get(rec.getCallerNumber());
-            if (caller == null) {
-                log.warn("Не нашли в БД абонента с номером {}, пропускаем запись", rec.getCallerNumber());
-                continue;
-            }
-            Call call = new Call();
-            call.setCallerId(caller.getCallerId());
-            call.setCallType(rec.getCallType());
-            call.setContactNumber(rec.getContactNumber());
-            call.setStartTime(rec.getStartTime());
-            call.setEndTime(rec.getEndTime());
-            callsToSave.add(call);
-        }
-
-        // 5) Сохраняем пачкой
+        // 2–5) Мапим, сохраняем, логируем
+        List<Call> callsToSave = mapAndCollectCalls(filtered);
         callRepo.saveAll(callsToSave);
         log.info("Сохранено {} звонков в таблицу calls", callsToSave.size());
 
-        LocalDateTime maxModel = filtered.stream()
-                .map(CdrRecord::getEndTime)
-                .max(Comparator.naturalOrder())
-                .orElseThrow();
+        LocalDateTime maxModel = findMaxModelTime(filtered);
 
+        // Если текущий день, то отправляем запросы по 1 на каждый звонок
+
+        // Потом производим проверку тарифов
         if (!billingStarted) {
             // === первый файл ===
-            billingStarted   = true;
-            lastModelTime    = maxModel;
-            // последний день, за который уже не платили — тот, что до даты maxModel
-            lastBillingDate  = maxModel.toLocalDate().minusDays(1);
-            // запускаем первый раз, «догнав» эту модельную точку
-            scheduleNextBilling();
+            initBilling(maxModel);
         } else {
             // === не первый файл ===
-            // 3) сглаживаем «назад» и «до 5 мин. вперёд»
-            Duration jump = Duration.between(lastModelTime, maxModel);
-            if (jump.isNegative() || jump.toMinutes() <= 5) {
-                maxModel = lastModelTime;
-            }
-
-            // 4) отрабатываем пропущенные дни
-            for (LocalDate d = lastBillingDate.plusDays(1);
-                 !d.isAfter(maxModel.toLocalDate());
-                 d = d.plusDays(1)) {
-                billingService.chargeMonthlyFee(d);
-                lastBillingDate = d;
-            }
-
-            lastModelTime = maxModel;
-
-            // 5) если этот CDR «догнал» запланированный запуск раньше — выполняем догоняющего биллинга
-            if (nextBillingFuture != null && nextBillingFuture.cancel(false)) {
-                scheduleNextBilling(); // пересчитаем «следующую» модельную полуночь
-            }
+            updateBilling(maxModel);
         }
+
+        // Снова отправляем запросы для тех, у кого звонок произошел в текущий день.
+    }
+
+    // ---------------------------------------------------
+    // Шаги 2–4: собрать звонки в сущности Call
+    // ---------------------------------------------------
+    private List<Call> mapAndCollectCalls(List<CdrRecord> filtered) {
+        Set<String> callerNums = filtered.stream()
+                .map(CdrRecord::getCallerNumber).collect(Collectors.toSet());
+
+        Map<String, Caller> callerByNumber = callerRepo
+                .findAllByNumberIn(new ArrayList<>(callerNums))
+                .stream()
+                .collect(Collectors.toMap(Caller::getNumber, c -> c));
+
+        return filtered.stream()
+                .map(rec -> mapRecordToCall(rec, callerByNumber))
+                .flatMap(Optional::stream)
+                .collect(Collectors.toList());
+    }
+
+    private Optional<Call> mapRecordToCall(CdrRecord rec, Map<String, Caller> byNumber) {
+        Caller caller = byNumber.get(rec.getCallerNumber());
+        if (caller == null) {
+            log.warn("Не нашли в БД абонента с номером {}, пропускаем запись",
+                    rec.getCallerNumber());
+            return Optional.empty();
+        }
+        Call call = new Call();
+        call.setCallerId(caller.getCallerId());
+        call.setCallType(rec.getCallType());
+        call.setContactNumber(rec.getContactNumber());
+        call.setStartTime(rec.getStartTime());
+        call.setEndTime(rec.getEndTime());
+        return Optional.of(call);
+    }
+
+    // ---------------------------------------------------
+    // Шаг 6.1: первичная инициализация биллинга
+    // ---------------------------------------------------
+    private void initBilling(LocalDateTime maxModel) {
+        billingStarted  = true;
+        lastModelTime   = maxModel;
+        // последний день, за который уже не платили — день до maxModel
+        lastBillingDate = maxModel.toLocalDate().minusDays(1);
+        scheduleNextBilling();
+    }
+
+    // ---------------------------------------------------
+    // Шаг 6.2: для последующих файлов
+    // ---------------------------------------------------
+    private void updateBilling(LocalDateTime maxModel) {
+        // сглаживаем «назад» и «до 5 мин. вперёд»
+        Duration jump = Duration.between(lastModelTime, maxModel);
+        if (jump.isNegative() || jump.toMinutes() <= 5) {
+            maxModel = lastModelTime;
+        }
+
+        // отрабатываем пропущенные дни
+        LocalDate target = maxModel.toLocalDate();
+        for (LocalDate day = lastBillingDate.plusDays(1);
+             !day.isAfter(target);
+             day = day.plusDays(1)) {
+
+            billingService.chargeMonthlyFee(day);
+            lastBillingDate = day;
+        }
+
+        lastModelTime = maxModel;
+
+        // если догнали запланированный запуск — перезапланируем
+        if (nextBillingFuture != null && nextBillingFuture.cancel(false)) {
+            scheduleNextBilling();
+        }
+    }
+
+    // ---------------------------------------------------
+    // Помощник: найти максимальное endTime
+    // ---------------------------------------------------
+    private LocalDateTime findMaxModelTime(List<CdrRecord> records) {
+        return records.stream()
+                .map(CdrRecord::getEndTime)
+                .max(LocalDateTime::compareTo)
+                .orElseThrow();
     }
 
     /**
