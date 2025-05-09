@@ -2,7 +2,7 @@ package com.romashka.romashka_telecom.brt.service.impl;
 
 import com.romashka.romashka_telecom.brt.model.CdrRecord;
 import com.romashka.romashka_telecom.brt.repository.CallerRepository;
-import com.romashka.romashka_telecom.brt.service.SdrDataFilter;
+import com.romashka.romashka_telecom.brt.service.CdrDataFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  */
 @Service
 @RequiredArgsConstructor
-public class SdrDataFilterImpl implements SdrDataFilter {
+public class CdrDataFilterImpl implements CdrDataFilter {
 
     private final CallerRepository callerRepo;
 

@@ -4,6 +4,6 @@ import com.romashka.romashka_telecom.brt.model.CdrRecord;
 
 import java.util.List;
 
-public interface SdrDataFilter {
+public interface CdrDataFilter {
     public List<CdrRecord> filter(List<CdrRecord> records);
 }
