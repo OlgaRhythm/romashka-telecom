@@ -2,7 +2,9 @@ package com.romashka.romashka_telecom.brt.service.impl;
 
 import com.romashka.romashka_telecom.brt.entity.Call;
 import com.romashka.romashka_telecom.brt.entity.Caller;
+import com.romashka.romashka_telecom.brt.model.BillingMessage;
 import com.romashka.romashka_telecom.brt.model.CdrRecord;
+import com.romashka.romashka_telecom.brt.enums.NetworkType;
 import com.romashka.romashka_telecom.brt.repository.CallRepository;
 import com.romashka.romashka_telecom.brt.repository.CallerRepository;
 import com.romashka.romashka_telecom.brt.service.BillingService;
@@ -141,43 +143,12 @@ public class CdrDataProcessorServiceImpl implements CdrDataProcessorService {
 
         // последний день, за который уже не платили — день до maxModel
         lastBillingDate = minDate.minusDays(1); // Устанавливаем на день перед первым днём данных
-        scheduleNextBilling();
     }
 
     // ---------------------------------------------------
     // Шаг 6.2: для последующих файлов
     // ---------------------------------------------------
     private void updateBilling(LocalDateTime maxModel) {
-        // сглаживаем «назад» и «до 5 мин. вперёд»
-//        Duration jump = Duration.between(lastModelTime, maxModel);
-//        if (jump.isNegative() || jump.toMinutes() <= 5) {
-//            maxModel = lastModelTime;
-//        } // Убрано, чтобы не пропускать дни
-
-//        // отрабатываем пропущенные дни
-//        LocalDate target = maxModel.toLocalDate();
-//
-//        for (LocalDate day = lastBillingDate.plusDays(1);
-//             !day.isAfter(target);
-//             day = day.plusDays(1)) {
-//            // Проверяем и обрабатываем звонки за день
-//            if (hasUnprocessedCalls(day)) {
-//                processCallsForDate(day);
-//            }
-//            // Тарифицируем абонента за день
-//            billingService.chargeMonthlyFee(day);
-//
-//            // Обновляем lastBillingDate сразу после обработки
-//            lastBillingDate = day;
-//        }
-//
-//        lastModelTime = maxModel;
-//
-//        // если догнали запланированный запуск — перезапланируем
-//        if (nextBillingFuture != null && nextBillingFuture.cancel(false)) {
-//            scheduleNextBilling();
-//        }
-
         // Берется на день меньше
         LocalDate target = maxModel.toLocalDate().minusDays(1);
 
@@ -197,50 +168,7 @@ public class CdrDataProcessorServiceImpl implements CdrDataProcessorService {
         lastModelTime = maxModel;
     }
 
-
-    /**
-     * Вычисляем реальный Instant для следующей модельной полуночи
-     * и ставим одноразовый запуск.
-     */
-    private void scheduleNextBilling() {
-//        // когда в модельном времени у нас будет следующий день в 00:00?
-//        LocalDateTime nextModelBillingTime  = lastBillingDate.plusDays(1)
-//                                                         .atStartOfDay()
-//                                                         .plusHours(DELAY_HOURS);
-//        // сколько в милисекундах модельного времени до списания?
-//        Duration modelDelta = Duration.between(lastModelTime, nextModelBillingTime);
-//        if (modelDelta.isNegative() || modelDelta.isZero()) {
-//            // если уже «прошла» — запускаем немедленно
-//            executeBilling(nextModelBillingTime.toLocalDate());
-//            return;
-//        }
-//        // переводим модельный интервал в реальный
-//        long realDelay = (long)(modelDelta.toMillis() / timeProperties.getCoefficient());
-//        Instant runAt = Instant.now().plusMillis(realDelay);
-//
-//        try {
-//            nextBillingFuture = scheduler.schedule(
-//                    () -> {
-//                        executeBilling(nextModelBillingTime.toLocalDate());
-//                        scheduleNextBilling();  // рекурсивно на следующий день
-//                    },
-//                    runAt
-//            );
-//        }
-//        catch (RejectedExecutionException ex) {
-//            log.warn("Scheduler is shutting down, skipping next billing task", ex);
-//        }
-    }
-
     private void executeBilling(LocalDate billingDate) {
-//        LocalDate targetDate = billingDate.minusDays(1);
-//        log.debug("Проверка billingDate={}, targetDate={}", billingDate, targetDate);
-//
-//        if (hasUnprocessedCalls(targetDate)) {
-//            log.warn("Есть необработанные звонки за {}", targetDate);
-//            processCallsForDate(targetDate); // Обработать звонки
-//        }
-
 
         for (LocalDate day = lastBillingDate.plusDays(1); !day.isAfter(billingDate); day = day.plusDays(1)) {
             log.debug("Проверка billingDate={}, targetDate={}", billingDate, day);
@@ -251,9 +179,6 @@ public class CdrDataProcessorServiceImpl implements CdrDataProcessorService {
             lastBillingDate = day;
         }
 
-//        billingService.chargeMonthlyFee(billingDate);
-//        lastBillingDate = billingDate;
-//        processedDates.add(targetDate);
         processedDates.add(billingDate);
         lastModelTime = billingDate.atStartOfDay().plusHours(DELAY_HOURS); // Обновляем время
     }
@@ -268,16 +193,30 @@ public class CdrDataProcessorServiceImpl implements CdrDataProcessorService {
 
         // Логика обработки звонков (например, расчет стоимости)
         calls.forEach(call -> {
-            log.info("📞 Обработка звонка: "
-                + "[Caller: {}, Contact: {}, Type: {}, Start: {}, End: {}, Duration: {}]",
-            call.getCallerNumber(),
-            call.getContactNumber(),
-            call.getCallType(),
-            call.getStartTime().format(DateTimeFormatter.ISO_LOCAL_TIME),
-            call.getEndTime().format(DateTimeFormatter.ISO_LOCAL_TIME),
-            Duration.between(call.getStartTime(), call.getEndTime()).toMinutes() + " мин"
-        );
-            // ... ваша бизнес-логика ...
+            long durationMinutes = Duration.between(call.getStartTime(), call.getEndTime()).toMinutes();
+
+            // Получаем callerId из базы данных по номеру
+            Caller caller = callerRepo.findByNumber(call.getCallerNumber())
+                .orElseThrow(() -> new RuntimeException("Caller not found: " + call.getCallerNumber()));
+
+            // Проверяем, является ли контакт абонентом Ромашки
+            boolean isInternalCall = callerRepo.findByNumber(call.getContactNumber()).isPresent();
+            NetworkType networkType = isInternalCall ? NetworkType.INTERNAL : NetworkType.EXTERNAL;
+
+            // 1) собираем сообщение
+            BillingMessage msg = BillingMessage.builder()
+                    .callerId(caller.getCallerId())
+                    .rateId(caller.getRateId())
+                    .durationMinutes(durationMinutes)
+                    .callType(call.getCallType())
+                    .networkType(networkType)
+                    .build();
+
+            // 2) отправляем
+            billingService.processAndSendBillingData(msg);
+
+            // и по-прежнему логируем
+            log.info("📞 Сформирован и отправлен биллинг для звонка: {}", msg);
         });
 
         processedDates.add(date); // Пометить как обработанные
