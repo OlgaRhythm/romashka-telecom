@@ -75,7 +75,7 @@ public class CdrDataProcessorServiceImpl implements CdrDataProcessorService {
             log.debug("Добавление записи за дату: {}", date);
             callsByDate.computeIfAbsent(date, k -> new ArrayList<>()).add(record);
         });
-       
+
         // 6) Обновляем modelTime
         LocalDateTime maxModel = filtered.stream()
                 .map(CdrRecord::getEndTime)
@@ -178,7 +178,8 @@ public class CdrDataProcessorServiceImpl implements CdrDataProcessorService {
 //            scheduleNextBilling();
 //        }
 
-        LocalDate target = maxModel.toLocalDate();
+        // Берется на день меньше
+        LocalDate target = maxModel.toLocalDate().minusDays(1);
 
         for (LocalDate day = lastBillingDate.plusDays(1);
              !day.isAfter(target);
@@ -264,7 +265,7 @@ public class CdrDataProcessorServiceImpl implements CdrDataProcessorService {
         if (calls.isEmpty()) return;
 
         log.info("📊 Всего звонков для обработки за {}: {}", date, calls.size());
-    
+
         // Логика обработки звонков (например, расчет стоимости)
         calls.forEach(call -> {
             log.info("📞 Обработка звонка: "
@@ -278,11 +279,11 @@ public class CdrDataProcessorServiceImpl implements CdrDataProcessorService {
         );
             // ... ваша бизнес-логика ...
         });
-    
+
         processedDates.add(date); // Пометить как обработанные
         log.info("🔵 Успешно обработано звонков за {}: {}", date, calls.size());
-    log.debug("📌 Список обработанных звонков за {}:\n{}", 
-        date, 
+    log.debug("📌 Список обработанных звонков за {}:\n{}",
+        date,
         calls.stream()
             .map(c -> "▸ " + c.getCallerNumber() + " → " + c.getContactNumber())
             .collect(Collectors.joining("\n"))
