@@ -154,29 +154,46 @@ public class CdrDataProcessorServiceImpl implements CdrDataProcessorService {
 //            maxModel = lastModelTime;
 //        } // Убрано, чтобы не пропускать дни
 
-        // отрабатываем пропущенные дни
+//        // отрабатываем пропущенные дни
+//        LocalDate target = maxModel.toLocalDate();
+//
+//        for (LocalDate day = lastBillingDate.plusDays(1);
+//             !day.isAfter(target);
+//             day = day.plusDays(1)) {
+//            // Проверяем и обрабатываем звонки за день
+//            if (hasUnprocessedCalls(day)) {
+//                processCallsForDate(day);
+//            }
+//            // Тарифицируем абонента за день
+//            billingService.chargeMonthlyFee(day);
+//
+//            // Обновляем lastBillingDate сразу после обработки
+//            lastBillingDate = day;
+//        }
+//
+//        lastModelTime = maxModel;
+//
+//        // если догнали запланированный запуск — перезапланируем
+//        if (nextBillingFuture != null && nextBillingFuture.cancel(false)) {
+//            scheduleNextBilling();
+//        }
+
         LocalDate target = maxModel.toLocalDate();
 
         for (LocalDate day = lastBillingDate.plusDays(1);
              !day.isAfter(target);
              day = day.plusDays(1)) {
-            // Проверяем и обрабатываем звонки за день
+
+            // Всегда обновляем lastBillingDate, даже если день пустой
+            lastBillingDate = day;
+
             if (hasUnprocessedCalls(day)) {
                 processCallsForDate(day);
+                // Перенести вызов chargeMonthlyFee внутрь условия
+                billingService.chargeMonthlyFee(day);
             }
-            // Тарифицируем абонента за день
-            billingService.chargeMonthlyFee(day);
-
-            // Обновляем lastBillingDate сразу после обработки
-            lastBillingDate = day;
         }
-
         lastModelTime = maxModel;
-
-        // если догнали запланированный запуск — перезапланируем
-        if (nextBillingFuture != null && nextBillingFuture.cancel(false)) {
-            scheduleNextBilling();
-        }
     }
 
 
@@ -185,35 +202,33 @@ public class CdrDataProcessorServiceImpl implements CdrDataProcessorService {
      * и ставим одноразовый запуск.
      */
     private void scheduleNextBilling() {
-        // когда в модельном времени у нас будет следующий день в 00:00?
-        LocalDateTime nextModelBillingTime  = lastBillingDate.plusDays(1)
-                                                         .atStartOfDay()
-                                                         .plusHours(DELAY_HOURS);
-        // сколько в милисекундах модельного времени до списания?
-        Duration modelDelta = Duration.between(lastModelTime, nextModelBillingTime);
-        if (modelDelta.isNegative() || modelDelta.isZero()) {
-            // если уже «прошла» — запускаем немедленно
-            executeBilling(nextModelBillingTime.toLocalDate());
-            // TODO: возможно придется вернуть
-//            scheduleNextBilling();
-            return;
-        }
-        // переводим модельный интервал в реальный
-        long realDelay = (long)(modelDelta.toMillis() / timeProperties.getCoefficient());
-        Instant runAt = Instant.now().plusMillis(realDelay);
-
-        try {
-            nextBillingFuture = scheduler.schedule(
-                    () -> {
-                        executeBilling(nextModelBillingTime.toLocalDate());
-                        scheduleNextBilling();  // рекурсивно на следующий день
-                    },
-                    runAt
-            );
-        }
-        catch (RejectedExecutionException ex) {
-            log.warn("Scheduler is shutting down, skipping next billing task", ex);
-        }
+//        // когда в модельном времени у нас будет следующий день в 00:00?
+//        LocalDateTime nextModelBillingTime  = lastBillingDate.plusDays(1)
+//                                                         .atStartOfDay()
+//                                                         .plusHours(DELAY_HOURS);
+//        // сколько в милисекундах модельного времени до списания?
+//        Duration modelDelta = Duration.between(lastModelTime, nextModelBillingTime);
+//        if (modelDelta.isNegative() || modelDelta.isZero()) {
+//            // если уже «прошла» — запускаем немедленно
+//            executeBilling(nextModelBillingTime.toLocalDate());
+//            return;
+//        }
+//        // переводим модельный интервал в реальный
+//        long realDelay = (long)(modelDelta.toMillis() / timeProperties.getCoefficient());
+//        Instant runAt = Instant.now().plusMillis(realDelay);
+//
+//        try {
+//            nextBillingFuture = scheduler.schedule(
+//                    () -> {
+//                        executeBilling(nextModelBillingTime.toLocalDate());
+//                        scheduleNextBilling();  // рекурсивно на следующий день
+//                    },
+//                    runAt
+//            );
+//        }
+//        catch (RejectedExecutionException ex) {
+//            log.warn("Scheduler is shutting down, skipping next billing task", ex);
+//        }
     }
 
     private void executeBilling(LocalDate billingDate) {

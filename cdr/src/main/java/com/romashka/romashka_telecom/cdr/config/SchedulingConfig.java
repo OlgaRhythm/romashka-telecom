@@ -12,7 +12,7 @@ public class SchedulingConfig implements SchedulingConfigurer {
     @Bean
     public ThreadPoolTaskScheduler taskScheduler() {
         ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
-        scheduler.setPoolSize(10);                            // n потоков
+        scheduler.setPoolSize(1);                            // n потоков
         scheduler.setThreadNamePrefix("cdr-scheduler-");      // префикс имени потока
         // дожидаемся выполнения всех задач при остановке приложения
         scheduler.setWaitForTasksToCompleteOnShutdown(true);
