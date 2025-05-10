@@ -11,7 +11,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 /**
  * Простейшая реализация {@link CdrCsvParser} для формата:
@@ -54,14 +53,6 @@ public class CdrCsvParserImpl implements CdrCsvParser {
             return Collections.emptyList();
         }
     }
-
-//    private List<CdrRecord> parseCallLines(List<String> lines) {
-//        List<CdrRecord> records = new ArrayList<>(lines.size());
-//        for (String line : lines) {
-//            parseLine(line).ifPresent(records::add);
-//        }
-//        return records;
-//    }
 
     private Optional<CdrRecord> parseLine(String line) {
         try {

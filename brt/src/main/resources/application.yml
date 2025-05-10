@@ -11,13 +11,20 @@ time:
 # Общие настройки RabbitMQ (всегда активны)
 # ---------------------------------------------------------
 rabbitmq:
-  hrs:
+  brt-to-hrs:
     exchange:
-      name: brt.exchange
+      name: brt-to-hrs.exchange
     queue:
-      name: brt.queue
+      name: brt-to-hrs.queue
     routing:
-      key: brt.routingkey
+      key: brt-to-hrs.routingkey
+  hrs-to-brt:
+    exchange:
+      name: hrs-to-brt.exchange
+    queue:
+      name: hrs-to-brt.queue
+    routing:
+      key: hrs-to-brt.routingkey
   cdr:
     exchange:
       name: cdr.exchange
@@ -72,7 +79,6 @@ spring:
           max-attempts: 3
         missing-queues-fatal: false
     template:
-      message-converter: messageConverter
       retry:
         enabled: true
         initial-interval: 2000ms
@@ -115,12 +121,6 @@ spring:
     password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
-  # пытаюсь исправить блокировку
-#  sql:
-#    init:
-#      mode: always
-#      schema-locations: classpath:db/clear_liquibase_lock.sql
-
   jpa:
     hibernate:
       ddl-auto: none
@@ -136,8 +136,6 @@ spring:
 
   liquibase:
     enabled: false
-#    enabled: true
-#    change-log: classpath:db/changelog/db.changelog-master.yaml
 
   server:
     port: 8081

@@ -23,7 +23,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Transactions {
+public class Transaction {
 
     /**
      * Уникальный идентификатор транзакции.
@@ -40,20 +40,18 @@ public class Transactions {
     private Long callerId;
 
     /**
+     * Ресурс транзакции.
+     */
+    @ManyToOne
+    @JoinColumn(name = "resource_id", nullable = false)
+    private Resource resourceId;
+
+    /**
      * Тип транзакции.
      * списание или пополнение
      */
     @Column(name = "transaction_type", nullable = false)
     private TransactionType transactionType;
-
-
-    /**
-     * Ресурс транзакции.
-     */
-    @ManyToOne
-    @JoinColumn(name = "resourse_type_id", nullable = false)
-    private ResourseType transactionResourse;
-
 
     /**
      * Сумма транзакции.

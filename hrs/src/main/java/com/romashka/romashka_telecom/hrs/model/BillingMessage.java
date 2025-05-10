@@ -1,7 +1,7 @@
-package com.romashka.romashka_telecom.brt.model;
+package com.romashka.romashka_telecom.hrs.model;
 
-import com.romashka.romashka_telecom.brt.enums.CallType;
-import com.romashka.romashka_telecom.brt.enums.NetworkType;
+import com.romashka.romashka_telecom.hrs.enums.CallType;
+import com.romashka.romashka_telecom.hrs.enums.NetworkType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,7 +16,6 @@ import java.util.Map;
 @AllArgsConstructor
 public class BillingMessage {
     private Long callerId;
-//    private Long callId;
     private Long rateId;
     private Long durationMinutes;
     private CallType callType; // входящий или исходящий

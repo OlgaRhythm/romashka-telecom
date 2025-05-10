@@ -7,27 +7,21 @@ import com.romashka.romashka_telecom.brt.model.CdrRecord;
 import com.romashka.romashka_telecom.brt.enums.NetworkType;
 import com.romashka.romashka_telecom.brt.repository.CallRepository;
 import com.romashka.romashka_telecom.brt.repository.CallerRepository;
+import com.romashka.romashka_telecom.brt.repository.CallerResourceRepository;
 import com.romashka.romashka_telecom.brt.service.BillingService;
 import com.romashka.romashka_telecom.brt.service.CdrDataFilter;
 import com.romashka.romashka_telecom.brt.service.CdrDataProcessorService;
-import com.romashka.romashka_telecom.common.config.TimeProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.scheduling.TaskScheduler;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Duration;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.concurrent.ConcurrentSkipListSet;
-import java.util.concurrent.RejectedExecutionException;
-import java.util.concurrent.ScheduledFuture;
 import java.util.stream.Collectors;
 import java.util.concurrent.ConcurrentHashMap;
-import java.time.format.DateTimeFormatter;
 
 /**
  * Пока работает только в модельном режиме
@@ -39,23 +33,21 @@ public class CdrDataProcessorServiceImpl implements CdrDataProcessorService {
 
     private final Integer DELAY_HOURS = 12;
 
-    private final TimeProperties timeProperties;
-    private final TaskScheduler scheduler;
     private final BillingService billingService;
     private final CdrDataFilter filterService;
     private final CallerRepository callerRepo;
     private final CallRepository callRepo;
+    private final CallerResourceRepository callerResourceRepository;
 
     /** последний «модельный» момент, который мы видели */
     private volatile LocalDateTime lastModelTime;
     /** за какой последний день уже списали */
     private volatile LocalDate lastBillingDate;
-    /** handle на запланированный запуск (можно отменять) */
-    private volatile ScheduledFuture<?> nextBillingFuture;
     private volatile boolean billingStarted = false;
 
     private final Map<LocalDate, List<CdrRecord>> callsByDate = new ConcurrentHashMap<>();
     private final Set<LocalDate> processedDates = ConcurrentHashMap.newKeySet();
+
     @Transactional
     @Override
     public void process(List<CdrRecord> records) {
@@ -204,13 +196,28 @@ public class CdrDataProcessorServiceImpl implements CdrDataProcessorService {
             NetworkType networkType = isInternalCall ? NetworkType.INTERNAL : NetworkType.EXTERNAL;
 
             // 1) собираем сообщение
+            Map<String, Double> resources = new HashMap<>();
+            
+            // Добавляем баланс абонента
+            resources.put("money", caller.getBalance().doubleValue());
+            
+            // Добавляем остальные ресурсы
+            callerResourceRepository.findByCallerId(caller.getCallerId())
+                    .forEach(cr -> resources.put(
+                            cr.getResourceId().getResourceName(),
+                            cr.getCurrentBalance().doubleValue()
+                    ));
+
             BillingMessage msg = BillingMessage.builder()
                     .callerId(caller.getCallerId())
                     .rateId(caller.getRateId())
                     .durationMinutes(durationMinutes)
                     .callType(call.getCallType())
                     .networkType(networkType)
+                    .resources(resources)
                     .build();
+
+            log.info("🚀 Сформировано сообщение для биллинга: {}", msg);
 
             // 2) отправляем
             billingService.processAndSendBillingData(msg);

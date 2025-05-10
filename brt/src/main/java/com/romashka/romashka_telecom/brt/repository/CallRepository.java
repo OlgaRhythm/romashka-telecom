@@ -8,6 +8,6 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 public interface CallRepository extends JpaRepository<Call, Long> {
-    @Query("select c from Call c where c.callerId = :callerId and c.startTime = :startTime")
+    @Query("SELECT c FROM Call c WHERE c.callerId = :callerId and c.startTime = :startTime")
     Optional<Call> findByCallerIdAndStartTime(Long callerId, LocalDateTime startTime);
 }
