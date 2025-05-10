@@ -2,4 +2,4 @@ rootProject.name = 'romashka-telecom'
 
 
 
-include 'romashka-common', 'cdr', 'brt' , 'hrs'/*, 'crm' */
+include 'romashka-common', 'cdr', 'brt' , 'hrs', 'crm'

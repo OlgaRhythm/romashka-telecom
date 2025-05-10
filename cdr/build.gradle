@@ -3,14 +3,6 @@ plugins {
 	id 'io.spring.dependency-management'
 }
 
-
-
-//configurations {
-//	compileOnly {
-//		extendsFrom annotationProcessor
-//	}
-//}
-
 springBoot {
 	mainClass = 'com.romashka.romashka_telecom.cdr.RomashkaTelecomApplication'
 }

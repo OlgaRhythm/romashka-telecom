@@ -53,6 +53,7 @@ gradle clean build
 docker build -t romashka-telecom/cdr cdr
 docker build -t romashka-telecom/brt brt
 docker build -t romashka-telecom/hrs hrs
+docker build -t romashka-telecom/crm crm
 docker-compose up --build
 
 // docker compose up -d
