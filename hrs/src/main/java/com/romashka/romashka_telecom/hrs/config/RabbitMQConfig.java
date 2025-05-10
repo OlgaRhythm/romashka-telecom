@@ -28,6 +28,9 @@ public class RabbitMQConfig {
     private static final String DEFAULT_QUEUE = "hrs-to-brt.queue";
     private static final String DEFAULT_EXCHANGE = "hrs-to-brt.exchange";
     private static final String DEFAULT_ROUTING_KEY = "hrs-to-brt.routingkey";
+    private static final String DEFAULT_MONTHLY_FEE_QUEUE = "monthly-fee-hrs-to-brt.queue";
+    private static final String DEFAULT_MONTHLY_FEE_EXCHANGE = "monthly-fee-hrs-to-brt.exchange";
+    private static final String DEFAULT_MONTHLY_FEE_ROUTING_KEY = "monthly-fee-hrs-to-brt.routingkey";
 
     @Value("${rabbitmq.hrs-to-brt.queue.name:" + DEFAULT_QUEUE + "}")
     private String queueName;
@@ -37,6 +40,16 @@ public class RabbitMQConfig {
 
     @Value("${rabbitmq.hrs-to-brt.routing.key:" + DEFAULT_ROUTING_KEY + "}")
     private String routingKey;
+
+
+    @Value("${rabbitmq.monthly-fee-hrs-to-brt.queue.name:" + DEFAULT_MONTHLY_FEE_QUEUE + "}")
+    private String monthlyFeeQueueName;
+
+    @Value("${rabbitmq.monthly-fee-hrs-to-brt.exchange.name:" + DEFAULT_MONTHLY_FEE_EXCHANGE + "}")
+    private String monthlyFeeExchangeName;
+
+    @Value("${rabbitmq.monthly-fee-hrs-to-brt.routing.key:" + DEFAULT_MONTHLY_FEE_ROUTING_KEY + "}")
+    private String monthlyFeeRoutingKeyHrsToBrt;
 
     /**
      * Выводит параметры конфигурации RabbitMQ в лог при запуске приложения.
@@ -56,15 +69,15 @@ public class RabbitMQConfig {
     }
 
     @Bean
-    public Queue hrsToBrtQueue(
-            @Value("${rabbitmq.hrs-to-brt.queue.name}") String queueName) {
-        return new Queue(queueName);
-    }
-
-    @Bean
     public DirectExchange brtToHrsExchange(
             @Value("${rabbitmq.brt-to-hrs.exchange.name}") String exchangeName) {
         return new DirectExchange(exchangeName);
+    }
+
+    @Bean
+    public Queue hrsToBrtQueue(
+            @Value("${rabbitmq.hrs-to-brt.queue.name}") String queueName) {
+        return new Queue(queueName);
     }
 
     @Bean
@@ -72,6 +85,29 @@ public class RabbitMQConfig {
             @Value("${rabbitmq.hrs-to-brt.exchange.name}") String exchangeName) {
         return new DirectExchange(exchangeName);
     }
+
+    @Bean 
+    public Queue monthlyFeeQueueBrtToHrsQueue(){
+        return new Queue("monthly-fee-brt-to-hrs.queue");
+    }
+
+    @Bean
+    public DirectExchange monthlyFeeBrtToHrsExchange(
+            @Value("${rabbitmq.monthly-fee-brt-to-hrs.exchange.name}") String exchangeName) {
+        return new DirectExchange(exchangeName);
+    }
+
+    @Bean 
+    public Queue monthlyFeeQueueHrsToBrtQueue(){
+        return new Queue("monthly-fee-hrs-to-brt.queue");
+    }
+
+    @Bean
+    public DirectExchange monthlyFeeHrsToBrtExchange(
+            @Value("${rabbitmq.monthly-fee-hrs-to-brt.exchange.name}") String exchangeName) {
+        return new DirectExchange(exchangeName);
+    }
+
 
     @Bean
     public Binding brtToHrsBinding(
@@ -88,6 +124,26 @@ public class RabbitMQConfig {
             @Value("${rabbitmq.hrs-to-brt.queue.name}") String queueName,
             @Value("${rabbitmq.hrs-to-brt.exchange.name}") String exchangeName,
             @Value("${rabbitmq.hrs-to-brt.routing.key}") String routingKey) {
+        return BindingBuilder.bind(new Queue(queueName))
+                .to(new DirectExchange(exchangeName))
+                .with(routingKey);
+    }
+
+    @Bean
+    public Binding monthlyFeeHrsToBrtBinding(
+            @Value("${rabbitmq.monthly-fee-hrs-to-brt.queue.name}") String queueName,
+            @Value("${rabbitmq.monthly-fee-hrs-to-brt.exchange.name}") String exchangeName,
+            @Value("${rabbitmq.monthly-fee-hrs-to-brt.routing.key}") String routingKey) {
+        return BindingBuilder.bind(new Queue(queueName))
+                .to(new DirectExchange(exchangeName))
+                .with(routingKey);
+    }
+
+    @Bean
+    public Binding monthlyFeeBrtToHrsBinding(
+            @Value("${rabbitmq.monthly-fee-brt-to-hrs.queue.name}") String queueName,
+            @Value("${rabbitmq.monthly-fee-brt-to-hrs.exchange.name}") String exchangeName,
+            @Value("${rabbitmq.monthly-fee-brt-to-hrs.routing.key}") String routingKey) {
         return BindingBuilder.bind(new Queue(queueName))
                 .to(new DirectExchange(exchangeName))
                 .with(routingKey);
