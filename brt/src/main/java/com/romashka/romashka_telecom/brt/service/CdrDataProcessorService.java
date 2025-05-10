@@ -4,7 +4,7 @@ import com.romashka.romashka_telecom.brt.model.CdrRecord;
 
 import java.util.List;
 
-public interface SdrDataProcessorService {
+public interface CdrDataProcessorService {
     /**
      * Обработать список распарсенных записей.
      * @param records непустой список {@link CdrRecord}

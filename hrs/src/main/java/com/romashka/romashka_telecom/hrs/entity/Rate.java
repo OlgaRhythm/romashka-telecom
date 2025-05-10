@@ -26,6 +26,7 @@ public class Rate {
     @Column(name = "rate_name", nullable = false)
     private String rateName;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "rate_type", nullable = false)
     private RateType rateType;
 

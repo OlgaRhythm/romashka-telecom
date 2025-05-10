@@ -11,12 +11,20 @@ time:
 # Общие настройки RabbitMQ (всегда активны)
 # ---------------------------------------------------------
 rabbitmq:
-  exchange:
-    name: cdr.exchange
-  queue:
-    name: cdr.queue
-  routing:
-    key: cdr.routingkey
+  brt-to-hrs:
+    exchange:
+      name: brt-to-hrs.exchange
+    queue:
+      name: brt-to-hrs.queue
+    routing:
+      key: brt-to-hrs.routingkey
+  hrs-to-brt:
+    exchange:
+      name: hrs-to-brt.exchange
+    queue:
+      name: hrs-to-brt.queue
+    routing:
+      key: hrs-to-brt.routingkey
 
 ---
 # ---------------------------------------------------------

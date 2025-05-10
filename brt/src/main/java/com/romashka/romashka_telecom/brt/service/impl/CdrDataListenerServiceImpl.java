@@ -1,7 +1,7 @@
 package com.romashka.romashka_telecom.brt.service.impl;
 
 import com.romashka.romashka_telecom.brt.service.CdrDataListenerService;
-import com.romashka.romashka_telecom.brt.service.SdrDataProcessorService;
+import com.romashka.romashka_telecom.brt.service.CdrDataProcessorService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -20,11 +20,14 @@ import java.util.List;
 public class CdrDataListenerServiceImpl implements CdrDataListenerService {
 
     private final CdrCsvParser parser;
-    private final SdrDataProcessorService processor;
+    private final CdrDataProcessorService processor;
 
     // TODO: название очереди должно браться из одного места в разных классах
     private static final String DEFAULT_QUEUE = "cdr.queue";
-    @RabbitListener(queues = "${rabbitmq.queue.name:cdr.queue:" + DEFAULT_QUEUE + "}")
+    @RabbitListener(
+            queues = "${rabbitmq.queue.name:" + DEFAULT_QUEUE + "}",
+            containerFactory = "cdrListenerContainerFactory"
+    )
     public void handleFile(String csv) {
         log.info("Получили CSV-пакет ({} байт)", csv.length());
         List<CdrRecord> records = parser.parse(csv);

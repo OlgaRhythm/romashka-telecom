@@ -30,8 +30,8 @@ public class CallerResource {
     private Long callerId;
 
     @ManyToOne
-    @JoinColumn(name = "resourse_type_id", nullable = false)
-    private ResourseType resourseType;
+    @JoinColumn(name = "resource_id", nullable = false)
+    private Resource resourceId;
 
     @Column(name = "current_balance", nullable = false)
     private BigDecimal currentBalance;

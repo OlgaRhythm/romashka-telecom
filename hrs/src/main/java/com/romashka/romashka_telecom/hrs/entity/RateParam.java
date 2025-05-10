@@ -4,6 +4,7 @@ package com.romashka.romashka_telecom.hrs.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "rate_params")
@@ -25,6 +26,6 @@ public class RateParam {
     private Long paramId;
 
     @Column(name = "param_value", nullable = false)
-    private String paramValue;
+    private BigDecimal paramValue;
 
 }

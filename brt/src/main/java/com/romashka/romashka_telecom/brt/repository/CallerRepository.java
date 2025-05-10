@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CallerRepository extends JpaRepository<Caller, Long> {
 
@@ -13,4 +14,6 @@ public interface CallerRepository extends JpaRepository<Caller, Long> {
 
     @Query("select c from Caller c where c.number in :numbers")
     List<Caller> findAllByNumberIn(List<String> numbers);
+
+    Optional<Caller> findByNumber(String number);
 }

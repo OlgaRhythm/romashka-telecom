@@ -12,17 +12,17 @@ import lombok.Setter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "resourse_type")
+@Table(name = "resources")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResourseType {
+public class Resource {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "resourse_type_id")
-    private Long resourseTypeId;
+    @Column(name = "resource_id")
+    private Long resourceId;
 
-    @Column(name = "resourse_type_name", nullable = false)
-    private String resourseTypeName;
+    @Column(name = "resource_name", nullable = false)
+    private String resourceName;
 }

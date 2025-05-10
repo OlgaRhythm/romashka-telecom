@@ -5,18 +5,19 @@ VALUES
 (12, 'Помесячный', 'MONTHLY', 30, 2500.00, 500);
 
 -- Вставка в таблицу params
-INSERT INTO params (param_name)
+INSERT INTO params (param_id, param_name)
 VALUES
-('минуты');
+(1, 'минуты');
 
--- Вставка в таблицу call_cost (предполагаем, что calls.call_id 1 и 2 существуют)
-INSERT INTO call_cost (call_cost_id, call_type, call_cost)
+-- Вставка в таблицу call_cost
+INSERT INTO call_cost (call_cost_id, rate_id, call_type, network_type, call_cost)
 VALUES
-(1, '01', 15.50),
-(2, '02', 23.75);
+(1, 11, '01', 'INTERNAL', 1.50),
+(2, 11, '02', 'INTERNAL', 0.00),
+(3, 11, '01', 'EXTERNAL', 2.50),
+(4, 11, '02', 'EXTERNAL', 0.00);
 
 -- Вставка в таблицу rate_params
 INSERT INTO rate_params (rate_id, param_id, param_value)
 VALUES
-(11, 1, '500'),
-(12, 1, '2000');
+(12, 1, 50.00);
