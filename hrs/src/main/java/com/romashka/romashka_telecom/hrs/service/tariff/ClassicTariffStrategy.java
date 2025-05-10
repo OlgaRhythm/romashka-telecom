@@ -31,7 +31,6 @@ public class ClassicTariffStrategy implements TariffCalculationStrategy {
         log.info("- Итоговая стоимость: {}", totalCost);
         
         resources.put("money", totalCost);
-        resources.put("minutes", BigDecimal.valueOf(message.getDurationMinutes()));
         
         return resources;
     }

@@ -34,17 +34,31 @@ public class MonthlyTariffStrategy implements TariffCalculationStrategy {
             return resources;
         }
 
-        // Если звонок превышает доступные минуты
-        Long paidMinutes = message.getDurationMinutes() - availableMinutes;
-        BigDecimal additionalCost = callCost.getCallCost()
-                .multiply(BigDecimal.valueOf(paidMinutes));
+        // Если недостаточно доступных минут
+        if (availableMinutes > 0) {
+            Long paidMinutes = message.getDurationMinutes() - availableMinutes;
+            BigDecimal additionalCost = callCost.getCallCost()
+                    .multiply(BigDecimal.valueOf(paidMinutes));
 
-        log.info("- Оплачиваемых минут: {}", paidMinutes);
-        log.info("- Дополнительная стоимость: {}", additionalCost);
+            log.info("- Списание минут: {}", availableMinutes);       
+            log.info("- Оплачиваемых минут: {}", paidMinutes);
+            log.info("- Дополнительная стоимость: {}", additionalCost);
+
+            resources.put("money", additionalCost);
+            resources.put("minutes", BigDecimal.valueOf(availableMinutes));
+
+            return resources;
+        }
+
+        // Если на балансе не осталось минут
+        BigDecimal additionalCost = callCost.getCallCost()
+                .multiply(BigDecimal.valueOf(message.getDurationMinutes()));
+
+        log.info("- Оплата по тарифу 'Классика'");
+        log.info("- Стоимость: {}", additionalCost);
 
         resources.put("money", additionalCost);
-        resources.put("minutes", BigDecimal.valueOf(availableMinutes));
-        
+
         return resources;
     }
 } 

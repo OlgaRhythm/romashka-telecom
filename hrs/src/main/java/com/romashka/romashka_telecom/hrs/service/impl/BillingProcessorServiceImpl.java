@@ -46,7 +46,8 @@ public class BillingProcessorServiceImpl {
                 .orElseThrow(() -> new RuntimeException("Тариф не найден: " + message.getRateId()));
 
         // 2. Получаем стоимость звонка
-        CallCost callCost = callCostRepository.findByCallTypeAndNetworkType(
+        CallCost callCost = callCostRepository.findByRateIdAndCallTypeAndNetworkType(
+                message.getRateId(),
                 message.getCallType(),
                 message.getNetworkType()
         ).orElseGet(() -> {

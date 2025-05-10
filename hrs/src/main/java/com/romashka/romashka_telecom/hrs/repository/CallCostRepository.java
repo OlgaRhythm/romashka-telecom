@@ -10,5 +10,5 @@ import java.util.Optional;
 
 @Repository
 public interface CallCostRepository extends JpaRepository<CallCost, Long> {
-    Optional<CallCost> findByCallTypeAndNetworkType(CallType callType, NetworkType networkType);
+    Optional<CallCost> findByRateIdAndCallTypeAndNetworkType(Long rateId, CallType callType, NetworkType networkType);
 }
