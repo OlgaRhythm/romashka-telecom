@@ -44,6 +44,7 @@ public class MonthlyFeeListenerServiceImpl {
             BigDecimal newBalance = caller.getBalance().subtract(response.getFeeAmount());
             caller.setBalance(newBalance);
             callerRepository.save(caller);
+            log.info("Состояние абонента после списания абонплаты: {}", caller);
 
             // Записываем транзакцию
             MoneyTransaction transaction = new MoneyTransaction();
@@ -53,7 +54,7 @@ public class MonthlyFeeListenerServiceImpl {
             transaction.setTransactionDate(LocalDateTime.now());
             moneyTransactionRepository.save(transaction);
 
-            log.info("Списана абонплата для абонента {}: {}", caller.getCallerId(), response.getFeeAmount());
+            log.info("Списана абонплата для абонента {}, дата {}: {}", caller.getCallerId(), caller.getRateDate(), response.getFeeAmount());
         } else {
             log.info("Абонплата для абонента {} не требуется", response.getCallerId());
         }

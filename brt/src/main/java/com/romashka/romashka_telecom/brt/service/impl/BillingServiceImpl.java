@@ -83,6 +83,7 @@ public class BillingServiceImpl implements BillingService {
                 .build();
                 
             log.info("Отправка запроса на проверку абонплаты для абонента {}: {}", caller.getCallerId(), request);
+            log.info("Информация об абоненте: {}", caller);
             hrsRabbitTemplate.convertAndSend(monthlyFeeBrtToHrsExchangeName, monthlyFeeBrtToHrsRoutingKey, request);
         }
     }

@@ -13,7 +13,7 @@ import java.util.Optional;
 @Repository
 public interface CallCostRepository extends JpaRepository<CallCost, Long> {
     @Query("SELECT cc FROM CallCost cc WHERE cc.rate.rateId = :rateId AND cc.callType = :callType AND cc.networkType = :networkType")
-    Optional<CallCost> findByRateIdAndCallTypeAndNetworkType(
+    CallCost findByRateIdAndCallTypeAndNetworkType(
             @Param("rateId") Long rateId,
             @Param("callType") CallType callType,
             @Param("networkType") NetworkType networkType

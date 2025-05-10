@@ -160,21 +160,6 @@ public class CdrDataProcessorServiceImpl implements CdrDataProcessorService {
         lastModelTime = maxModel;
     }
 
-    private void executeBilling(LocalDate billingDate) {
-
-        for (LocalDate day = lastBillingDate.plusDays(1); !day.isAfter(billingDate); day = day.plusDays(1)) {
-            log.debug("Проверка billingDate={}, targetDate={}", billingDate, day);
-            if (hasUnprocessedCalls(day)) {
-                processCallsForDate(day);
-            }
-            billingService.chargeMonthlyFee(day);
-            lastBillingDate = day;
-        }
-
-        processedDates.add(billingDate);
-        lastModelTime = billingDate.atStartOfDay().plusHours(DELAY_HOURS); // Обновляем время
-    }
-
     private void processCallsForDate(LocalDate date) {
         log.info("🟢 Начата обработка звонков за {}", date);
 

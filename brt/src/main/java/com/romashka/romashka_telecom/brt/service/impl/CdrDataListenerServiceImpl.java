@@ -21,8 +21,6 @@ public class CdrDataListenerServiceImpl implements CdrDataListenerService {
 
     private final CdrCsvParser parser;
     private final CdrDataProcessorService processor;
-
-    // TODO: название очереди должно браться из одного места в разных классах
     private static final String DEFAULT_QUEUE = "cdr.queue";
     @RabbitListener(
             queues = "${rabbitmq.queue.name:" + DEFAULT_QUEUE + "}",

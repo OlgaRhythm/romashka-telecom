@@ -49,7 +49,7 @@ public class CallsGenerationServiceImpl implements CallsGenerationService {
     private int threadPoolSize;
 
     /** Пара звонков даёт 2 записи => totalPairs*2 записей */
-    @Value("${calls.total_pairs:3000}")
+    @Value("${calls.total_pairs:600}") // 3000
     private int totalPairs;
 
     private static final int MIN_CALL_DURATION = 60; // минимальная продолжительность звонка в секундах

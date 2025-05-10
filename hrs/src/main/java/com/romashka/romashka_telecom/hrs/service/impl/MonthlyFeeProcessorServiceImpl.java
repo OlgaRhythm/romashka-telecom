@@ -30,7 +30,7 @@ public class MonthlyFeeProcessorServiceImpl {
     @Value("${rabbitmq.monthly-fee-hrs-to-brt.routing.key}")
     private String monthlyFeeResponseRoutingKey;
 
-    @RabbitListener(queues = "${rabbitmq.monthly-fee-hrs-to-brt.queue.name}")
+    @RabbitListener(queues = "${rabbitmq.monthly-fee-brt-to-hrs.queue.name}")
     @Transactional
     public void processMonthlyFeeRequest(MonthlyFeeRequest request) {
         log.info("Получен запрос на проверку абонплаты: {}", request);
@@ -44,7 +44,8 @@ public class MonthlyFeeProcessorServiceImpl {
         // Проверяем, есть ли у тарифа период оплаты
         if (rate.getPeriodDuration() != null && rate.getPeriodDuration() > 0) {
             // Если количество дней с момента активации кратно периоду оплаты
-            if (request.getDaysSinceActivation() % rate.getPeriodDuration() == 0) {
+            int daysSinceActivation = request.getDaysSinceActivation();
+            if (daysSinceActivation != 0 && daysSinceActivation % rate.getPeriodDuration() == 0) {
                 feeAmount = rate.getPeriodPrice();
                 
                 // Добавляем ресурсы, если они предусмотрены тарифом

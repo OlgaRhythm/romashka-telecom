@@ -6,6 +6,7 @@ import com.romashka.romashka_telecom.brt.service.CdrDataFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -26,15 +27,11 @@ public class CdrDataFilterImpl implements CdrDataFilter {
     @Override
     public List<CdrRecord> filter(List<CdrRecord> records) {
         // 1) Один запрос в базу: достать все наши номера
-        //    (в репозитории можно определить метод @Query("select c.number from Caller c"))
-        Set<String> ourNumbers = callerRepo.findAllCallerNumbers()
-                .stream()
-                .collect(Collectors.toSet());
+        Set<String> ourNumbers = new HashSet<>(callerRepo.findAllCallerNumbers());
 
         // 2) Фильтруем все записи по наличию номера в нашем множестве
         return records.stream()
-                .filter(r -> ourNumbers.contains(r.getCallerNumber())
-                        || ourNumbers.contains(r.getContactNumber()))
+                .filter(r -> ourNumbers.contains(r.getCallerNumber()))
                 .collect(Collectors.toList());
     }
 }
