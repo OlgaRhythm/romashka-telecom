@@ -1,10 +1,8 @@
 package com.romashka.romashka_telecom.hrs.service.impl;
 
-import com.romashka.romashka_telecom.hrs.entity.CallCost;
 import com.romashka.romashka_telecom.hrs.entity.Rate;
 import com.romashka.romashka_telecom.hrs.model.BillingMessage;
 import com.romashka.romashka_telecom.hrs.model.HrsResponse;
-import com.romashka.romashka_telecom.hrs.repository.CallCostRepository;
 import com.romashka.romashka_telecom.hrs.repository.RateRepository;
 import com.romashka.romashka_telecom.hrs.service.tariff.TariffStrategyFactory;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +20,6 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class BillingProcessorServiceImpl {
 
-    private final CallCostRepository callCostRepository;
     private final RateRepository rateRepository;
     private final TariffStrategyFactory tariffStrategyFactory;
     private final RabbitTemplate rabbitTemplate;
@@ -45,20 +42,9 @@ public class BillingProcessorServiceImpl {
         Rate rate = rateRepository.findById(message.getRateId())
                 .orElseThrow(() -> new RuntimeException("Тариф не найден: " + message.getRateId()));
 
-        // 2. Получаем стоимость звонка
-        CallCost callCost = callCostRepository.findByRateIdAndCallTypeAndNetworkType(
-                message.getRateId(),
-                message.getCallType(),
-                message.getNetworkType()
-        ).orElseGet(() -> {
-            CallCost empty = new CallCost();
-            empty.setCallCost(BigDecimal.ZERO);
-            return empty;
-        });
-
         // 3. Получаем стратегию расчета для тарифа и рассчитываем стоимость
         Map<String, BigDecimal> resources = tariffStrategyFactory.getStrategy(rate)
-                .calculateCost(message, rate, callCost);
+                .calculateCost(message, rate);
 
         // 4. Формируем ответное сообщение
         HrsResponse response = HrsResponse.builder()

@@ -31,26 +31,44 @@ public class RabbitMQConfig implements RabbitListenerConfigurer {
     @Value("${rabbitmq.brt-to-hrs.queue.name}")
     private String brtToHrsQueueName;
 
-    @Value("${rabbitmq.hrs-to-brt.queue.name}")
-    private String hrsToBrtQueueName;
-
-    @Value("${rabbitmq.cdr.queue.name}")
-    private String cdrQueueName;
-
     @Value("${rabbitmq.brt-to-hrs.exchange.name}")
     private String brtToHrsExchangeName;
-
-    @Value("${rabbitmq.hrs-to-brt.exchange.name}")
-    private String hrsToBrtExchangeName;
-
-    @Value("${rabbitmq.cdr.exchange.name}")
-    private String cdrExchangeName;
 
     @Value("${rabbitmq.brt-to-hrs.routing.key}")
     private String brtToHrsRoutingKey;
 
+    @Value("${rabbitmq.hrs-to-brt.exchange.name}")
+    private String hrsToBrtExchangeName;
+
+    @Value("${rabbitmq.hrs-to-brt.queue.name}")
+    private String hrsToBrtQueueName;
+
     @Value("${rabbitmq.hrs-to-brt.routing.key}")
     private String hrsToBrtRoutingKey;
+
+    @Value("${rabbitmq.monthly-fee-brt-to-hrs.queue.name}")
+    private String monthlyFeeQueueBrtToHrsName;
+
+    @Value("${rabbitmq.monthly-fee-brt-to-hrs.exchange.name}")
+    private String monthlyFeeExchangeBrtToHrsName;
+
+    @Value("${rabbitmq.monthly-fee-brt-to-hrs.routing.key}")
+    private String monthlyFeeRoutingKeyBrtToHrs;
+
+    @Value("${rabbitmq.monthly-fee-hrs-to-brt.queue.name}")
+    private String monthlyFeeQueueHrsToBrtName;
+
+    @Value("${rabbitmq.monthly-fee-hrs-to-brt.exchange.name}")
+    private String monthlyFeeExchangeHrsToBrtName;
+
+    @Value("${rabbitmq.monthly-fee-hrs-to-brt.routing.key}")
+    private String monthlyFeeRoutingKeyHrsToBrt;
+
+    @Value("${rabbitmq.cdr.queue.name}")
+    private String cdrQueueName;
+
+    @Value("${rabbitmq.cdr.exchange.name}")
+    private String cdrExchangeName;
 
     @Value("${rabbitmq.cdr.routing.key}")
     private String cdrRoutingKey;
@@ -61,16 +79,29 @@ public class RabbitMQConfig implements RabbitListenerConfigurer {
     @PostConstruct
     public void logRabbitConfig() {
         log.info("RabbitMQ Configuration:");
+
         log.info("BrtToHrs Queue: {}", brtToHrsQueueName);
-        log.info("HrsToBrt Queue: {}", hrsToBrtQueueName);
-        log.info("CDR Queue: {}", cdrQueueName);
         log.info("BrtToHrs Exchange: {}", brtToHrsExchangeName);
-        log.info("HrsToBrt Exchange: {}", hrsToBrtExchangeName);
-        log.info("CDR Exchange: {}", cdrExchangeName);
         log.info("BrtToHrs Routing key: {}", brtToHrsRoutingKey);
+
+        log.info("HrsToBrt Queue: {}", hrsToBrtQueueName);       
+        log.info("HrsToBrt Exchange: {}", hrsToBrtExchangeName);
         log.info("HrsToBrt Routing key: {}", hrsToBrtRoutingKey);
+
+        log.info("Monthly Fee Brt to Hrs Queue: {}", monthlyFeeQueueBrtToHrsName);
+        log.info("Monthly Fee Brt to Hrs Exchange: {}", monthlyFeeExchangeBrtToHrsName);
+        log.info("Monthly Fee Brt to Hrs Routing key: {}", monthlyFeeRoutingKeyBrtToHrs);
+
+        log.info("Monthly Fee Hrs to Brt Queue: {}", monthlyFeeQueueHrsToBrtName);
+        log.info("Monthly Fee Hrs to Brt Exchange: {}", monthlyFeeExchangeHrsToBrtName);
+        log.info("Monthly Fee Hrs to Brt Routing key: {}", monthlyFeeRoutingKeyHrsToBrt);
+
+        log.info("CDR Queue: {}", cdrQueueName);
+        log.info("CDR Exchange: {}", cdrExchangeName);
         log.info("CDR Routing key: {}", cdrRoutingKey);
     }
+
+    // RabbitMQ Queues
 
     @Bean
     public Queue brtToHrsQueue() {
@@ -83,9 +114,20 @@ public class RabbitMQConfig implements RabbitListenerConfigurer {
     }
 
     @Bean
+    public Queue monthlyFeeBrtToHrsQueue() {
+        return new Queue(monthlyFeeQueueBrtToHrsName, DURABLE_QUEUE);
+    }
+
+    @Bean
+    public Queue monthlyFeeHrsToBrtQueue() {
+        return new Queue(monthlyFeeQueueHrsToBrtName, DURABLE_QUEUE);
+    }
+    @Bean
     public Queue cdrQueue() {
         return new Queue(cdrQueueName, DURABLE_QUEUE);
     }
+
+    // RabbitMQ Exchanges
 
     @Bean
     public DirectExchange brtToHrsExchange() {
@@ -98,9 +140,21 @@ public class RabbitMQConfig implements RabbitListenerConfigurer {
     }
 
     @Bean
+    public DirectExchange monthlyFeeBrtToHrsExchange() {
+        return new DirectExchange(monthlyFeeExchangeBrtToHrsName);
+    }
+
+    @Bean
+    public DirectExchange monthlyFeeHrsToBrtExchange() {
+        return new DirectExchange(monthlyFeeExchangeHrsToBrtName);
+    }
+
+    @Bean
     public TopicExchange cdrExchange() {
         return new TopicExchange(cdrExchangeName);
     }
+
+    // RabbitMQ Bindings
 
     @Bean
     public Binding brtToHrsBinding() {
@@ -116,12 +170,28 @@ public class RabbitMQConfig implements RabbitListenerConfigurer {
                 .with(hrsToBrtRoutingKey);
     }
 
+    @Bean   
+    public Binding monthlyFeeBrtToHrsBinding() {
+        return BindingBuilder.bind(monthlyFeeBrtToHrsQueue())
+                .to(monthlyFeeBrtToHrsExchange())
+                .with(monthlyFeeRoutingKeyBrtToHrs);
+    }
+
+    @Bean
+    public Binding monthlyFeeHrsToBrtBinding() {
+        return BindingBuilder.bind(monthlyFeeHrsToBrtQueue())
+                .to(monthlyFeeHrsToBrtExchange())
+                .with(monthlyFeeRoutingKeyHrsToBrt);
+    }
+
     @Bean
     public Binding cdrBinding() {
         return BindingBuilder.bind(cdrQueue())
                 .to(cdrExchange())
                 .with(cdrRoutingKey);
     }
+
+    // RabbitMQ Message Converters
 
     @Bean
     @Qualifier("jsonMessageConverter")
@@ -134,6 +204,9 @@ public class RabbitMQConfig implements RabbitListenerConfigurer {
     public MessageConverter simpleMessageConverter() {
         return new SimpleMessageConverter();
     }
+
+
+    // RabbitMQ Listener Container Factories
 
     @Bean
     @Qualifier("cdrListenerContainerFactory")
@@ -182,7 +255,7 @@ public class RabbitMQConfig implements RabbitListenerConfigurer {
         template.setExchange(hrsToBrtExchangeName);
         return template;
     }
-
+    
     @Override
     public void configureRabbitListeners(RabbitListenerEndpointRegistrar registrar) {
         registrar.setMessageHandlerMethodFactory(messageHandlerMethodFactory());

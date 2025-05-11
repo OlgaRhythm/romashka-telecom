@@ -32,6 +32,20 @@ rabbitmq:
       name: cdr.queue
     routing:
       key: cdr.routingkey
+  monthly-fee-brt-to-hrs:
+    exchange:
+      name: monthly-fee-brt-to-hrs.exchange
+    queue:
+      name: monthly-fee-brt-to-hrs.queue
+    routing:
+      key: monthly-fee-brt-to-hrs.routingkey
+  monthly-fee-hrs-to-brt:
+    exchange:
+      name: monthly-fee-hrs-to-brt.exchange
+    queue:
+      name: monthly-fee-hrs-to-brt.queue
+    routing:
+      key: monthly-fee-hrs-to-brt.routingkey
 
 ---
 # ---------------------------------------------------------

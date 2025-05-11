@@ -48,11 +48,14 @@ https://mts-link.ru/blog/konferenc-svyaz-mts/
 
 Запуск контейнера:
 
+docker compose down
 gradle clean build
 docker build -t romashka-telecom/cdr cdr
 docker build -t romashka-telecom/brt brt
 docker build -t romashka-telecom/hrs hrs
-docker compose down
+docker build -t romashka-telecom/crm crm
+docker-compose up --build
+
 // docker compose up -d
     - для корректной работы RabbitMQ
 docker-compose up --build

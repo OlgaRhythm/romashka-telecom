@@ -1,0 +1,145 @@
+# ---------------------------------------------------------
+# Общие настройки RabbitMQ (всегда активны)
+# ---------------------------------------------------------
+rabbitmq:
+  crm-to-brt:
+    exchange:
+      name: crm-to-brt.exchange
+    queue:
+      name: crm-to-brt.queue
+    routing:
+      key: crm-to-brt.routingkey
+  brt-to-crm:
+    exchange:
+      name: brt-to-crm.exchange
+    queue:
+      name: brt-to-crm.queue
+    routing:
+      key: brt-to-crm.routingkey
+  crm-to-hrs:
+    exchange:
+      name: crm-to-hrs.exchange
+    queue:
+      name: crm-to-hrs.queue
+    routing:
+      key: crm-to-hrs.routingkey
+  hrs-to-crm:
+    exchange:
+      name: hrs-to-crm.exchange
+    queue:
+      name: hrs-to-crm.queue
+    routing:
+      key: hrs-to-crm.routingkey
+
+app:
+  jwtSecret: "RomashkaTelecomSecretKey"
+  jwtExpirationInMs: 86400000 # 24 часа
+
+---
+# ---------------------------------------------------------
+# Default‑профиль (локальная разработка)
+# ---------------------------------------------------------
+spring:
+  config:
+    activate:
+      on-profile: default
+
+  application:
+    name: romashka-crm
+
+  datasource:
+    url: jdbc:h2:mem:romashka_crm_db;
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: password
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME:guest}
+    password: ${RABBITMQ_PASSWORD:guest}
+    connection-timeout: 5000
+    listener:
+      simple:
+        retry:
+          enabled: true
+          initial-interval: 2000ms
+          max-interval: 10000ms
+          max-attempts: 3
+        missing-queues-fatal: false
+    template:
+      retry:
+        enabled: true
+        initial-interval: 2000ms
+        max-interval: 10000ms
+        max-attempts: 3
+
+logging:
+  level:
+    org.springframework.amqp: DEBUG
+    com.romashka.romashka_telecom: INFO
+    root: WARN
+
+---
+# ---------------------------------------------------------
+# Docker‑профиль (PostgreSQL)
+# ---------------------------------------------------------
+spring:
+  config:
+    activate:
+      on-profile: docker
+
+  datasource:
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  rabbitmq:
+    host: rabbitmq
+    port: 5672
+    username: guest
+    password: guest
+    connection-timeout: 10000
+    listener:
+      simple:
+        retry:
+          enabled: true
+          initial-interval: 3000ms
+          max-interval: 10000ms
+          max-attempts: 3
+    template:
+      retry:
+        enabled: true
+        initial-interval: 3000
+        max-interval: 10000
+        max-attempts: 3
+      missing-queues-fatal: false
+
+logging:
+  level:
+    org.springframework.amqp: DEBUG
+    com.romashka.romashka_telecom: INFO
+    root: WARN 

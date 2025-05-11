@@ -121,6 +121,23 @@ services:
       TIME_START: "2025-01-01T00:00:00"
       TIME_END: "2025-12-31T23:59:59"
 
+  crm:
+    build:
+      context: ./crm
+      dockerfile: Dockerfile
+    container_name: crm
+    ports:
+      - "8083:8080"
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_RABBITMQ_PORT: 5672
+      SPRING_RABBITMQ_USERNAME: guest
+      SPRING_RABBITMQ_PASSWORD: guest
+
 volumes:
   brt_pgdata:
   hrs_pgdata:

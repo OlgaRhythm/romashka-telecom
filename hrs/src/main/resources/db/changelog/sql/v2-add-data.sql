@@ -1,8 +1,8 @@
 -- Вставка в таблицу rates
 INSERT INTO rates (rate_id, rate_name, rate_type, period_duration, period_price, added_minutes)
 VALUES
-(11, 'Классический', 'CLASSIC', 0, 300.00, 100),
-(12, 'Помесячный', 'MONTHLY', 30, 2500.00, 500);
+(11, 'Классический', 'CLASSIC', 0, 0.0, 0),
+(12, 'Помесячный', 'MONTHLY', 30, 100.0, 50);
 
 -- Вставка в таблицу params
 INSERT INTO params (param_id, param_name)

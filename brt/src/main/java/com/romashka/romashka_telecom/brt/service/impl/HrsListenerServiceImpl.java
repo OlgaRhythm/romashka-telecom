@@ -77,6 +77,12 @@ public class HrsListenerServiceImpl {
                 BigDecimal newBalance = callerResource.getCurrentBalance().subtract(BigDecimal.valueOf(amount));
                 callerResource.setCurrentBalance(newBalance);
                 callerResourceRepository.save(callerResource);
+                if (newBalance.compareTo(BigDecimal.ZERO) < 0) {
+                    log.error("Баланс {} для ресурса {} абонента {} меньше нуля", newBalance, resourceName, caller.getCallerId());
+                } else {
+                    log.info("Баланс {} для ресурса {} абонента {} после списания {}", newBalance, resourceName, caller.getCallerId(), amount);
+                    log.info("Баланс {} для ресурса {} абонента {} после списания {}", newBalance, resourceName, caller.getCallerId(), amount);
+                }
 
                 // Записываем транзакцию
                 Transaction transaction = new Transaction();
