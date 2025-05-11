@@ -4,18 +4,29 @@ services:
   rabbitmq:
     image: rabbitmq:management
     container_name: romashka-rabbitmq
+    user: root
     ports:
       - "5672:5672"  # Порт для AMQP
       - "15672:15672"  # Порт для веб-интерфейса
     environment:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
+      RABBITMQ_ERLANG_COOKIE: 0123456789abcdef0123456789abcdef
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq/mnesia
     healthcheck:
       test: ["CMD", "rabbitmq-diagnostics", "ping"]
       interval: 10s
       timeout: 5s
       retries: 5
       start_period: 30s
+    entrypoint: >
+      bash -c "
+        echo \"$${RABBITMQ_ERLANG_COOKIE}\" > /var/lib/rabbitmq/.erlang.cookie &&
+        chown rabbitmq:rabbitmq /var/lib/rabbitmq/.erlang.cookie &&
+        chmod 400 /var/lib/rabbitmq/.erlang.cookie &&
+        docker-entrypoint.sh rabbitmq-server
+      "
 
   postgres-brt:
     image: postgres:15
@@ -51,6 +62,23 @@ services:
       timeout: 5s
       retries: 5
 
+  postgres-crm:
+    image: postgres:15
+    container_name: romashka-crm-postgres
+    environment:
+      POSTGRES_DB: crm_db
+      POSTGRES_USER: crm_user
+      POSTGRES_PASSWORD: crm_pass
+    ports:
+      - "5434:5432"
+    volumes:
+      - crm_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
   cdr:
     build:
       context: ./cdr
@@ -77,7 +105,7 @@ services:
       dockerfile: Dockerfile
     container_name: brt
     ports:
-      - "8081:8081"
+      - "8081:8080"
     depends_on:
       rabbitmq:
         condition: service_healthy
@@ -102,7 +130,7 @@ services:
       dockerfile: Dockerfile
     container_name: hrs
     ports:
-      - "8082:8082"
+      - "8082:8080"
     depends_on:
       rabbitmq:
         condition: service_healthy
@@ -131,13 +159,20 @@ services:
     depends_on:
       rabbitmq:
         condition: service_healthy
+      postgres-crm:
+        condition: service_healthy
     environment:
       SPRING_PROFILES_ACTIVE: docker
       SPRING_RABBITMQ_HOST: rabbitmq
       SPRING_RABBITMQ_PORT: 5672
       SPRING_RABBITMQ_USERNAME: guest
       SPRING_RABBITMQ_PASSWORD: guest
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-crm:5432/crm_db
+      SPRING_DATASOURCE_USERNAME: crm_user
+      SPRING_DATASOURCE_PASSWORD: crm_pass
 
 volumes:
   brt_pgdata:
   hrs_pgdata:
+  crm_pgdata:
+  rabbitmq_data:

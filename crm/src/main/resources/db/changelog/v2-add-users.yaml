@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: romashka
+      changes:
+        - sqlFile:
+            path: classpath:db/changelog/sql/v2-add-users.sql
+            encoding: UTF-8 
