@@ -1,0 +1,301 @@
+time="2025-05-12T01:46:56+03:00" level=warning msg="C:\\Users\\Rudenches\\IdeaProjects\\romashka-telecom-main\\docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+brt  |   (5, 1, 50.00),
+brt  |   (6, 1, 0.00),
+brt  |   (7, 1, 50.00),
+brt  |   (8, 1, 50.00),
+brt  |   (9, 1, 0.00),
+brt  |   (10, 1, 0.00)
+brt  | 2025-05-11T22:08:45.453Z DEBUG 1 --- [           main] liquibase.executor                       : 10 row(s) affected
+brt  | 2025-05-11T22:08:45.454Z  INFO 1 --- [           main] liquibase.changelog                      : SQL in file classpath:db/changelog/sql/v2-add-data.sql executed
+brt  | 2025-05-11T22:08:45.455Z  INFO 1 --- [           main] liquibase.changelog                      : ChangeSet db/changelog/v2-add-data.yaml::2::romashka ran successfully in 53ms
+brt  | 2025-05-11T22:08:45.457Z DEBUG 1 --- [           main] liquibase.executor                       : INSERT INTO public.databasechangelog (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, MD5SUM, DESCRIPTION, COMMENTS, EXECTYPE, CONTEXTS, LABELS, LIQUIBASE, DEPLOYMENT_ID) VALUES ('2', 'romashka', 'db/changelog/v2-add-data.yaml', NOW(), 2, '9:95d1cb2620c11f78bb8dd84c10b0d706', 'sqlFile path=classpath:db/changelog/sql/v2-add-data.sql', '', 'EXECUTED', NULL, NULL, '4.29.2', '7001325198')
+brt  | 2025-05-11T22:08:45.458Z DEBUG 1 --- [           main] liquibase.executor                       : 1 row(s) affected
+brt  | 2025-05-11T22:08:45.459Z DEBUG 1 --- [           main] liquibase.executor                       : Changelog query completed.
+brt  | 2025-05-11T22:08:45.463Z DEBUG 1 --- [           main] liquibase.servicelocator                 : Loaded liquibase.report.ShowSummaryGenerator instance liquibase.report.StandardShowSummaryGenerator
+brt  | 2025-05-11T22:08:45.467Z  INFO 1 --- [           main] liquibase.util                           : UPDATE SUMMARY
+brt  | 2025-05-11T22:08:45.467Z  INFO 1 --- [           main] liquibase.util                           : Run:                          2
+brt  | 2025-05-11T22:08:45.468Z  INFO 1 --- [           main] liquibase.util                           : Previously run:               0
+brt  | 2025-05-11T22:08:45.468Z  INFO 1 --- [           main] liquibase.util                           : Filtered out:                 0
+brt  | 2025-05-11T22:08:45.468Z  INFO 1 --- [           main] liquibase.util                           : -------------------------------
+brt  | 2025-05-11T22:08:45.468Z  INFO 1 --- [           main] liquibase.util                           : Total change sets:            2
+brt  | 2025-05-11T22:08:45.469Z  INFO 1 --- [           main] liquibase.util                           : Update summary generated
+brt  | 2025-05-11T22:08:45.472Z  INFO 1 --- [           main] liquibase.command                        : Update command completed successfully.
+brt  | 2025-05-11T22:08:45.473Z  INFO 1 --- [           main] liquibase.ui                             : Liquibase: Update has been successful. Rows affected: 32
+brt  | 2025-05-11T22:08:45.473Z DEBUG 1 --- [           main] liquibase.executor                       : Release Database Lock
+brt  | 2025-05-11T22:08:45.475Z DEBUG 1 --- [           main] liquibase.executor                       : Changelog query completed.
+brt  | 2025-05-11T22:08:45.477Z  INFO 1 --- [           main] liquibase.lockservice                    : Successfully released change log lock
+brt  | 2025-05-11T22:08:45.478Z  INFO 1 --- [           main] liquibase.command                        : Command execution complete
+brt  | 2025-05-11T22:08:46.687Z  WARN 1 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+brt  | 2025-05-11T22:08:49.652Z  INFO 1 --- [           main] c.r.r.brt.config.RabbitMQConfig          : RabbitMQ Configuration:
+brt  | 2025-05-11T22:08:49.653Z  INFO 1 --- [           main] c.r.r.brt.config.RabbitMQConfig          : BrtToHrs Queue: brt-to-hrs.queue
+brt  | 2025-05-11T22:08:49.653Z  INFO 1 --- [           main] c.r.r.brt.config.RabbitMQConfig          : BrtToHrs Exchange: brt-to-hrs.exchange
+brt  | 2025-05-11T22:08:49.653Z  INFO 1 --- [           main] c.r.r.brt.config.RabbitMQConfig          : BrtToHrs Routing key: brt-to-hrs.routingkey
+brt  | 2025-05-11T22:08:49.653Z  INFO 1 --- [           main] c.r.r.brt.config.RabbitMQConfig          : HrsToBrt Queue: hrs-to-brt.queue
+brt  | 2025-05-11T22:08:49.654Z  INFO 1 --- [           main] c.r.r.brt.config.RabbitMQConfig          : HrsToBrt Exchange: hrs-to-brt.exchange
+brt  | 2025-05-11T22:08:49.654Z  INFO 1 --- [           main] c.r.r.brt.config.RabbitMQConfig          : HrsToBrt Routing key: hrs-to-brt.routingkey
+brt  | 2025-05-11T22:08:49.654Z  INFO 1 --- [           main] c.r.r.brt.config.RabbitMQConfig          : Monthly Fee Brt to Hrs Queue: monthly-fee-brt-to-hrs.queue
+brt  | 2025-05-11T22:08:49.654Z  INFO 1 --- [           main] c.r.r.brt.config.RabbitMQConfig          : Monthly Fee Brt to Hrs Exchange: monthly-fee-brt-to-hrs.exchange
+brt  | 2025-05-11T22:08:49.654Z  INFO 1 --- [           main] c.r.r.brt.config.RabbitMQConfig          : Monthly Fee Brt to Hrs Routing key: monthly-fee-brt-to-hrs.routingkey
+brt  | 2025-05-11T22:08:49.654Z  INFO 1 --- [           main] c.r.r.brt.config.RabbitMQConfig          : Monthly Fee Hrs to Brt Queue: monthly-fee-hrs-to-brt.queue
+brt  | 2025-05-11T22:08:49.654Z  INFO 1 --- [           main] c.r.r.brt.config.RabbitMQConfig          : Monthly Fee Hrs to Brt Exchange: monthly-fee-hrs-to-brt.exchange
+brt  | 2025-05-11T22:08:49.654Z  INFO 1 --- [           main] c.r.r.brt.config.RabbitMQConfig          : Monthly Fee Hrs to Brt Routing key: monthly-fee-hrs-to-brt.routingkey
+brt  | 2025-05-11T22:08:49.654Z  INFO 1 --- [           main] c.r.r.brt.config.RabbitMQConfig          : CDR Queue: cdr.queue
+brt  | 2025-05-11T22:08:49.655Z  INFO 1 --- [           main] c.r.r.brt.config.RabbitMQConfig          : CDR Exchange: cdr.exchange
+brt  | 2025-05-11T22:08:49.655Z  INFO 1 --- [           main] c.r.r.brt.config.RabbitMQConfig          : CDR Routing key: cdr.routingkey
+brt  | 2025-05-11T22:08:49.839Z  INFO 1 --- [           main] c.r.r.brt.config.RabbitMQConfig          : Configured hrsRabbitTemplate with exchange: brt-to-hrs.exchange and routing key: brt-to-hrs.routingkey
+brt  | 2025-05-11T22:08:52.004Z  WARN 1 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+brt  | 2025-05-11T22:08:53.325Z DEBUG 1 --- [           main] .a.r.l.a.MessagingMessageListenerAdapter : Inferred argument type for public void com.romashka.romashka_telecom.brt.service.impl.CdrDataListenerServiceImpl.handleFile(java.lang.String) is class java.lang.String
+brt  | 2025-05-11T22:08:53.331Z DEBUG 1 --- [           main] o.s.a.r.l.SimpleMessageListenerContainer : No global properties bean
+brt  | 2025-05-11T22:08:53.332Z DEBUG 1 --- [           main] o.s.a.r.l.SimpleMessageListenerContainer : No global properties bean
+brt  | 2025-05-11T22:08:53.333Z DEBUG 1 --- [           main] .a.r.l.a.MessagingMessageListenerAdapter : Inferred argument type for public void com.romashka.romashka_telecom.brt.service.impl.HrsListenerServiceImpl.handleHrsMessage(com.romashka.romashka_telecom.brt.model.HrsRequest) is class com.romashka.romashka_telecom.brt.model.HrsRequest
+brt  | 2025-05-11T22:08:53.333Z DEBUG 1 --- [           main] o.s.a.r.l.SimpleMessageListenerContainer : No global properties bean
+brt  | 2025-05-11T22:08:53.333Z DEBUG 1 --- [           main] o.s.a.r.l.SimpleMessageListenerContainer : No global properties bean
+brt  | 2025-05-11T22:08:53.333Z DEBUG 1 --- [           main] .a.r.l.a.MessagingMessageListenerAdapter : Inferred argument type for public void com.romashka.romashka_telecom.brt.service.impl.MonthlyFeeListenerServiceImpl.handleMonthlyFeeResponse(com.romashka.romashka_telecom.brt.model.MonthlyFeeResponse) is class com.romashka.romashka_telecom.brt.model.MonthlyFeeResponse
+brt  | 2025-05-11T22:08:53.335Z DEBUG 1 --- [           main] o.s.a.r.l.SimpleMessageListenerContainer : No global properties bean
+brt  | 2025-05-11T22:08:53.440Z DEBUG 1 --- [           main] o.s.a.r.l.SimpleMessageListenerContainer : Starting Rabbit listener container.
+brt  | 2025-05-11T22:08:53.445Z  INFO 1 --- [           main] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [rabbitmq:5672]
+brt  | 2025-05-11T22:08:53.542Z  INFO 1 --- [           main] o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#8fd3eee:0/SimpleConnection@288c16a5 [delegate=amqp://guest@172.18.0.2:5672/, localPort=55816]
+brt  | 2025-05-11T22:08:53.547Z DEBUG 1 --- [           main] o.s.amqp.rabbit.core.RabbitAdmin         : Initializing declarations
+brt  | 2025-05-11T22:08:53.569Z DEBUG 1 --- [           main] o.s.a.r.c.CachingConnectionFactory       : Creating cached Rabbit Channel from AMQChannel(amqp://guest@172.18.0.2:5672/,1)
+brt  | 2025-05-11T22:08:53.583Z DEBUG 1 --- [           main] o.s.amqp.rabbit.core.RabbitTemplate      : Executing callback RabbitAdmin$$Lambda$2146/0x00007f9280c939f0 on RabbitMQ Channel: Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,1), conn: Proxy@14f03098 Shared Rabbit Connection: SimpleConnection@288c16a5 [delegate=amqp://guest@172.18.0.2:5672/, localPort=55816]
+brt  | 2025-05-11T22:08:53.583Z DEBUG 1 --- [           main] o.s.amqp.rabbit.core.RabbitAdmin         : declaring Exchange 'brt-to-hrs.exchange'
+brt  | 2025-05-11T22:08:53.585Z DEBUG 1 --- [           main] o.s.amqp.rabbit.core.RabbitAdmin         : declaring Exchange 'hrs-to-brt.exchange'
+brt  | 2025-05-11T22:08:53.586Z DEBUG 1 --- [           main] o.s.amqp.rabbit.core.RabbitAdmin         : declaring Exchange 'monthly-fee-brt-to-hrs.exchange'
+brt  | 2025-05-11T22:08:53.586Z DEBUG 1 --- [           main] o.s.amqp.rabbit.core.RabbitAdmin         : declaring Exchange 'monthly-fee-hrs-to-brt.exchange'
+brt  | 2025-05-11T22:08:53.587Z DEBUG 1 --- [           main] o.s.amqp.rabbit.core.RabbitAdmin         : declaring Exchange 'cdr.exchange'
+brt  | 2025-05-11T22:08:53.596Z DEBUG 1 --- [           main] o.s.amqp.rabbit.core.RabbitAdmin         : declaring Queue 'brt-to-hrs.queue'
+brt  | 2025-05-11T22:08:53.598Z DEBUG 1 --- [           main] o.s.amqp.rabbit.core.RabbitAdmin         : declaring Queue 'hrs-to-brt.queue'
+brt  | 2025-05-11T22:08:53.599Z DEBUG 1 --- [           main] o.s.amqp.rabbit.core.RabbitAdmin         : declaring Queue 'monthly-fee-brt-to-hrs.queue'
+brt  | 2025-05-11T22:08:53.600Z DEBUG 1 --- [           main] o.s.amqp.rabbit.core.RabbitAdmin         : declaring Queue 'monthly-fee-hrs-to-brt.queue'
+brt  | 2025-05-11T22:08:53.600Z DEBUG 1 --- [           main] o.s.amqp.rabbit.core.RabbitAdmin         : declaring Queue 'cdr.queue'
+brt  | 2025-05-11T22:08:53.622Z DEBUG 1 --- [           main] o.s.amqp.rabbit.core.RabbitAdmin         : Binding destination [brt-to-hrs.queue (QUEUE)] to exchange [brt-to-hrs.exchange] with routing key [brt-to-hrs.routingkey]
+brt  | 2025-05-11T22:08:53.624Z DEBUG 1 --- [           main] o.s.amqp.rabbit.core.RabbitAdmin         : Binding destination [hrs-to-brt.queue (QUEUE)] to exchange [hrs-to-brt.exchange] with routing key [hrs-to-brt.routingkey]
+brt  | 2025-05-11T22:08:53.626Z DEBUG 1 --- [           main] o.s.amqp.rabbit.core.RabbitAdmin         : Binding destination [monthly-fee-brt-to-hrs.queue (QUEUE)] to exchange [monthly-fee-brt-to-hrs.exchange] with routing key [monthly-fee-brt-to-hrs.routingkey]
+brt  | 2025-05-11T22:08:53.627Z DEBUG 1 --- [           main] o.s.amqp.rabbit.core.RabbitAdmin         : Binding destination [monthly-fee-hrs-to-brt.queue (QUEUE)] to exchange [monthly-fee-hrs-to-brt.exchange] with routing key [monthly-fee-hrs-to-brt.routingkey]
+brt  | 2025-05-11T22:08:53.628Z DEBUG 1 --- [           main] o.s.amqp.rabbit.core.RabbitAdmin         : Binding destination [cdr.queue (QUEUE)] to exchange [cdr.exchange] with routing key [cdr.routingkey]
+brt  | 2025-05-11T22:08:53.636Z DEBUG 1 --- [           main] o.s.amqp.rabbit.core.RabbitAdmin         : Declarations finished
+brt  | 2025-05-11T22:08:53.645Z DEBUG 1 --- [ntContainer#0-1] o.s.amqp.rabbit.core.RabbitTemplate      : Executing callback RabbitAdmin$$Lambda$2155/0x00007f9280c9a4c0 on RabbitMQ Channel: Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,1), conn: Proxy@14f03098 Shared Rabbit Connection: SimpleConnection@288c16a5 [delegate=amqp://guest@172.18.0.2:5672/, localPort=55816]
+brt  | 2025-05-11T22:08:53.651Z DEBUG 1 --- [ntContainer#0-1] o.s.a.r.listener.BlockingQueueConsumer   : Starting consumer Consumer@607c0933: tags=[[]], channel=null, acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T22:08:53.661Z DEBUG 1 --- [pool-2-thread-3] o.s.a.r.listener.BlockingQueueConsumer   : ConsumeOK: Consumer@607c0933: tags=[[]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,1), conn: Proxy@14f03098 Shared Rabbit Connection: SimpleConnection@288c16a5 [delegate=amqp://guest@172.18.0.2:5672/, localPort=55816], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T22:08:53.662Z DEBUG 1 --- [ntContainer#0-1] o.s.a.r.listener.BlockingQueueConsumer   : Started on queue 'cdr.queue' with tag amq.ctag-zbGt0OkcDXjGNSvYQzHyxA: Consumer@607c0933: tags=[[amq.ctag-zbGt0OkcDXjGNSvYQzHyxA]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,1), conn: Proxy@14f03098 Shared Rabbit Connection: SimpleConnection@288c16a5 [delegate=amqp://guest@172.18.0.2:5672/, localPort=55816], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T22:08:53.662Z DEBUG 1 --- [           main] o.s.a.r.l.SimpleMessageListenerContainer : Starting Rabbit listener container.
+brt  | 2025-05-11T22:08:53.666Z DEBUG 1 --- [ntContainer#1-1] o.s.a.r.c.CachingConnectionFactory       : Creating cached Rabbit Channel from AMQChannel(amqp://guest@172.18.0.2:5672/,2)
+brt  | 2025-05-11T22:08:53.666Z DEBUG 1 --- [ntContainer#1-1] o.s.amqp.rabbit.core.RabbitTemplate      : Executing callback RabbitAdmin$$Lambda$2155/0x00007f9280c9a4c0 on RabbitMQ Channel: Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,2), conn: Proxy@14f03098 Shared Rabbit Connection: SimpleConnection@288c16a5 [delegate=amqp://guest@172.18.0.2:5672/, localPort=55816]
+brt  | 2025-05-11T22:08:53.667Z DEBUG 1 --- [ntContainer#1-1] o.s.a.r.listener.BlockingQueueConsumer   : Starting consumer Consumer@2896e105: tags=[[]], channel=null, acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T22:08:53.669Z DEBUG 1 --- [pool-2-thread-4] o.s.a.r.listener.BlockingQueueConsumer   : ConsumeOK: Consumer@2896e105: tags=[[amq.ctag-ZOQh0lehbsPYlRvs7wlPNA]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,2), conn: Proxy@14f03098 Shared Rabbit Connection: SimpleConnection@288c16a5 [delegate=amqp://guest@172.18.0.2:5672/, localPort=55816], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T22:08:53.669Z DEBUG 1 --- [ntContainer#1-1] o.s.a.r.listener.BlockingQueueConsumer   : Started on queue 'hrs-to-brt.queue' with tag amq.ctag-ZOQh0lehbsPYlRvs7wlPNA: Consumer@2896e105: tags=[[]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,2), conn: Proxy@14f03098 Shared Rabbit Connection: SimpleConnection@288c16a5 [delegate=amqp://guest@172.18.0.2:5672/, localPort=55816], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T22:08:53.670Z DEBUG 1 --- [           main] o.s.a.r.l.SimpleMessageListenerContainer : Starting Rabbit listener container.
+brt  | 2025-05-11T22:08:53.672Z DEBUG 1 --- [ntContainer#2-1] o.s.a.r.c.CachingConnectionFactory       : Creating cached Rabbit Channel from AMQChannel(amqp://guest@172.18.0.2:5672/,3)
+brt  | 2025-05-11T22:08:53.673Z DEBUG 1 --- [ntContainer#2-1] o.s.amqp.rabbit.core.RabbitTemplate      : Executing callback RabbitAdmin$$Lambda$2155/0x00007f9280c9a4c0 on RabbitMQ Channel: Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,3), conn: Proxy@14f03098 Shared Rabbit Connection: SimpleConnection@288c16a5 [delegate=amqp://guest@172.18.0.2:5672/, localPort=55816]
+brt  | 2025-05-11T22:08:53.674Z DEBUG 1 --- [ntContainer#2-1] o.s.a.r.listener.BlockingQueueConsumer   : Starting consumer Consumer@5748ffe3: tags=[[]], channel=null, acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T22:08:53.675Z DEBUG 1 --- [ntContainer#2-1] o.s.a.r.listener.BlockingQueueConsumer   : Started on queue 'monthly-fee-hrs-to-brt.queue' with tag amq.ctag--iukt0r_LiZpbLVGRlydRw: Consumer@5748ffe3: tags=[[]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,3), conn: Proxy@14f03098 Shared Rabbit Connection: SimpleConnection@288c16a5 [delegate=amqp://guest@172.18.0.2:5672/, localPort=55816], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T22:08:53.676Z DEBUG 1 --- [pool-2-thread-5] o.s.a.r.listener.BlockingQueueConsumer   : ConsumeOK: Consumer@5748ffe3: tags=[[amq.ctag--iukt0r_LiZpbLVGRlydRw]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,3), conn: Proxy@14f03098 Shared Rabbit Connection: SimpleConnection@288c16a5 [delegate=amqp://guest@172.18.0.2:5672/, localPort=55816], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T22:08:53.698Z  INFO 1 --- [           main] c.r.romashka_telecom.brt.BRTApplication  : Started BRTApplication in 19.742 seconds (process running for 20.859)
+brt  | 2025-05-11T22:09:32.482Z DEBUG 1 --- [pool-2-thread-6] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-ZOQh0lehbsPYlRvs7wlPNA' with deliveryTag: '1' in Consumer@2896e105: tags=[[amq.ctag-ZOQh0lehbsPYlRvs7wlPNA]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,2), conn: Proxy@14f03098 Shared Rabbit Connection: SimpleConnection@288c16a5 [delegate=amqp://guest@172.18.0.2:5672/, localPort=55816], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T22:09:32.499Z DEBUG 1 --- [ntContainer#1-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'{"callerId":7,"resources":{"minutes":10.0}}' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.hrs.model.HrsResponse}, contentType=application/json, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=hrs-to-brt.exchange, receivedRoutingKey=hrs-to-brt.routingkey, deliveryTag=1, consumerTag=amq.ctag-ZOQh0lehbsPYlRvs7wlPNA, consumerQueue=hrs-to-brt.queue])
+brt  | 2025-05-11T22:09:32.579Z DEBUG 1 --- [ntContainer#1-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=HrsRequest(callId=null, callerId=7, resources={minutes=10.0}), headers={amqp_receivedDeliveryMode=PERSISTENT, amqp_receivedExchange=hrs-to-brt.exchange, amqp_deliveryTag=1, amqp_consumerQueue=hrs-to-brt.queue, amqp_redelivered=false, amqp_receivedRoutingKey=hrs-to-brt.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=3b47598f-a04e-5803-9092-8c63b27c7085, amqp_consumerTag=amq.ctag-ZOQh0lehbsPYlRvs7wlPNA, amqp_lastInBatch=false, contentType=application/json, __TypeId__=com.romashka.romashka_telecom.hrs.model.HrsResponse, timestamp=1747001372578}]]
+brt  | 2025-05-11T22:09:32.587Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Получен запрос от HRS: HrsRequest(callId=null, callerId=7, resources={minutes=10.0})
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.caller_id=?
+brt  | Hibernate: 
+brt  |     select
+brt  |         r1_0.resource_id,
+brt  |         r1_0.resource_name 
+brt  |     from
+brt  |         resources r1_0 
+brt  |     where
+brt  |         r1_0.resource_name=?
+brt  | Hibernate: 
+brt  |     select
+brt  |         cr1_0.caller_id,
+brt  |         cr1_0.current_balance,
+brt  |         cr1_0.resource_id 
+brt  |     from
+brt  |         caller_resources cr1_0 
+brt  |     where
+brt  |         cr1_0.caller_id=? 
+brt  |         and cr1_0.resource_id=?
+brt  | 2025-05-11T22:09:32.745Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Баланс 40.00 для ресурса minutes абонента 7 после списания 10.0
+brt  | 2025-05-11T22:09:32.745Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Баланс 40.00 для ресурса minutes абонента 7 после списания 10.0
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         transactions
+brt  |         (caller_id, resource_amount, resource_id, transaction_date, transaction_type) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | 2025-05-11T22:09:32.777Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Обработка запроса от HRS завершена успешно
+brt  | Hibernate: 
+brt  |     update
+brt  |         caller_resources 
+brt  |     set
+brt  |         current_balance=?,
+brt  |         resource_id=? 
+brt  |     where
+brt  |         caller_id=?
+brt  | 2025-05-11T22:42:57.096Z DEBUG 1 --- [pool-2-thread-7] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-ZOQh0lehbsPYlRvs7wlPNA' with deliveryTag: '2' in Consumer@2896e105: tags=[[amq.ctag-ZOQh0lehbsPYlRvs7wlPNA]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,2), conn: Proxy@14f03098 Shared Rabbit Connection: SimpleConnection@288c16a5 [delegate=amqp://guest@172.18.0.2:5672/, localPort=55816], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T22:42:57.097Z DEBUG 1 --- [ntContainer#1-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'{"callerId":7,"resources":{"minutes":10.0}}' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.hrs.model.HrsResponse}, contentType=application/json, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=hrs-to-brt.exchange, receivedRoutingKey=hrs-to-brt.routingkey, deliveryTag=2, consumerTag=amq.ctag-ZOQh0lehbsPYlRvs7wlPNA, consumerQueue=hrs-to-brt.queue])
+brt  | 2025-05-11T22:42:57.097Z DEBUG 1 --- [ntContainer#1-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=HrsRequest(callId=null, callerId=7, resources={minutes=10.0}), headers={amqp_receivedDeliveryMode=PERSISTENT, amqp_receivedExchange=hrs-to-brt.exchange, amqp_deliveryTag=2, amqp_consumerQueue=hrs-to-brt.queue, amqp_redelivered=false, amqp_receivedRoutingKey=hrs-to-brt.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=5a48d513-c9a9-391d-b333-06bdabece434, amqp_consumerTag=amq.ctag-ZOQh0lehbsPYlRvs7wlPNA, amqp_lastInBatch=false, contentType=application/json, __TypeId__=com.romashka.romashka_telecom.hrs.model.HrsResponse, timestamp=1747003377097}]]
+brt  | 2025-05-11T22:42:57.098Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Получен запрос от HRS: HrsRequest(callId=null, callerId=7, resources={minutes=10.0})
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.caller_id=?
+brt  | Hibernate: 
+brt  |     select
+brt  |         r1_0.resource_id,
+brt  |         r1_0.resource_name 
+brt  |     from
+brt  |         resources r1_0 
+brt  |     where
+brt  |         r1_0.resource_name=?
+brt  | Hibernate: 
+brt  |     select
+brt  |         cr1_0.caller_id,
+brt  |         cr1_0.current_balance,
+brt  |         cr1_0.resource_id 
+brt  |     from
+brt  |         caller_resources cr1_0 
+brt  |     where
+brt  |         cr1_0.caller_id=? 
+brt  |         and cr1_0.resource_id=?
+brt  | 2025-05-11T22:42:57.105Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Баланс 30.00 для ресурса minutes абонента 7 после списания 10.0
+brt  | 2025-05-11T22:42:57.105Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Баланс 30.00 для ресурса minutes абонента 7 после списания 10.0
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         transactions
+brt  |         (caller_id, resource_amount, resource_id, transaction_date, transaction_type) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | 2025-05-11T22:42:57.108Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Обработка запроса от HRS завершена успешно
+brt  | Hibernate: 
+brt  |     update
+brt  |         caller_resources 
+brt  |     set
+brt  |         current_balance=?,
+brt  |         resource_id=? 
+brt  |     where
+brt  |         caller_id=?
+brt  | 2025-05-11T22:46:08.633Z DEBUG 1 --- [pool-2-thread-8] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-ZOQh0lehbsPYlRvs7wlPNA' with deliveryTag: '3' in Consumer@2896e105: tags=[[amq.ctag-ZOQh0lehbsPYlRvs7wlPNA]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,2), conn: Proxy@14f03098 Shared Rabbit Connection: SimpleConnection@288c16a5 [delegate=amqp://guest@172.18.0.2:5672/, localPort=55816], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T22:46:08.633Z DEBUG 1 --- [ntContainer#1-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'{"callerId":7,"resources":{"minutes":10.0}}' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.hrs.model.HrsResponse}, contentType=application/json, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=hrs-to-brt.exchange, receivedRoutingKey=hrs-to-brt.routingkey, deliveryTag=3, consumerTag=amq.ctag-ZOQh0lehbsPYlRvs7wlPNA, consumerQueue=hrs-to-brt.queue])
+brt  | 2025-05-11T22:46:08.634Z DEBUG 1 --- [ntContainer#1-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=HrsRequest(callId=null, callerId=7, resources={minutes=10.0}), headers={amqp_receivedDeliveryMode=PERSISTENT, amqp_receivedExchange=hrs-to-brt.exchange, amqp_deliveryTag=3, amqp_consumerQueue=hrs-to-brt.queue, amqp_redelivered=false, amqp_receivedRoutingKey=hrs-to-brt.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=02e640a2-9278-084e-17c2-0f9dd5f5f9e7, amqp_consumerTag=amq.ctag-ZOQh0lehbsPYlRvs7wlPNA, amqp_lastInBatch=false, contentType=application/json, __TypeId__=com.romashka.romashka_telecom.hrs.model.HrsResponse, timestamp=1747003568634}]]
+brt  | 2025-05-11T22:46:08.635Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Получен запрос от HRS: HrsRequest(callId=null, callerId=7, resources={minutes=10.0})
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.caller_id=?
+brt  | Hibernate: 
+brt  |     select
+brt  |         r1_0.resource_id,
+brt  |         r1_0.resource_name 
+brt  |     from
+brt  |         resources r1_0 
+brt  |     where
+brt  |         r1_0.resource_name=?
+brt  | Hibernate: 
+brt  |     select
+brt  |         cr1_0.caller_id,
+brt  |         cr1_0.current_balance,
+brt  |         cr1_0.resource_id 
+brt  |     from
+brt  |         caller_resources cr1_0 
+brt  |     where
+brt  |         cr1_0.caller_id=? 
+brt  |         and cr1_0.resource_id=?
+brt  | 2025-05-11T22:46:08.641Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Баланс 20.00 для ресурса minutes абонента 7 после списания 10.0
+brt  | 2025-05-11T22:46:08.641Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Баланс 20.00 для ресурса minutes абонента 7 после списания 10.0
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         transactions
+brt  |         (caller_id, resource_amount, resource_id, transaction_date, transaction_type) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | 2025-05-11T22:46:08.644Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Обработка запроса от HRS завершена успешно
+brt  | Hibernate: 
+brt  |     update
+brt  |         caller_resources 
+brt  |     set
+brt  |         current_balance=?,
+brt  |         resource_id=? 
+brt  |     where
+brt  |         caller_id=?
+brt  | 2025-05-11T22:46:54.350Z DEBUG 1 --- [pool-2-thread-9] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-ZOQh0lehbsPYlRvs7wlPNA' with deliveryTag: '4' in Consumer@2896e105: tags=[[amq.ctag-ZOQh0lehbsPYlRvs7wlPNA]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,2), conn: Proxy@14f03098 Shared Rabbit Connection: SimpleConnection@288c16a5 [delegate=amqp://guest@172.18.0.2:5672/, localPort=55816], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T22:46:54.350Z DEBUG 1 --- [ntContainer#1-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'{"callerId":7,"resources":{"minutes":10.0}}' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.hrs.model.HrsResponse}, contentType=application/json, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=hrs-to-brt.exchange, receivedRoutingKey=hrs-to-brt.routingkey, deliveryTag=4, consumerTag=amq.ctag-ZOQh0lehbsPYlRvs7wlPNA, consumerQueue=hrs-to-brt.queue])
+brt  | 2025-05-11T22:46:54.350Z DEBUG 1 --- [ntContainer#1-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=HrsRequest(callId=null, callerId=7, resources={minutes=10.0}), headers={amqp_receivedDeliveryMode=PERSISTENT, amqp_receivedExchange=hrs-to-brt.exchange, amqp_deliveryTag=4, amqp_consumerQueue=hrs-to-brt.queue, amqp_redelivered=false, amqp_receivedRoutingKey=hrs-to-brt.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=0767497b-0ff8-7bac-fe93-8b05aa545663, amqp_consumerTag=amq.ctag-ZOQh0lehbsPYlRvs7wlPNA, amqp_lastInBatch=false, contentType=application/json, __TypeId__=com.romashka.romashka_telecom.hrs.model.HrsResponse, timestamp=1747003614350}]]
+brt  | 2025-05-11T22:46:54.351Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Получен запрос от HRS: HrsRequest(callId=null, callerId=7, resources={minutes=10.0})
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.caller_id=?
+brt  | Hibernate: 
+brt  |     select
+brt  |         r1_0.resource_id,
+brt  |         r1_0.resource_name 
+brt  |     from
+brt  |         resources r1_0 
+brt  |     where
+brt  |         r1_0.resource_name=?
+brt  | Hibernate: 
+brt  |     select
+brt  |         cr1_0.caller_id,
+brt  |         cr1_0.current_balance,
+brt  |         cr1_0.resource_id 
+brt  |     from
+brt  |         caller_resources cr1_0 
+brt  |     where
+brt  |         cr1_0.caller_id=? 
+brt  |         and cr1_0.resource_id=?
+brt  | 2025-05-11T22:46:54.355Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Баланс 10.00 для ресурса minutes абонента 7 после списания 10.0
+brt  | 2025-05-11T22:46:54.355Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Баланс 10.00 для ресурса minutes абонента 7 после списания 10.0
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         transactions
+brt  |         (caller_id, resource_amount, resource_id, transaction_date, transaction_type) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | 2025-05-11T22:46:54.356Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Обработка запроса от HRS завершена успешно
+brt  | Hibernate: 
+brt  |     update
+brt  |         caller_resources 
+brt  |     set
+brt  |         current_balance=?,
+brt  |         resource_id=? 
+brt  |     where
+brt  |         caller_id=?

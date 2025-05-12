@@ -1,0 +1,1001 @@
+time="2025-05-11T11:39:31+03:00" level=warning msg="C:\\Users\\Rudenches\\IdeaProjects\\romashka-telecom-main\\docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | 2025-05-11T08:37:41.324Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataProcessorServiceImpl  : Сохранено 10 звонков в таблицу calls
+brt  | 2025-05-11T08:37:41.957Z DEBUG 1 --- [pool-2-thread-7] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-hcicM6HvRclOZZtUq6NbzA' with deliveryTag: '1671' in Consumer@21f0508: tags=[[amq.ctag-hcicM6HvRclOZZtUq6NbzA]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.3:5672/,1), conn: Proxy@75dbf41c Shared Rabbit Connection: SimpleConnection@7d3bf73f [delegate=amqp://guest@172.18.0.3:5672/, localPort=34686], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T08:37:41.957Z DEBUG 1 --- [ntContainer#0-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'[B@6e4b90b0(byte[811])' MessageProperties [headers={fileName=cdr_2025-03-02T23:22:26.771.csv}, contentType=text/csv, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=cdr.exchange, receivedRoutingKey=cdr.routingkey, deliveryTag=1671, consumerTag=amq.ctag-hcicM6HvRclOZZtUq6NbzA, consumerQueue=cdr.queue])
+brt  | 2025-05-11T08:37:41.957Z DEBUG 1 --- [ntContainer#0-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=call_type,caller_number,contact_number,start_time,end_time
+brt  | 01,79004445566,79001112233,2025-03-01T20:48:38.78,2025-03-01T21:00:54.78
+brt  | 02,79001112233,79004445566,2025-03-01T20:48:38.78,2025-03-01T21:00:54.78
+brt  | 01,79007778899,79001001122,2025-03-01T21:18:13.404,2025-03-01T21:28:37.404
+brt  | 02,79001001122,79007778899,2025-03-01T21:18:13.404,2025-03-01T21:28:37.404
+brt  | 01,79003334455,79009990011,2025-03-02T14:17:35.609,2025-03-02T14:18:35.609
+brt  | 02,79009990011,79003334455,2025-03-02T14:17:35.609,2025-03-02T14:18:35.609
+brt  | 01,79009990011,79002223344,2025-03-02T22:27:45.13,2025-03-02T22:32:02.13
+brt  | 02,79002223344,79009990011,2025-03-02T22:27:45.13,2025-03-02T22:32:02.13
+brt  | 01,79003334455,79001112233,2025-03-02T23:21:08.771,2025-03-02T23:22:26.771
+brt  | 02,79001112233,79003334455,2025-03-02T23:21:08.771,2025-03-02T23:22:26.771
+brt  | , headers={amqp_receivedDeliveryMode=PERSISTENT, fileName=cdr_2025-03-02T23:22:26.771.csv, amqp_receivedExchange=cdr.exchange, amqp_deliveryTag=1671, amqp_consumerQueue=cdr.queue, amqp_redelivered=false, amqp_receivedRoutingKey=cdr.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=c464a2c3-647e-b820-42f8-4ce86871a01d, amqp_consumerTag=amq.ctag-hcicM6HvRclOZZtUq6NbzA, amqp_lastInBatch=false, contentType=text/csv, timestamp=1746952661957}]]
+brt  | 2025-05-11T08:37:41.957Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataListenerServiceImpl   : Получили CSV-пакет (811 байт)
+brt  | 2025-05-11T08:37:41.957Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataListenerServiceImpl   : Распарсили 10 записей
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.number 
+brt  |     from
+brt  |         callers c1_0
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.number in (?, ?, ?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | 2025-05-11T08:37:41.965Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataProcessorServiceImpl  : Сохранено 10 звонков в таблицу calls
+brt  | 2025-05-11T08:37:42.405Z DEBUG 1 --- [pool-2-thread-6] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-hcicM6HvRclOZZtUq6NbzA' with deliveryTag: '1672' in Consumer@21f0508: tags=[[amq.ctag-hcicM6HvRclOZZtUq6NbzA]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.3:5672/,1), conn: Proxy@75dbf41c Shared Rabbit Connection: SimpleConnection@7d3bf73f [delegate=amqp://guest@172.18.0.3:5672/, localPort=34686], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T08:37:42.405Z DEBUG 1 --- [ntContainer#0-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'[B@4dd92d7f(byte[819])' MessageProperties [headers={fileName=cdr_2025-03-03T21:41:08.301.csv}, contentType=text/csv, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=cdr.exchange, receivedRoutingKey=cdr.routingkey, deliveryTag=1672, consumerTag=amq.ctag-hcicM6HvRclOZZtUq6NbzA, consumerQueue=cdr.queue])
+brt  | 2025-05-11T08:37:42.406Z DEBUG 1 --- [ntContainer#0-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=call_type,caller_number,contact_number,start_time,end_time
+brt  | 01,79008889900,79003334455,2025-03-03T05:06:19.385,2025-03-03T05:09:34.385
+brt  | 02,79003334455,79008889900,2025-03-03T05:06:19.385,2025-03-03T05:09:34.385
+brt  | 01,79002223344,79008889900,2025-03-03T16:30:19.634,2025-03-03T16:33:14.634
+brt  | 02,79008889900,79002223344,2025-03-03T16:30:19.634,2025-03-03T16:33:14.634
+brt  | 01,79005556677,79009990011,2025-03-03T17:00:28.518,2025-03-03T17:12:25.518
+brt  | 02,79009990011,79005556677,2025-03-03T17:00:28.518,2025-03-03T17:12:25.518
+brt  | 01,79002223344,79007778899,2025-03-03T19:52:25.882,2025-03-03T19:55:45.882
+brt  | 02,79007778899,79002223344,2025-03-03T19:52:25.882,2025-03-03T19:55:45.882
+brt  | 01,79009990011,79007778899,2025-03-03T21:38:31.301,2025-03-03T21:41:08.301
+brt  | 02,79007778899,79009990011,2025-03-03T21:38:31.301,2025-03-03T21:41:08.301
+brt  | , headers={amqp_receivedDeliveryMode=PERSISTENT, fileName=cdr_2025-03-03T21:41:08.301.csv, amqp_receivedExchange=cdr.exchange, amqp_deliveryTag=1672, amqp_consumerQueue=cdr.queue, amqp_redelivered=false, amqp_receivedRoutingKey=cdr.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=a4a06c4e-76e3-9c00-f245-0960f9d9eafb, amqp_consumerTag=amq.ctag-hcicM6HvRclOZZtUq6NbzA, amqp_lastInBatch=false, contentType=text/csv, timestamp=1746952662406}]]
+brt  | 2025-05-11T08:37:42.406Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataListenerServiceImpl   : Получили CSV-пакет (819 байт)
+brt  | 2025-05-11T08:37:42.406Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataListenerServiceImpl   : Распарсили 10 записей
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.number 
+brt  |     from
+brt  |         callers c1_0
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.number in (?, ?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | 2025-05-11T08:37:42.410Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataProcessorServiceImpl  : Сохранено 10 звонков в таблицу calls
+brt  | 2025-05-11T08:37:42.739Z DEBUG 1 --- [pool-2-thread-4] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-hcicM6HvRclOZZtUq6NbzA' with deliveryTag: '1673' in Consumer@21f0508: tags=[[amq.ctag-hcicM6HvRclOZZtUq6NbzA]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.3:5672/,1), conn: Proxy@75dbf41c Shared Rabbit Connection: SimpleConnection@7d3bf73f [delegate=amqp://guest@172.18.0.3:5672/, localPort=34686], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T08:37:42.740Z DEBUG 1 --- [ntContainer#0-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'[B@7572ad4e(byte[819])' MessageProperties [headers={fileName=cdr_2025-03-04T12:58:12.227.csv}, contentType=text/csv, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=cdr.exchange, receivedRoutingKey=cdr.routingkey, deliveryTag=1673, consumerTag=amq.ctag-hcicM6HvRclOZZtUq6NbzA, consumerQueue=cdr.queue])
+brt  | 2025-05-11T08:37:42.740Z DEBUG 1 --- [ntContainer#0-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=call_type,caller_number,contact_number,start_time,end_time
+brt  | 01,79007778899,79006667788,2025-03-04T01:01:35.575,2025-03-04T01:14:44.575
+brt  | 02,79006667788,79007778899,2025-03-04T01:01:35.575,2025-03-04T01:14:44.575
+brt  | 01,79009990011,79002223344,2025-03-04T04:23:32.181,2025-03-04T04:27:38.181
+brt  | 02,79002223344,79009990011,2025-03-04T04:23:32.181,2025-03-04T04:27:38.181
+brt  | 01,79001112233,79007778899,2025-03-04T07:06:37.994,2025-03-04T07:19:12.994
+brt  | 02,79007778899,79001112233,2025-03-04T07:06:37.994,2025-03-04T07:19:12.994
+brt  | 01,79005556677,79002223344,2025-03-04T07:50:33.593,2025-03-04T07:54:20.593
+brt  | 02,79002223344,79005556677,2025-03-04T07:50:33.593,2025-03-04T07:54:20.593
+brt  | 01,79005556677,79006667788,2025-03-04T12:45:04.227,2025-03-04T12:58:12.227
+brt  | 02,79006667788,79005556677,2025-03-04T12:45:04.227,2025-03-04T12:58:12.227
+brt  | , headers={amqp_receivedDeliveryMode=PERSISTENT, fileName=cdr_2025-03-04T12:58:12.227.csv, amqp_receivedExchange=cdr.exchange, amqp_deliveryTag=1673, amqp_consumerQueue=cdr.queue, amqp_redelivered=false, amqp_receivedRoutingKey=cdr.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=aa4e4b07-a30f-7e7e-a54c-dbf653e10b41, amqp_consumerTag=amq.ctag-hcicM6HvRclOZZtUq6NbzA, amqp_lastInBatch=false, contentType=text/csv, timestamp=1746952662740}]]
+brt  | 2025-05-11T08:37:42.740Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataListenerServiceImpl   : Получили CSV-пакет (819 байт)
+brt  | 2025-05-11T08:37:42.740Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataListenerServiceImpl   : Распарсили 10 записей
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.number 
+brt  |     from
+brt  |         callers c1_0
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.number in (?, ?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | 2025-05-11T08:37:42.745Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataProcessorServiceImpl  : Сохранено 10 звонков в таблицу calls
+brt  | 2025-05-11T08:37:43.030Z DEBUG 1 --- [pool-2-thread-3] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-hcicM6HvRclOZZtUq6NbzA' with deliveryTag: '1674' in Consumer@21f0508: tags=[[amq.ctag-hcicM6HvRclOZZtUq6NbzA]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.3:5672/,1), conn: Proxy@75dbf41c Shared Rabbit Connection: SimpleConnection@7d3bf73f [delegate=amqp://guest@172.18.0.3:5672/, localPort=34686], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T08:37:43.030Z DEBUG 1 --- [ntContainer#0-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'[B@6dee0822(byte[819])' MessageProperties [headers={fileName=cdr_2025-03-05T03:15:10.104.csv}, contentType=text/csv, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=cdr.exchange, receivedRoutingKey=cdr.routingkey, deliveryTag=1674, consumerTag=amq.ctag-hcicM6HvRclOZZtUq6NbzA, consumerQueue=cdr.queue])
+brt  | 2025-05-11T08:37:43.030Z DEBUG 1 --- [ntContainer#0-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=call_type,caller_number,contact_number,start_time,end_time
+brt  | 01,79003334455,79005556677,2025-03-04T15:41:03.224,2025-03-04T15:43:54.224
+brt  | 02,79005556677,79003334455,2025-03-04T15:41:03.224,2025-03-04T15:43:54.224
+brt  | 01,79007778899,79005556677,2025-03-04T18:51:29.393,2025-03-04T18:55:11.393
+brt  | 02,79005556677,79007778899,2025-03-04T18:51:29.393,2025-03-04T18:55:11.393
+brt  | 01,79007778899,79006667788,2025-03-04T22:47:12.038,2025-03-04T22:58:54.038
+brt  | 02,79006667788,79007778899,2025-03-04T22:47:12.038,2025-03-04T22:58:54.038
+brt  | 01,79009990011,79001112233,2025-03-05T03:09:24.044,2025-03-05T03:21:19.044
+brt  | 02,79001112233,79009990011,2025-03-05T03:09:24.044,2025-03-05T03:21:19.044
+brt  | 01,79007778899,79004445566,2025-03-05T03:11:55.104,2025-03-05T03:15:10.104
+brt  | 02,79004445566,79007778899,2025-03-05T03:11:55.104,2025-03-05T03:15:10.104
+brt  | , headers={amqp_receivedDeliveryMode=PERSISTENT, fileName=cdr_2025-03-05T03:15:10.104.csv, amqp_receivedExchange=cdr.exchange, amqp_deliveryTag=1674, amqp_consumerQueue=cdr.queue, amqp_redelivered=false, amqp_receivedRoutingKey=cdr.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=4299e033-dbea-18b4-2397-3a18ff04ea52, amqp_consumerTag=amq.ctag-hcicM6HvRclOZZtUq6NbzA, amqp_lastInBatch=false, contentType=text/csv, timestamp=1746952663030}]]
+brt  | 2025-05-11T08:37:43.030Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataListenerServiceImpl   : Получили CSV-пакет (819 байт)
+brt  | 2025-05-11T08:37:43.030Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataListenerServiceImpl   : Распарсили 10 записей
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.number 
+brt  |     from
+brt  |         callers c1_0
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.number in (?, ?, ?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | 2025-05-11T08:37:43.036Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataProcessorServiceImpl  : Сохранено 10 звонков в таблицу calls
+brt  | 2025-05-11T08:37:43.250Z DEBUG 1 --- [pool-2-thread-8] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-hcicM6HvRclOZZtUq6NbzA' with deliveryTag: '1675' in Consumer@21f0508: tags=[[amq.ctag-hcicM6HvRclOZZtUq6NbzA]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.3:5672/,1), conn: Proxy@75dbf41c Shared Rabbit Connection: SimpleConnection@7d3bf73f [delegate=amqp://guest@172.18.0.3:5672/, localPort=34686], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T08:37:43.250Z DEBUG 1 --- [ntContainer#0-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'[B@2a6ee50c(byte[819])' MessageProperties [headers={fileName=cdr_2025-03-05T14:09:21.707.csv}, contentType=text/csv, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=cdr.exchange, receivedRoutingKey=cdr.routingkey, deliveryTag=1675, consumerTag=amq.ctag-hcicM6HvRclOZZtUq6NbzA, consumerQueue=cdr.queue])
+brt  | 2025-05-11T08:37:43.250Z DEBUG 1 --- [ntContainer#0-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=call_type,caller_number,contact_number,start_time,end_time
+brt  | 01,79002223344,79003334455,2025-03-05T05:45:31.887,2025-03-05T05:58:57.887
+brt  | 02,79003334455,79002223344,2025-03-05T05:45:31.887,2025-03-05T05:58:57.887
+brt  | 01,79007778899,79008889900,2025-03-05T11:03:28.663,2025-03-05T11:05:29.663
+brt  | 02,79008889900,79007778899,2025-03-05T11:03:28.663,2025-03-05T11:05:29.663
+brt  | 01,79001001122,79001112233,2025-03-05T11:53:32.466,2025-03-05T12:00:59.466
+brt  | 02,79001112233,79001001122,2025-03-05T11:53:32.466,2025-03-05T12:00:59.466
+brt  | 01,79002223344,79007778899,2025-03-05T13:42:17.148,2025-03-05T13:54:15.148
+brt  | 02,79007778899,79002223344,2025-03-05T13:42:17.148,2025-03-05T13:54:15.148
+brt  | 01,79008889900,79003334455,2025-03-05T14:03:47.707,2025-03-05T14:09:21.707
+brt  | 02,79003334455,79008889900,2025-03-05T14:03:47.707,2025-03-05T14:09:21.707
+brt  | , headers={amqp_receivedDeliveryMode=PERSISTENT, fileName=cdr_2025-03-05T14:09:21.707.csv, amqp_receivedExchange=cdr.exchange, amqp_deliveryTag=1675, amqp_consumerQueue=cdr.queue, amqp_redelivered=false, amqp_receivedRoutingKey=cdr.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=f981a291-624f-d7a0-f655-6999f86e527c, amqp_consumerTag=amq.ctag-hcicM6HvRclOZZtUq6NbzA, amqp_lastInBatch=false, contentType=text/csv, timestamp=1746952663250}]]
+brt  | 2025-05-11T08:37:43.251Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataListenerServiceImpl   : Получили CSV-пакет (819 байт)
+brt  | 2025-05-11T08:37:43.251Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataListenerServiceImpl   : Распарсили 10 записей
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.number 
+brt  |     from
+brt  |         callers c1_0
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.number in (?, ?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | 2025-05-11T08:37:43.263Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataProcessorServiceImpl  : Сохранено 10 звонков в таблицу calls
+brt  | 2025-05-11T08:39:28.032Z DEBUG 1 --- [pool-2-thread-9] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-hcicM6HvRclOZZtUq6NbzA' with deliveryTag: '1676' in Consumer@21f0508: tags=[[amq.ctag-hcicM6HvRclOZZtUq6NbzA]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.3:5672/,1), conn: Proxy@75dbf41c Shared Rabbit Connection: SimpleConnection@7d3bf73f [delegate=amqp://guest@172.18.0.3:5672/, localPort=34686], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T08:39:28.032Z DEBUG 1 --- [ntContainer#0-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'[B@5a5547b7(byte[894])' MessageProperties [headers={}, contentType=text/plain, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=cdr.exchange, receivedRoutingKey=cdr.routingkey, deliveryTag=1676, consumerTag=amq.ctag-hcicM6HvRclOZZtUq6NbzA, consumerQueue=cdr.queue])
+brt  | 2025-05-11T08:39:28.032Z DEBUG 1 --- [ntContainer#0-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=call_type,caller_number,contact_number,start_time,end_time
+brt  | 01,79001112233,79872332221,2025-05-05T14:21:52.0190924,2025-05-05T14:31:42.0190924
+brt  | 02,79872332221,79001112233,2025-05-05T14:21:52.0190924,2025-05-05T14:31:42.0190924
+brt  | 01,79001112233,79178748447,2025-05-05T14:04:52.0340908,2025-05-05T14:18:43.0340908
+brt  | 02,79484263179,79001112233,2025-05-05T14:04:52.0340908,2025-05-05T14:18:43.0340908
+brt  | 01,79725978199,79022551726,2025-05-05T14:17:52.0340908,2025-05-05T14:21:03.0340908
+brt  | 02,79022551726,79725978199,2025-05-05T14:17:52.0340908,2025-05-05T14:21:03.0340908
+brt  | 01,79467368437,79786244651,2025-05-05T14:14:52.0340908,2025-05-05T14:16:55.0340908
+brt  | 02,79786244651,79467368437,2025-05-05T14:14:52.0340908,2025-05-05T14:16:55.0340908
+brt  | 01,79632116882,79332542890,2025-05-05T14:37:52.035092,2025-05-05T14:49:26.035092
+brt  | 02,79332542890,79632116882,2025-05-05T14:37:52.035092,2025-05-05T14:49:26.035092, headers={amqp_receivedDeliveryMode=PERSISTENT, amqp_receivedExchange=cdr.exchange, amqp_deliveryTag=1676, amqp_consumerQueue=cdr.queue, amqp_redelivered=false, amqp_receivedRoutingKey=cdr.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=02222957-5080-147c-eed3-11813090aec7, amqp_consumerTag=amq.ctag-hcicM6HvRclOZZtUq6NbzA, amqp_lastInBatch=false, contentType=text/plain, timestamp=1746952768032}]]
+brt  | 2025-05-11T08:39:28.032Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataListenerServiceImpl   : Получили CSV-пакет (894 байт)
+brt  | 2025-05-11T08:39:28.032Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataListenerServiceImpl   : Распарсили 10 записей
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.number 
+brt  |     from
+brt  |         callers c1_0
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.number in (?, ?, ?)
+brt  | 2025-05-11T08:39:28.034Z  WARN 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataProcessorServiceImpl  : Не нашли в БД абонента с номером 79872332221, пропускаем запись
+brt  | 2025-05-11T08:39:28.034Z  WARN 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataProcessorServiceImpl  : Не нашли в БД абонента с номером 79484263179, пропускаем запись
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | 2025-05-11T08:39:28.035Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataProcessorServiceImpl  : Сохранено 2 звонков в таблицу calls
+brt  | 2025-05-11T08:39:28.278Z DEBUG 1 --- [pool-2-thread-5] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-hcicM6HvRclOZZtUq6NbzA' with deliveryTag: '1677' in Consumer@21f0508: tags=[[amq.ctag-hcicM6HvRclOZZtUq6NbzA]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.3:5672/,1), conn: Proxy@75dbf41c Shared Rabbit Connection: SimpleConnection@7d3bf73f [delegate=amqp://guest@172.18.0.3:5672/, localPort=34686], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T08:39:28.278Z DEBUG 1 --- [ntContainer#0-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'[B@5ffca838(byte[891])' MessageProperties [headers={}, contentType=text/plain, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=cdr.exchange, receivedRoutingKey=cdr.routingkey, deliveryTag=1677, consumerTag=amq.ctag-hcicM6HvRclOZZtUq6NbzA, consumerQueue=cdr.queue])
+brt  | 2025-05-11T08:39:28.278Z DEBUG 1 --- [ntContainer#0-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=call_type,caller_number,contact_number,start_time,end_time
+brt  | 79001112233,79872332221,2025-05-05T14:21:52.0190924,2025-05-05T14:31:42.0190924
+brt  | 02,79872332221,79001112233,2025-05-05T14:21:52.0190924,2025-05-05T14:31:42.0190924
+brt  | 01,79001112233,79178748447,2025-05-05T14:04:52.0340908,2025-05-05T14:18:43.0340908
+brt  | 02,79484263179,79001112233,2025-05-05T14:04:52.0340908,2025-05-05T14:18:43.0340908
+brt  | 01,79725978199,79022551726,2025-05-05T14:17:52.0340908,2025-05-05T14:21:03.0340908
+brt  | 02,79022551726,79725978199,2025-05-05T14:17:52.0340908,2025-05-05T14:21:03.0340908
+brt  | 01,79467368437,79786244651,2025-05-05T14:14:52.0340908,2025-05-05T14:16:55.0340908
+brt  | 02,79786244651,79467368437,2025-05-05T14:14:52.0340908,2025-05-05T14:16:55.0340908
+brt  | 01,79632116882,79332542890,2025-05-05T14:37:52.035092,2025-05-05T14:49:26.035092
+brt  | 02,79332542890,79632116882,2025-05-05T14:37:52.035092,2025-05-05T14:49:26.035092, headers={amqp_receivedDeliveryMode=PERSISTENT, amqp_receivedExchange=cdr.exchange, amqp_deliveryTag=1677, amqp_consumerQueue=cdr.queue, amqp_redelivered=false, amqp_receivedRoutingKey=cdr.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=b37ad4cb-10f0-0976-9efa-6de40b8be2cf, amqp_consumerTag=amq.ctag-hcicM6HvRclOZZtUq6NbzA, amqp_lastInBatch=false, contentType=text/plain, timestamp=1746952768278}]]
+brt  | 2025-05-11T08:39:28.278Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataListenerServiceImpl   : Получили CSV-пакет (891 байт)
+brt  | 2025-05-11T08:39:28.278Z  WARN 1 --- [ntContainer#0-1] c.r.r.brt.service.impl.CdrCsvParserImpl  : Ошибка валидации: ожидалось 5 частей, получено 4
+brt  | 2025-05-11T08:39:28.278Z  WARN 1 --- [ntContainer#0-1] c.r.r.brt.service.impl.CdrCsvParserImpl  : Строка CDR не прошла валидацию: 79001112233,79872332221,2025-05-05T14:21:52.0190924,2025-05-05T14:31:42.0190924
+brt  | 2025-05-11T08:39:28.278Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataListenerServiceImpl   : Распарсили 9 записей
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.number 
+brt  |     from
+brt  |         callers c1_0
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.number in (?, ?, ?)
+brt  | 2025-05-11T08:39:28.279Z  WARN 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataProcessorServiceImpl  : Не нашли в БД абонента с номером 79872332221, пропускаем запись
+brt  | 2025-05-11T08:39:28.279Z  WARN 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataProcessorServiceImpl  : Не нашли в БД абонента с номером 79484263179, пропускаем запись
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | 2025-05-11T08:39:28.280Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataProcessorServiceImpl  : Сохранено 1 звонков в таблицу calls
+brt  | 2025-05-11T08:39:28.703Z DEBUG 1 --- [ool-2-thread-10] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-hcicM6HvRclOZZtUq6NbzA' with deliveryTag: '1678' in Consumer@21f0508: tags=[[amq.ctag-hcicM6HvRclOZZtUq6NbzA]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.3:5672/,1), conn: Proxy@75dbf41c Shared Rabbit Connection: SimpleConnection@7d3bf73f [delegate=amqp://guest@172.18.0.3:5672/, localPort=34686], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T08:39:28.703Z DEBUG 1 --- [ntContainer#0-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'[B@4e721a(byte[819])' MessageProperties [headers={fileName=cdr_2025-01-03T14:10:36.496.csv}, contentType=text/csv, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=cdr.exchange, receivedRoutingKey=cdr.routingkey, deliveryTag=1678, consumerTag=amq.ctag-hcicM6HvRclOZZtUq6NbzA, consumerQueue=cdr.queue])
+brt  | 2025-05-11T08:39:28.703Z DEBUG 1 --- [ntContainer#0-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=call_type,caller_number,contact_number,start_time,end_time
+brt  | 01,79010000018,79010000016,2025-01-01T17:51:00.721,2025-01-01T17:59:52.721
+brt  | 02,79010000016,79010000018,2025-01-01T17:51:00.721,2025-01-01T17:59:52.721
+brt  | 01,79010000015,79010000048,2025-01-01T21:17:04.453,2025-01-01T21:24:21.453
+brt  | 02,79010000048,79010000015,2025-01-01T21:17:04.453,2025-01-01T21:24:21.453
+brt  | 01,79010000028,79010000034,2025-01-02T06:11:34.428,2025-01-02T06:15:21.428
+brt  | 02,79010000034,79010000028,2025-01-02T06:11:34.428,2025-01-02T06:15:21.428
+brt  | 01,79010000046,79001001122,2025-01-03T10:59:33.961,2025-01-03T11:09:27.961
+brt  | 02,79001001122,79010000046,2025-01-03T10:59:33.961,2025-01-03T11:09:27.961
+brt  | 01,79010000020,79003334455,2025-01-03T14:03:48.496,2025-01-03T14:10:36.496
+brt  | 02,79003334455,79010000020,2025-01-03T14:03:48.496,2025-01-03T14:10:36.496
+brt  | , headers={amqp_receivedDeliveryMode=PERSISTENT, fileName=cdr_2025-01-03T14:10:36.496.csv, amqp_receivedExchange=cdr.exchange, amqp_deliveryTag=1678, amqp_consumerQueue=cdr.queue, amqp_redelivered=false, amqp_receivedRoutingKey=cdr.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=05d62b73-e156-1ed6-dce6-2a9be16d9eb5, amqp_consumerTag=amq.ctag-hcicM6HvRclOZZtUq6NbzA, amqp_lastInBatch=false, contentType=text/csv, timestamp=1746952768703}]]
+brt  | 2025-05-11T08:39:28.703Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataListenerServiceImpl   : Получили CSV-пакет (819 байт)
+brt  | 2025-05-11T08:39:28.704Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataListenerServiceImpl   : Распарсили 10 записей
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.number 
+brt  |     from
+brt  |         callers c1_0
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.number in (?, ?, ?, ?)
+brt  | 2025-05-11T08:39:28.705Z  WARN 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataProcessorServiceImpl  : Не нашли в БД абонента с номером 79010000046, пропускаем запись
+brt  | 2025-05-11T08:39:28.705Z  WARN 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataProcessorServiceImpl  : Не нашли в БД абонента с номером 79010000020, пропускаем запись
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | 2025-05-11T08:39:28.706Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataProcessorServiceImpl  : Сохранено 2 звонков в таблицу calls
+brt  | 2025-05-11T08:39:29.546Z DEBUG 1 --- [pool-2-thread-7] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-hcicM6HvRclOZZtUq6NbzA' with deliveryTag: '1679' in Consumer@21f0508: tags=[[amq.ctag-hcicM6HvRclOZZtUq6NbzA]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.3:5672/,1), conn: Proxy@75dbf41c Shared Rabbit Connection: SimpleConnection@7d3bf73f [delegate=amqp://guest@172.18.0.3:5672/, localPort=34686], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T08:39:29.546Z DEBUG 1 --- [ntContainer#0-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'[B@b3d3c04(byte[891])' MessageProperties [headers={}, contentType=text/plain, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=cdr.exchange, receivedRoutingKey=cdr.routingkey, deliveryTag=1679, consumerTag=amq.ctag-hcicM6HvRclOZZtUq6NbzA, consumerQueue=cdr.queue])
+brt  | 2025-05-11T08:39:29.546Z DEBUG 1 --- [ntContainer#0-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=call_type,caller_number,contact_number,start_time,end_time
+brt  | 01,79001112233,79872332221,2025-05T14:21:52.0190924,2025-05-05T14:31:42.0190924
+brt  | 02,79872332221,79001112233,2025-05-05T14:21:52.0190924,2025-05-05T14:31:42.0190924
+brt  | 01,79001112233,79178748447,2025-05-05T14:04:52.0340908,2025-05-05T14:18:43.0340908
+brt  | 02,79484263179,79001112233,2025-05-05T14:04:52.0340908,2025-05-05T14:18:43.0340908
+brt  | 01,79725978199,79022551726,2025-05-05T14:17:52.0340908,2025-05-05T14:21:03.0340908
+brt  | 02,79022551726,79725978199,2025-05-05T14:17:52.0340908,2025-05-05T14:21:03.0340908
+brt  | 01,79467368437,79786244651,2025-05-05T14:14:52.0340908,2025-05-05T14:16:55.0340908
+brt  | 02,79786244651,79467368437,2025-05-05T14:14:52.0340908,2025-05-05T14:16:55.0340908
+brt  | 01,79632116882,79332542890,2025-05-05T14:37:52.035092,2025-05-05T14:49:26.035092
+brt  | 02,79332542890,79632116882,2025-05-05T14:37:52.035092,2025-05-05T14:49:26.035092, headers={amqp_receivedDeliveryMode=PERSISTENT, amqp_receivedExchange=cdr.exchange, amqp_deliveryTag=1679, amqp_consumerQueue=cdr.queue, amqp_redelivered=false, amqp_receivedRoutingKey=cdr.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=17b79853-5819-91c2-458d-7abf813dac26, amqp_consumerTag=amq.ctag-hcicM6HvRclOZZtUq6NbzA, amqp_lastInBatch=false, contentType=text/plain, timestamp=1746952769546}]]
+brt  | 2025-05-11T08:39:29.546Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataListenerServiceImpl   : Получили CSV-пакет (891 байт)
+brt  | 2025-05-11T08:39:29.546Z  WARN 1 --- [ntContainer#0-1] c.r.r.brt.service.impl.CdrCsvParserImpl  : Ошибка валидации: ошибка при разборе даты и времени - Text '2025-05T14:21:52.0190924' could not be parsed at index 7
+brt  | 2025-05-11T08:39:29.546Z  WARN 1 --- [ntContainer#0-1] c.r.r.brt.service.impl.CdrCsvParserImpl  : Строка CDR не прошла валидацию: 01,79001112233,79872332221,2025-05T14:21:52.0190924,2025-05-05T14:31:42.0190924
+brt  | 2025-05-11T08:39:29.547Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataListenerServiceImpl   : Распарсили 9 записей
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.number 
+brt  |     from
+brt  |         callers c1_0
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.number in (?, ?, ?)
+brt  | 2025-05-11T08:39:29.548Z  WARN 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataProcessorServiceImpl  : Не нашли в БД абонента с номером 79872332221, пропускаем запись
+brt  | 2025-05-11T08:39:29.548Z  WARN 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataProcessorServiceImpl  : Не нашли в БД абонента с номером 79484263179, пропускаем запись
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | 2025-05-11T08:39:29.548Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataProcessorServiceImpl  : Сохранено 1 звонков в таблицу calls
+brt  | 2025-05-11T08:39:30.442Z DEBUG 1 --- [pool-2-thread-6] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-hcicM6HvRclOZZtUq6NbzA' with deliveryTag: '1680' in Consumer@21f0508: tags=[[amq.ctag-hcicM6HvRclOZZtUq6NbzA]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.3:5672/,1), conn: Proxy@75dbf41c Shared Rabbit Connection: SimpleConnection@7d3bf73f [delegate=amqp://guest@172.18.0.3:5672/, localPort=34686], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T08:39:30.442Z DEBUG 1 --- [ntContainer#0-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'[B@cf425b7(byte[815])' MessageProperties [headers={fileName=cdr_2025-01-07T02:18:12.450.csv}, contentType=text/csv, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=cdr.exchange, receivedRoutingKey=cdr.routingkey, deliveryTag=1680, consumerTag=amq.ctag-hcicM6HvRclOZZtUq6NbzA, consumerQueue=cdr.queue])
+brt  | 2025-05-11T08:39:30.442Z DEBUG 1 --- [ntContainer#0-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=call_type,caller_number,contact_number,start_time,end_time
+brt  | 01,79010000019,79010000041,2025-01-03T16:26:43.646,2025-01-03T16:40:30.646
+brt  | 02,79010000041,79010000019,2025-01-03T16:26:43.646,2025-01-03T16:40:30.646
+brt  | 01,79010000012,79010000028,2025-01-04T12:27:48.532,2025-01-04T12:38:23.532
+brt  | 02,79010000028,79010000012,2025-01-04T12:27:48.532,2025-01-04T12:38:23.532
+brt  | 01,79010000009,79010000015,2025-01-04T16:42:07.597,2025-01-04T16:49:46.597
+brt  | 02,79010000015,79010000009,2025-01-04T16:42:07.597,2025-01-04T16:49:46.597
+brt  | 01,79010000037,79003334455,2025-01-05T13:10:47.355,2025-01-05T13:17:55.355
+brt  | 02,79003334455,79010000037,2025-01-05T13:10:47.355,2025-01-05T13:17:55.355
+brt  | 01,79010000003,79005556677,2025-01-07T02:14:08.45,2025-01-07T02:18:12.45
+brt  | 02,79005556677,79010000003,2025-01-07T02:14:08.45,2025-01-07T02:18:12.45
+brt  | , headers={amqp_receivedDeliveryMode=PERSISTENT, fileName=cdr_2025-01-07T02:18:12.450.csv, amqp_receivedExchange=cdr.exchange, amqp_deliveryTag=1680, amqp_consumerQueue=cdr.queue, amqp_redelivered=false, amqp_receivedRoutingKey=cdr.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=aa5a5f72-dcfe-bbc2-b66e-056ca9cf04cc, amqp_consumerTag=amq.ctag-hcicM6HvRclOZZtUq6NbzA, amqp_lastInBatch=false, contentType=text/csv, timestamp=1746952770442}]]
+brt  | 2025-05-11T08:39:30.443Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataListenerServiceImpl   : Получили CSV-пакет (815 байт)
+brt  | 2025-05-11T08:39:30.443Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataListenerServiceImpl   : Распарсили 10 записей
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.number 
+brt  |     from
+brt  |         callers c1_0
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.number in (?, ?, ?, ?)
+brt  | 2025-05-11T08:39:30.447Z  WARN 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataProcessorServiceImpl  : Не нашли в БД абонента с номером 79010000037, пропускаем запись
+brt  | 2025-05-11T08:39:30.447Z  WARN 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataProcessorServiceImpl  : Не нашли в БД абонента с номером 79010000003, пропускаем запись
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | 2025-05-11T08:39:30.450Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataProcessorServiceImpl  : Сохранено 2 звонков в таблицу calls
+brt  | 2025-05-11T08:39:30.830Z DEBUG 1 --- [pool-2-thread-4] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-hcicM6HvRclOZZtUq6NbzA' with deliveryTag: '1681' in Consumer@21f0508: tags=[[amq.ctag-hcicM6HvRclOZZtUq6NbzA]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.3:5672/,1), conn: Proxy@75dbf41c Shared Rabbit Connection: SimpleConnection@7d3bf73f [delegate=amqp://guest@172.18.0.3:5672/, localPort=34686], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T08:39:30.830Z DEBUG 1 --- [ntContainer#0-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'[B@1a1c19fb(byte[894])' MessageProperties [headers={}, contentType=text/plain, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=cdr.exchange, receivedRoutingKey=cdr.routingkey, deliveryTag=1681, consumerTag=amq.ctag-hcicM6HvRclOZZtUq6NbzA, consumerQueue=cdr.queue])
+brt  | 2025-05-11T08:39:30.830Z DEBUG 1 --- [ntContainer#0-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=call_type,caller_number,contact_number,start_time,end_time
+brt  | 03,79001112233,79872332221,2025-05-05T14:21:52.0190924,2025-05-05T14:31:42.0190924
+brt  | 02,79872332221,79001112233,2025-05-05T14:21:52.0190924,2025-05-05T14:31:42.0190924
+brt  | 01,79001112233,79178748447,2025-05-05T14:04:52.0340908,2025-05-05T14:18:43.0340908
+brt  | 02,79484263179,79001112233,2025-05-05T14:04:52.0340908,2025-05-05T14:18:43.0340908
+brt  | 01,79725978199,79022551726,2025-05-05T14:17:52.0340908,2025-05-05T14:21:03.0340908
+brt  | 02,79022551726,79725978199,2025-05-05T14:17:52.0340908,2025-05-05T14:21:03.0340908
+brt  | 01,79467368437,79786244651,2025-05-05T14:14:52.0340908,2025-05-05T14:16:55.0340908
+brt  | 02,79786244651,79467368437,2025-05-05T14:14:52.0340908,2025-05-05T14:16:55.0340908
+brt  | 01,79632116882,79332542890,2025-05-05T14:37:52.035092,2025-05-05T14:49:26.035092
+brt  | 02,79332542890,79632116882,2025-05-05T14:37:52.035092,2025-05-05T14:49:26.035092, headers={amqp_receivedDeliveryMode=PERSISTENT, amqp_receivedExchange=cdr.exchange, amqp_deliveryTag=1681, amqp_consumerQueue=cdr.queue, amqp_redelivered=false, amqp_receivedRoutingKey=cdr.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=a6c7f638-2938-653a-d45c-aeed8f75b582, amqp_consumerTag=amq.ctag-hcicM6HvRclOZZtUq6NbzA, amqp_lastInBatch=false, contentType=text/plain, timestamp=1746952770830}]]
+brt  | 2025-05-11T08:39:30.830Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataListenerServiceImpl   : Получили CSV-пакет (894 байт)
+brt  | 2025-05-11T08:39:30.831Z ERROR 1 --- [ntContainer#0-1] c.r.r.brt.service.impl.CdrCsvParserImpl  : Не удалось распарсить строку CDR: 03,79001112233,79872332221,2025-05-05T14:21:52.0190924,2025-05-05T14:31:42.0190924
+brt  | 
+brt  | java.lang.IllegalArgumentException: Unknown code: 03
+brt  | 	at com.romashka.romashka_telecom.brt.enums.CallType.lambda$fromCode$1(CallType.java:48) ~[!/:0.0.1-SNAPSHOT]
+brt  | 	at java.base/java.util.Optional.orElseThrow(Optional.java:403) ~[na:na]
+brt  | 	at com.romashka.romashka_telecom.brt.enums.CallType.fromCode(CallType.java:48) ~[!/:0.0.1-SNAPSHOT]
+brt  | 	at com.romashka.romashka_telecom.brt.service.impl.CdrCsvParserImpl.createRecord(CdrCsvParserImpl.java:74) ~[!/:0.0.1-SNAPSHOT]
+brt  | 	at com.romashka.romashka_telecom.brt.service.impl.CdrCsvParserImpl.parseLine(CdrCsvParserImpl.java:65) ~[!/:0.0.1-SNAPSHOT]
+brt  | 	at com.romashka.romashka_telecom.brt.service.impl.CdrCsvParserImpl.parse(CdrCsvParserImpl.java:49) ~[!/:0.0.1-SNAPSHOT]
+brt  | 	at com.romashka.romashka_telecom.brt.service.impl.CdrDataListenerServiceImpl.handleFile(CdrDataListenerServiceImpl.java:33) ~[!/:0.0.1-SNAPSHOT]
+brt  | 	at jdk.internal.reflect.GeneratedMethodAccessor55.invoke(Unknown Source) ~[na:na]
+brt  | 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+brt  | 	at java.base/java.lang.reflect.Method.invoke(Method.java:569) ~[na:na]
+brt  | 	at org.springframework.messaging.handler.invocation.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:169) ~[spring-messaging-6.2.5.jar!/:6.2.5]
+brt  | 	at org.springframework.messaging.handler.invocation.InvocableHandlerMethod.invoke(InvocableHandlerMethod.java:119) ~[spring-messaging-6.2.5.jar!/:6.2.5]
+brt  | 	at org.springframework.amqp.rabbit.listener.adapter.HandlerAdapter.invoke(HandlerAdapter.java:75) ~[spring-rabbit-3.2.4.jar!/:3.2.4]
+brt  | 	at org.springframework.amqp.rabbit.listener.adapter.MessagingMessageListenerAdapter.invokeHandler(MessagingMessageListenerAdapter.java:270) ~[spring-rabbit-3.2.4.jar!/:3.2.4]
+brt  | 	at org.springframework.amqp.rabbit.listener.adapter.MessagingMessageListenerAdapter.invokeHandlerAndProcessResult(MessagingMessageListenerAdapter.java:217) ~[spring-rabbit-3.2.4.jar!/:3.2.4]
+brt  | 	at org.springframework.amqp.rabbit.listener.adapter.MessagingMessageListenerAdapter.onMessage(MessagingMessageListenerAdapter.java:148) ~[spring-rabbit-3.2.4.jar!/:3.2.4]
+brt  | 	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.doInvokeListener(AbstractMessageListenerContainer.java:1694) ~[spring-rabbit-3.2.4.jar!/:3.2.4]
+brt  | 	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.actualInvokeListener(AbstractMessageListenerContainer.java:1616) ~[spring-rabbit-3.2.4.jar!/:3.2.4]
+brt  | 	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.invokeListener(AbstractMessageListenerContainer.java:1604) ~[spring-rabbit-3.2.4.jar!/:3.2.4]
+brt  | 	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.doExecuteListener(AbstractMessageListenerContainer.java:1595) ~[spring-rabbit-3.2.4.jar!/:3.2.4]
+brt  | 	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.executeListenerAndHandleException(AbstractMessageListenerContainer.java:1540) ~[spring-rabbit-3.2.4.jar!/:3.2.4]
+brt  | 	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.lambda$executeListener$8(AbstractMessageListenerContainer.java:1518) ~[spring-rabbit-3.2.4.jar!/:3.2.4]
+brt  | 	at io.micrometer.observation.Observation.observe(Observation.java:498) ~[micrometer-observation-1.14.5.jar!/:1.14.5]
+brt  | 	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.executeListener(AbstractMessageListenerContainer.java:1518) ~[spring-rabbit-3.2.4.jar!/:3.2.4]
+brt  | 	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer.doReceiveAndExecute(SimpleMessageListenerContainer.java:1085) ~[spring-rabbit-3.2.4.jar!/:3.2.4]
+brt  | 	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer.receiveAndExecute(SimpleMessageListenerContainer.java:1021) ~[spring-rabbit-3.2.4.jar!/:3.2.4]
+brt  | 	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer$AsyncMessageProcessingConsumer.mainLoop(SimpleMessageListenerContainer.java:1423) ~[spring-rabbit-3.2.4.jar!/:3.2.4]
+brt  | 	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer$AsyncMessageProcessingConsumer.run(SimpleMessageListenerContainer.java:1324) ~[spring-rabbit-3.2.4.jar!/:3.2.4]
+brt  | 	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+brt  | 
+brt  | 2025-05-11T08:39:30.832Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataListenerServiceImpl   : Распарсили 9 записей
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.number 
+brt  |     from
+brt  |         callers c1_0
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.number in (?, ?, ?)
+brt  | 2025-05-11T08:39:30.833Z  WARN 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataProcessorServiceImpl  : Не нашли в БД абонента с номером 79872332221, пропускаем запись
+brt  | 2025-05-11T08:39:30.833Z  WARN 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataProcessorServiceImpl  : Не нашли в БД абонента с номером 79484263179, пропускаем запись
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | 2025-05-11T08:39:30.833Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataProcessorServiceImpl  : Сохранено 1 звонков в таблицу calls
+brt  | 2025-05-11T08:39:31.169Z DEBUG 1 --- [pool-2-thread-3] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-hcicM6HvRclOZZtUq6NbzA' with deliveryTag: '1682' in Consumer@21f0508: tags=[[amq.ctag-hcicM6HvRclOZZtUq6NbzA]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.3:5672/,1), conn: Proxy@75dbf41c Shared Rabbit Connection: SimpleConnection@7d3bf73f [delegate=amqp://guest@172.18.0.3:5672/, localPort=34686], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T08:39:31.169Z DEBUG 1 --- [ntContainer#0-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'[B@59713042(byte[815])' MessageProperties [headers={fileName=cdr_2025-01-08T13:37:30.114.csv}, contentType=text/csv, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=cdr.exchange, receivedRoutingKey=cdr.routingkey, deliveryTag=1682, consumerTag=amq.ctag-hcicM6HvRclOZZtUq6NbzA, consumerQueue=cdr.queue])
+brt  | 2025-05-11T08:39:31.169Z DEBUG 1 --- [ntContainer#0-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=call_type,caller_number,contact_number,start_time,end_time
+brt  | 01,79010000032,79010000011,2025-01-07T06:34:36.192,2025-01-07T06:46:37.192
+brt  | 02,79010000011,79010000032,2025-01-07T06:34:36.192,2025-01-07T06:46:37.192
+brt  | 01,79010000004,79010000034,2025-01-07T19:21:53.037,2025-01-07T19:23:57.037
+brt  | 02,79010000034,79010000004,2025-01-07T19:21:53.037,2025-01-07T19:23:57.037
+brt  | 01,79010000017,79001112233,2025-01-07T19:53:13.138,2025-01-07T19:55:14.138
+brt  | 02,79001112233,79010000017,2025-01-07T19:53:13.138,2025-01-07T19:55:14.138
+brt  | 01,79010000025,79005556677,2025-01-08T00:39:46.59,2025-01-08T00:41:42.59
+brt  | 02,79005556677,79010000025,2025-01-08T00:39:46.59,2025-01-08T00:41:42.59
+brt  | 01,79010000012,79008889900,2025-01-08T13:32:38.114,2025-01-08T13:37:30.114
+brt  | 02,79008889900,79010000012,2025-01-08T13:32:38.114,2025-01-08T13:37:30.114
+brt  | , headers={amqp_receivedDeliveryMode=PERSISTENT, fileName=cdr_2025-01-08T13:37:30.114.csv, amqp_receivedExchange=cdr.exchange, amqp_deliveryTag=1682, amqp_consumerQueue=cdr.queue, amqp_redelivered=false, amqp_receivedRoutingKey=cdr.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=956f221a-ceb5-dbb1-854e-5aab5b76e07a, amqp_consumerTag=amq.ctag-hcicM6HvRclOZZtUq6NbzA, amqp_lastInBatch=false, contentType=text/csv, timestamp=1746952771169}]]
+brt  | 2025-05-11T08:39:31.169Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataListenerServiceImpl   : Получили CSV-пакет (815 байт)
+brt  | 2025-05-11T08:39:31.169Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataListenerServiceImpl   : Распарсили 10 записей
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.number 
+brt  |     from
+brt  |         callers c1_0
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.number in (?, ?, ?, ?, ?, ?)
+brt  | 2025-05-11T08:39:31.170Z  WARN 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataProcessorServiceImpl  : Не нашли в БД абонента с номером 79010000017, пропускаем запись
+brt  | 2025-05-11T08:39:31.170Z  WARN 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataProcessorServiceImpl  : Не нашли в БД абонента с номером 79010000025, пропускаем запись
+brt  | 2025-05-11T08:39:31.170Z  WARN 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataProcessorServiceImpl  : Не нашли в БД абонента с номером 79010000012, пропускаем запись
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | 2025-05-11T08:39:31.171Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataProcessorServiceImpl  : Сохранено 3 звонков в таблицу calls
+brt  | 2025-05-11T08:39:31.374Z DEBUG 1 --- [pool-2-thread-8] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-hcicM6HvRclOZZtUq6NbzA' with deliveryTag: '1683' in Consumer@21f0508: tags=[[amq.ctag-hcicM6HvRclOZZtUq6NbzA]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.3:5672/,1), conn: Proxy@75dbf41c Shared Rabbit Connection: SimpleConnection@7d3bf73f [delegate=amqp://guest@172.18.0.3:5672/, localPort=34686], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T08:39:31.375Z DEBUG 1 --- [ntContainer#0-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'[B@3f21fcf7(byte[819])' MessageProperties [headers={fileName=cdr_2025-01-08T23:38:03.651.csv}, contentType=text/csv, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=cdr.exchange, receivedRoutingKey=cdr.routingkey, deliveryTag=1683, consumerTag=amq.ctag-hcicM6HvRclOZZtUq6NbzA, consumerQueue=cdr.queue])
+brt  | 2025-05-11T08:39:31.375Z DEBUG 1 --- [ntContainer#0-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=call_type,caller_number,contact_number,start_time,end_time
+brt  | 01,79003334455,79002223344,2025-01-08T15:37:24.387,2025-01-08T15:49:21.387
+brt  | 02,79002223344,79003334455,2025-01-08T15:37:24.387,2025-01-08T15:49:21.387
+brt  | 01,79001112233,79010000006,2025-01-08T16:46:12.795,2025-01-08T16:48:49.795
+brt  | 02,79010000006,79001112233,2025-01-08T16:46:12.795,2025-01-08T16:48:49.795
+brt  | 01,79007778899,79010000001,2025-01-08T17:42:54.999,2025-01-08T17:49:30.999
+brt  | 02,79010000001,79007778899,2025-01-08T17:42:54.999,2025-01-08T17:49:30.999
+brt  | 01,79007778899,79010000040,2025-01-08T20:05:31.039,2025-01-08T20:14:36.039
+brt  | 02,79010000040,79007778899,2025-01-08T20:05:31.039,2025-01-08T20:14:36.039
+brt  | 01,79010000003,79010000049,2025-01-08T23:26:06.651,2025-01-08T23:38:03.651
+brt  | 02,79010000049,79010000003,2025-01-08T23:26:06.651,2025-01-08T23:38:03.651
+brt  | , headers={amqp_receivedDeliveryMode=PERSISTENT, fileName=cdr_2025-01-08T23:38:03.651.csv, amqp_receivedExchange=cdr.exchange, amqp_deliveryTag=1683, amqp_consumerQueue=cdr.queue, amqp_redelivered=false, amqp_receivedRoutingKey=cdr.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=235f6f77-afce-d7bb-7544-2e5aaa5962b7, amqp_consumerTag=amq.ctag-hcicM6HvRclOZZtUq6NbzA, amqp_lastInBatch=false, contentType=text/csv, timestamp=1746952771375}]]
+brt  | 2025-05-11T08:39:31.375Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataListenerServiceImpl   : Получили CSV-пакет (819 байт)
+brt  | 2025-05-11T08:39:31.375Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataListenerServiceImpl   : Распарсили 10 записей
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.number 
+brt  |     from
+brt  |         callers c1_0
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.number in (?, ?, ?, ?, ?, ?, ?)
+brt  | 2025-05-11T08:39:31.376Z  WARN 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataProcessorServiceImpl  : Не нашли в БД абонента с номером 79010000006, пропускаем запись
+brt  | 2025-05-11T08:39:31.376Z  WARN 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataProcessorServiceImpl  : Не нашли в БД абонента с номером 79010000001, пропускаем запись
+brt  | 2025-05-11T08:39:31.376Z  WARN 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataProcessorServiceImpl  : Не нашли в БД абонента с номером 79010000040, пропускаем запись
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | 2025-05-11T08:39:31.378Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataProcessorServiceImpl  : Сохранено 5 звонков в таблицу calls

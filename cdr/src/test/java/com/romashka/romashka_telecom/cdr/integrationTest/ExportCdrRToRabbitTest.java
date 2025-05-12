@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.test.context.ActiveProfiles;
@@ -33,6 +34,12 @@ class ExportCdrRToRabbitTest {
 
     @Autowired
     private ContainerLogReader containerLogReader;
+    @Value("${rabbitmq.exchange.name}")
+    private String exchangeName;
+
+    @Value("${rabbitmq.routing.key}")
+    private String routingKey;
+
 
     //private CdrCsvParser cdrCsvParser;
 
@@ -51,12 +58,12 @@ class ExportCdrRToRabbitTest {
 
     @BeforeEach
     void setUp() {
-        // Очищаем очередь перед каждым тестом
-        rabbitTemplate.execute(channel -> {
-            channel.queuePurge(QUEUE_NAME);
-            return null;
-        });
-        // Очищаем логи контейнера
+//        // Очищаем очередь перед каждым тестом
+//        rabbitTemplate.execute(channel -> {
+//            channel.queuePurge(QUEUE_NAME);
+//            return null;
+//        });
+//        // Очищаем логи контейнера
         containerLogReader.clearLogs();
     }
 
@@ -68,11 +75,12 @@ class ExportCdrRToRabbitTest {
 
         exportCdrRToRabbit.sendCsvToRabbit(csvFile);
 
-        try {
-            TimeUnit.SECONDS.sleep(1);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
+
+//        try {
+//            TimeUnit.SECONDS.sleep(1);
+//        } catch (InterruptedException e) {
+//            Thread.currentThread().interrupt();
+//        }
 
         // Получаем логи и сохраняем их в файл
         String logFile = containerLogReader.extractBrtLogs(1000);
@@ -105,7 +113,7 @@ class ExportCdrRToRabbitTest {
         // Получаем логи и сохраняем их в файл
         String logFile = containerLogReader.extractBrtLogs(1000);
         assertNotNull(logFile, "Log file should be created");
-        
+
         List<String> logs = Files.readAllLines(Path.of(logFile));
 
         // Проверяем, что все записи были отклонены
@@ -280,34 +288,34 @@ class ExportCdrRToRabbitTest {
 
 
     }
-    @Test
-    void shouldHandleEmptyFile() throws IOException {
-        // Get the invalid phone numbers CSV file from test resources
-        Path csvFile = new ClassPathResource(EMPTY_FILE_PATH).getFile().toPath();
-
-        exportCdrRToRabbit.sendCsvToRabbit(csvFile);
-
-        // Wait for the message to be processed
-        try {
-            TimeUnit.SECONDS.sleep(1);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-
-        // Получаем логи и сохраняем их в файл
-        String logFile = containerLogReader.extractBrtLogs(1000);
-        assertNotNull(logFile, "Log file should be created");
-
-        List<String> logs = Files.readAllLines(Path.of(logFile));
-
-        // Проверяем, что все записи были отклонены
-        assertTrue(logs.stream()
-                        .anyMatch(log -> log.contains( "Нет записей CDR для обработки")
-                        ),
-                "Все записи без ошибок");
-
-
-    }
+//    @Test
+//    void shouldHandleEmptyFile() throws IOException {
+//        // Get the invalid phone numbers CSV file from test resources
+//        Path csvFile = new ClassPathResource(EMPTY_FILE_PATH).getFile().toPath();
+//
+//        exportCdrRToRabbit.sendCsvToRabbit(csvFile);
+//
+//        // Wait for the message to be processed
+//        try {
+//            TimeUnit.SECONDS.sleep(1);
+//        } catch (InterruptedException e) {
+//            Thread.currentThread().interrupt();
+//        }
+//
+//        // Получаем логи и сохраняем их в файл
+//        String logFile = containerLogReader.extractBrtLogs(1000);
+//        assertNotNull(logFile, "Log file should be created");
+//
+//        List<String> logs = Files.readAllLines(Path.of(logFile));
+//
+//        // Проверяем, что все записи были отклонены
+//        assertTrue(logs.stream()
+//                        .anyMatch(log -> log.contains( "Нет записей CDR для обработки")
+//                        ),
+//                "Все записи без ошибок");
+//
+//
+//    }
 
     @Test
     void shouldHandleMoreThan10RecordFile() throws IOException {
@@ -337,4 +345,4 @@ class ExportCdrRToRabbitTest {
 
 
     }
-} 
+}

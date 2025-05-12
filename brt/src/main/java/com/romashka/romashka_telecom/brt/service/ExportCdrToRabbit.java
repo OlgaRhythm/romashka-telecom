@@ -1,4 +1,4 @@
-package com.romashka.romashka_telecom.cdr.util;
+package com.romashka.romashka_telecom.brt.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,14 +17,14 @@ import java.nio.file.Path;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class ExportCdrRToRabbit {
+public class ExportCdrToRabbit {
 
     private final RabbitTemplate rabbitTemplate;
 
-    @Value("${rabbitmq.exchange.name}")
+    @Value("${rabbitmq.cdr.exchange.name}")
     private String exchangeName;
 
-    @Value("${rabbitmq.routing.key}")
+    @Value("${rabbitmq.cdr.routing.key}")
     private String routingKey;
 
     /**
@@ -35,7 +35,7 @@ public class ExportCdrRToRabbit {
      */
     public void sendCsvToRabbit(Path filePath) throws IOException {
         log.info("Starting to send CSV file to RabbitMQ: {}", filePath);
-        
+
         String csvContent = Files.readString(filePath);
         System.out.println(csvContent);
         log.debug("Read CSV content, size: {} bytes", csvContent.length());

@@ -1,0 +1,301 @@
+time="2025-05-12T02:09:08+03:00" level=warning msg="C:\\Users\\Rudenches\\IdeaProjects\\romashka-telecom-main\\docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+brt  | Hibernate: 
+brt  |     select
+brt  |         cr1_0.caller_id,
+brt  |         cr1_0.current_balance,
+brt  |         cr1_0.resource_id 
+brt  |     from
+brt  |         caller_resources cr1_0 
+brt  |     where
+brt  |         cr1_0.caller_id=? 
+brt  |         and cr1_0.resource_id=?
+brt  | 2025-05-11T22:42:57.105Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Баланс 30.00 для ресурса minutes абонента 7 после списания 10.0
+brt  | 2025-05-11T22:42:57.105Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Баланс 30.00 для ресурса minutes абонента 7 после списания 10.0
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         transactions
+brt  |         (caller_id, resource_amount, resource_id, transaction_date, transaction_type) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | 2025-05-11T22:42:57.108Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Обработка запроса от HRS завершена успешно
+brt  | Hibernate: 
+brt  |     update
+brt  |         caller_resources 
+brt  |     set
+brt  |         current_balance=?,
+brt  |         resource_id=? 
+brt  |     where
+brt  |         caller_id=?
+brt  | 2025-05-11T22:46:08.633Z DEBUG 1 --- [pool-2-thread-8] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-ZOQh0lehbsPYlRvs7wlPNA' with deliveryTag: '3' in Consumer@2896e105: tags=[[amq.ctag-ZOQh0lehbsPYlRvs7wlPNA]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,2), conn: Proxy@14f03098 Shared Rabbit Connection: SimpleConnection@288c16a5 [delegate=amqp://guest@172.18.0.2:5672/, localPort=55816], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T22:46:08.633Z DEBUG 1 --- [ntContainer#1-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'{"callerId":7,"resources":{"minutes":10.0}}' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.hrs.model.HrsResponse}, contentType=application/json, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=hrs-to-brt.exchange, receivedRoutingKey=hrs-to-brt.routingkey, deliveryTag=3, consumerTag=amq.ctag-ZOQh0lehbsPYlRvs7wlPNA, consumerQueue=hrs-to-brt.queue])
+brt  | 2025-05-11T22:46:08.634Z DEBUG 1 --- [ntContainer#1-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=HrsRequest(callId=null, callerId=7, resources={minutes=10.0}), headers={amqp_receivedDeliveryMode=PERSISTENT, amqp_receivedExchange=hrs-to-brt.exchange, amqp_deliveryTag=3, amqp_consumerQueue=hrs-to-brt.queue, amqp_redelivered=false, amqp_receivedRoutingKey=hrs-to-brt.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=02e640a2-9278-084e-17c2-0f9dd5f5f9e7, amqp_consumerTag=amq.ctag-ZOQh0lehbsPYlRvs7wlPNA, amqp_lastInBatch=false, contentType=application/json, __TypeId__=com.romashka.romashka_telecom.hrs.model.HrsResponse, timestamp=1747003568634}]]
+brt  | 2025-05-11T22:46:08.635Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Получен запрос от HRS: HrsRequest(callId=null, callerId=7, resources={minutes=10.0})
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.caller_id=?
+brt  | Hibernate: 
+brt  |     select
+brt  |         r1_0.resource_id,
+brt  |         r1_0.resource_name 
+brt  |     from
+brt  |         resources r1_0 
+brt  |     where
+brt  |         r1_0.resource_name=?
+brt  | Hibernate: 
+brt  |     select
+brt  |         cr1_0.caller_id,
+brt  |         cr1_0.current_balance,
+brt  |         cr1_0.resource_id 
+brt  |     from
+brt  |         caller_resources cr1_0 
+brt  |     where
+brt  |         cr1_0.caller_id=? 
+brt  |         and cr1_0.resource_id=?
+brt  | 2025-05-11T22:46:08.641Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Баланс 20.00 для ресурса minutes абонента 7 после списания 10.0
+brt  | 2025-05-11T22:46:08.641Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Баланс 20.00 для ресурса minutes абонента 7 после списания 10.0
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         transactions
+brt  |         (caller_id, resource_amount, resource_id, transaction_date, transaction_type) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | 2025-05-11T22:46:08.644Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Обработка запроса от HRS завершена успешно
+brt  | Hibernate: 
+brt  |     update
+brt  |         caller_resources 
+brt  |     set
+brt  |         current_balance=?,
+brt  |         resource_id=? 
+brt  |     where
+brt  |         caller_id=?
+brt  | 2025-05-11T22:46:54.350Z DEBUG 1 --- [pool-2-thread-9] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-ZOQh0lehbsPYlRvs7wlPNA' with deliveryTag: '4' in Consumer@2896e105: tags=[[amq.ctag-ZOQh0lehbsPYlRvs7wlPNA]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,2), conn: Proxy@14f03098 Shared Rabbit Connection: SimpleConnection@288c16a5 [delegate=amqp://guest@172.18.0.2:5672/, localPort=55816], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T22:46:54.350Z DEBUG 1 --- [ntContainer#1-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'{"callerId":7,"resources":{"minutes":10.0}}' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.hrs.model.HrsResponse}, contentType=application/json, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=hrs-to-brt.exchange, receivedRoutingKey=hrs-to-brt.routingkey, deliveryTag=4, consumerTag=amq.ctag-ZOQh0lehbsPYlRvs7wlPNA, consumerQueue=hrs-to-brt.queue])
+brt  | 2025-05-11T22:46:54.350Z DEBUG 1 --- [ntContainer#1-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=HrsRequest(callId=null, callerId=7, resources={minutes=10.0}), headers={amqp_receivedDeliveryMode=PERSISTENT, amqp_receivedExchange=hrs-to-brt.exchange, amqp_deliveryTag=4, amqp_consumerQueue=hrs-to-brt.queue, amqp_redelivered=false, amqp_receivedRoutingKey=hrs-to-brt.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=0767497b-0ff8-7bac-fe93-8b05aa545663, amqp_consumerTag=amq.ctag-ZOQh0lehbsPYlRvs7wlPNA, amqp_lastInBatch=false, contentType=application/json, __TypeId__=com.romashka.romashka_telecom.hrs.model.HrsResponse, timestamp=1747003614350}]]
+brt  | 2025-05-11T22:46:54.351Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Получен запрос от HRS: HrsRequest(callId=null, callerId=7, resources={minutes=10.0})
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.caller_id=?
+brt  | Hibernate: 
+brt  |     select
+brt  |         r1_0.resource_id,
+brt  |         r1_0.resource_name 
+brt  |     from
+brt  |         resources r1_0 
+brt  |     where
+brt  |         r1_0.resource_name=?
+brt  | Hibernate: 
+brt  |     select
+brt  |         cr1_0.caller_id,
+brt  |         cr1_0.current_balance,
+brt  |         cr1_0.resource_id 
+brt  |     from
+brt  |         caller_resources cr1_0 
+brt  |     where
+brt  |         cr1_0.caller_id=? 
+brt  |         and cr1_0.resource_id=?
+brt  | 2025-05-11T22:46:54.355Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Баланс 10.00 для ресурса minutes абонента 7 после списания 10.0
+brt  | 2025-05-11T22:46:54.355Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Баланс 10.00 для ресурса minutes абонента 7 после списания 10.0
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         transactions
+brt  |         (caller_id, resource_amount, resource_id, transaction_date, transaction_type) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | 2025-05-11T22:46:54.356Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Обработка запроса от HRS завершена успешно
+brt  | Hibernate: 
+brt  |     update
+brt  |         caller_resources 
+brt  |     set
+brt  |         current_balance=?,
+brt  |         resource_id=? 
+brt  |     where
+brt  |         caller_id=?
+brt  | 2025-05-11T22:53:54.628Z DEBUG 1 --- [ool-2-thread-10] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-ZOQh0lehbsPYlRvs7wlPNA' with deliveryTag: '5' in Consumer@2896e105: tags=[[amq.ctag-ZOQh0lehbsPYlRvs7wlPNA]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,2), conn: Proxy@14f03098 Shared Rabbit Connection: SimpleConnection@288c16a5 [delegate=amqp://guest@172.18.0.2:5672/, localPort=55816], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T22:53:54.629Z DEBUG 1 --- [ntContainer#1-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'{"callerId":1,"resources":{"money":0.0}}' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.hrs.model.HrsResponse}, contentType=application/json, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=hrs-to-brt.exchange, receivedRoutingKey=hrs-to-brt.routingkey, deliveryTag=5, consumerTag=amq.ctag-ZOQh0lehbsPYlRvs7wlPNA, consumerQueue=hrs-to-brt.queue])
+brt  | 2025-05-11T22:53:54.629Z DEBUG 1 --- [ntContainer#1-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=HrsRequest(callId=null, callerId=1, resources={money=0.0}), headers={amqp_receivedDeliveryMode=PERSISTENT, amqp_receivedExchange=hrs-to-brt.exchange, amqp_deliveryTag=5, amqp_consumerQueue=hrs-to-brt.queue, amqp_redelivered=false, amqp_receivedRoutingKey=hrs-to-brt.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=a24ccb90-e419-0dbb-adda-82b25a9ea1f6, amqp_consumerTag=amq.ctag-ZOQh0lehbsPYlRvs7wlPNA, amqp_lastInBatch=false, contentType=application/json, __TypeId__=com.romashka.romashka_telecom.hrs.model.HrsResponse, timestamp=1747004034629}]]
+brt  | 2025-05-11T22:53:54.630Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Получен запрос от HRS: HrsRequest(callId=null, callerId=1, resources={money=0.0})
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.caller_id=?
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         money_transactions
+brt  |         (caller_id, resource_amount, transaction_date, transaction_type) 
+brt  |     values
+brt  |         (?, ?, ?, ?)
+brt  | 2025-05-11T22:53:54.637Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Обработка запроса от HRS завершена успешно
+brt  | 2025-05-11T22:55:50.078Z DEBUG 1 --- [pool-2-thread-3] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-ZOQh0lehbsPYlRvs7wlPNA' with deliveryTag: '6' in Consumer@2896e105: tags=[[amq.ctag-ZOQh0lehbsPYlRvs7wlPNA]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,2), conn: Proxy@14f03098 Shared Rabbit Connection: SimpleConnection@288c16a5 [delegate=amqp://guest@172.18.0.2:5672/, localPort=55816], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T22:55:50.078Z DEBUG 1 --- [ntContainer#1-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'{"callerId":1,"resources":{"money":0.0}}' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.hrs.model.HrsResponse}, contentType=application/json, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=hrs-to-brt.exchange, receivedRoutingKey=hrs-to-brt.routingkey, deliveryTag=6, consumerTag=amq.ctag-ZOQh0lehbsPYlRvs7wlPNA, consumerQueue=hrs-to-brt.queue])
+brt  | 2025-05-11T22:55:50.078Z DEBUG 1 --- [ntContainer#1-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=HrsRequest(callId=null, callerId=1, resources={money=0.0}), headers={amqp_receivedDeliveryMode=PERSISTENT, amqp_receivedExchange=hrs-to-brt.exchange, amqp_deliveryTag=6, amqp_consumerQueue=hrs-to-brt.queue, amqp_redelivered=false, amqp_receivedRoutingKey=hrs-to-brt.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=edba718d-cb02-b934-ec7e-9ca446233b81, amqp_consumerTag=amq.ctag-ZOQh0lehbsPYlRvs7wlPNA, amqp_lastInBatch=false, contentType=application/json, __TypeId__=com.romashka.romashka_telecom.hrs.model.HrsResponse, timestamp=1747004150078}]]
+brt  | 2025-05-11T22:55:50.079Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Получен запрос от HRS: HrsRequest(callId=null, callerId=1, resources={money=0.0})
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.caller_id=?
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         money_transactions
+brt  |         (caller_id, resource_amount, transaction_date, transaction_type) 
+brt  |     values
+brt  |         (?, ?, ?, ?)
+brt  | 2025-05-11T22:55:50.083Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Обработка запроса от HRS завершена успешно
+brt  | 2025-05-11T22:58:24.065Z DEBUG 1 --- [pool-2-thread-4] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-ZOQh0lehbsPYlRvs7wlPNA' with deliveryTag: '7' in Consumer@2896e105: tags=[[amq.ctag-ZOQh0lehbsPYlRvs7wlPNA]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,2), conn: Proxy@14f03098 Shared Rabbit Connection: SimpleConnection@288c16a5 [delegate=amqp://guest@172.18.0.2:5672/, localPort=55816], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T22:58:24.065Z DEBUG 1 --- [ntContainer#1-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'{"callerId":1,"resources":{"money":0.0}}' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.hrs.model.HrsResponse}, contentType=application/json, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=hrs-to-brt.exchange, receivedRoutingKey=hrs-to-brt.routingkey, deliveryTag=7, consumerTag=amq.ctag-ZOQh0lehbsPYlRvs7wlPNA, consumerQueue=hrs-to-brt.queue])
+brt  | 2025-05-11T22:58:24.066Z DEBUG 1 --- [ntContainer#1-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=HrsRequest(callId=null, callerId=1, resources={money=0.0}), headers={amqp_receivedDeliveryMode=PERSISTENT, amqp_receivedExchange=hrs-to-brt.exchange, amqp_deliveryTag=7, amqp_consumerQueue=hrs-to-brt.queue, amqp_redelivered=false, amqp_receivedRoutingKey=hrs-to-brt.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=6a71aa6c-12d9-2407-8a0d-e32b85a1fae0, amqp_consumerTag=amq.ctag-ZOQh0lehbsPYlRvs7wlPNA, amqp_lastInBatch=false, contentType=application/json, __TypeId__=com.romashka.romashka_telecom.hrs.model.HrsResponse, timestamp=1747004304065}]]
+brt  | 2025-05-11T22:58:24.066Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Получен запрос от HRS: HrsRequest(callId=null, callerId=1, resources={money=0.0})
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.caller_id=?
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         money_transactions
+brt  |         (caller_id, resource_amount, transaction_date, transaction_type) 
+brt  |     values
+brt  |         (?, ?, ?, ?)
+brt  | 2025-05-11T22:58:24.071Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Обработка запроса от HRS завершена успешно
+brt  | 2025-05-11T23:04:12.602Z DEBUG 1 --- [pool-2-thread-5] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-ZOQh0lehbsPYlRvs7wlPNA' with deliveryTag: '8' in Consumer@2896e105: tags=[[amq.ctag-ZOQh0lehbsPYlRvs7wlPNA]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,2), conn: Proxy@14f03098 Shared Rabbit Connection: SimpleConnection@288c16a5 [delegate=amqp://guest@172.18.0.2:5672/, localPort=55816], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T23:04:12.602Z DEBUG 1 --- [ntContainer#1-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'{"callerId":1,"resources":{"money":0.0}}' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.hrs.model.HrsResponse}, contentType=application/json, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=hrs-to-brt.exchange, receivedRoutingKey=hrs-to-brt.routingkey, deliveryTag=8, consumerTag=amq.ctag-ZOQh0lehbsPYlRvs7wlPNA, consumerQueue=hrs-to-brt.queue])
+brt  | 2025-05-11T23:04:12.602Z DEBUG 1 --- [ntContainer#1-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=HrsRequest(callId=null, callerId=1, resources={money=0.0}), headers={amqp_receivedDeliveryMode=PERSISTENT, amqp_receivedExchange=hrs-to-brt.exchange, amqp_deliveryTag=8, amqp_consumerQueue=hrs-to-brt.queue, amqp_redelivered=false, amqp_receivedRoutingKey=hrs-to-brt.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=7d53f002-1ae3-fc26-d7b3-abe762c76434, amqp_consumerTag=amq.ctag-ZOQh0lehbsPYlRvs7wlPNA, amqp_lastInBatch=false, contentType=application/json, __TypeId__=com.romashka.romashka_telecom.hrs.model.HrsResponse, timestamp=1747004652602}]]
+brt  | 2025-05-11T23:04:12.603Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Получен запрос от HRS: HrsRequest(callId=null, callerId=1, resources={money=0.0})
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.caller_id=?
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         money_transactions
+brt  |         (caller_id, resource_amount, transaction_date, transaction_type) 
+brt  |     values
+brt  |         (?, ?, ?, ?)
+brt  | 2025-05-11T23:04:12.606Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Обработка запроса от HRS завершена успешно
+brt  | 2025-05-11T23:05:38.856Z DEBUG 1 --- [pool-2-thread-6] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-ZOQh0lehbsPYlRvs7wlPNA' with deliveryTag: '9' in Consumer@2896e105: tags=[[amq.ctag-ZOQh0lehbsPYlRvs7wlPNA]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,2), conn: Proxy@14f03098 Shared Rabbit Connection: SimpleConnection@288c16a5 [delegate=amqp://guest@172.18.0.2:5672/, localPort=55816], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T23:05:38.856Z DEBUG 1 --- [ntContainer#1-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'{"callerId":1,"resources":{"money":0.0}}' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.hrs.model.HrsResponse}, contentType=application/json, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=hrs-to-brt.exchange, receivedRoutingKey=hrs-to-brt.routingkey, deliveryTag=9, consumerTag=amq.ctag-ZOQh0lehbsPYlRvs7wlPNA, consumerQueue=hrs-to-brt.queue])
+brt  | 2025-05-11T23:05:38.856Z DEBUG 1 --- [ntContainer#1-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=HrsRequest(callId=null, callerId=1, resources={money=0.0}), headers={amqp_receivedDeliveryMode=PERSISTENT, amqp_receivedExchange=hrs-to-brt.exchange, amqp_deliveryTag=9, amqp_consumerQueue=hrs-to-brt.queue, amqp_redelivered=false, amqp_receivedRoutingKey=hrs-to-brt.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=ed80ae14-d9f5-a8ec-294c-b038db85fd5c, amqp_consumerTag=amq.ctag-ZOQh0lehbsPYlRvs7wlPNA, amqp_lastInBatch=false, contentType=application/json, __TypeId__=com.romashka.romashka_telecom.hrs.model.HrsResponse, timestamp=1747004738856}]]
+brt  | 2025-05-11T23:05:38.857Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Получен запрос от HRS: HrsRequest(callId=null, callerId=1, resources={money=0.0})
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.caller_id=?
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         money_transactions
+brt  |         (caller_id, resource_amount, transaction_date, transaction_type) 
+brt  |     values
+brt  |         (?, ?, ?, ?)
+brt  | 2025-05-11T23:05:38.863Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Обработка запроса от HRS завершена успешно
+brt  | 2025-05-11T23:07:17.528Z DEBUG 1 --- [pool-2-thread-7] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-ZOQh0lehbsPYlRvs7wlPNA' with deliveryTag: '10' in Consumer@2896e105: tags=[[amq.ctag-ZOQh0lehbsPYlRvs7wlPNA]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,2), conn: Proxy@14f03098 Shared Rabbit Connection: SimpleConnection@288c16a5 [delegate=amqp://guest@172.18.0.2:5672/, localPort=55816], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T23:07:17.529Z DEBUG 1 --- [ntContainer#1-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'{"callerId":1,"resources":{"money":0.0}}' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.hrs.model.HrsResponse}, contentType=application/json, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=hrs-to-brt.exchange, receivedRoutingKey=hrs-to-brt.routingkey, deliveryTag=10, consumerTag=amq.ctag-ZOQh0lehbsPYlRvs7wlPNA, consumerQueue=hrs-to-brt.queue])
+brt  | 2025-05-11T23:07:17.529Z DEBUG 1 --- [ntContainer#1-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=HrsRequest(callId=null, callerId=1, resources={money=0.0}), headers={amqp_receivedDeliveryMode=PERSISTENT, amqp_receivedExchange=hrs-to-brt.exchange, amqp_deliveryTag=10, amqp_consumerQueue=hrs-to-brt.queue, amqp_redelivered=false, amqp_receivedRoutingKey=hrs-to-brt.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=67fe3d60-5933-b090-577a-ae722433a259, amqp_consumerTag=amq.ctag-ZOQh0lehbsPYlRvs7wlPNA, amqp_lastInBatch=false, contentType=application/json, __TypeId__=com.romashka.romashka_telecom.hrs.model.HrsResponse, timestamp=1747004837529}]]
+brt  | 2025-05-11T23:07:17.530Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Получен запрос от HRS: HrsRequest(callId=null, callerId=1, resources={money=0.0})
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.caller_id=?
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         money_transactions
+brt  |         (caller_id, resource_amount, transaction_date, transaction_type) 
+brt  |     values
+brt  |         (?, ?, ?, ?)
+brt  | 2025-05-11T23:07:17.536Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Обработка запроса от HRS завершена успешно
+brt  | 2025-05-11T23:09:06.659Z DEBUG 1 --- [pool-2-thread-8] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-ZOQh0lehbsPYlRvs7wlPNA' with deliveryTag: '11' in Consumer@2896e105: tags=[[amq.ctag-ZOQh0lehbsPYlRvs7wlPNA]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,2), conn: Proxy@14f03098 Shared Rabbit Connection: SimpleConnection@288c16a5 [delegate=amqp://guest@172.18.0.2:5672/, localPort=55816], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T23:09:06.660Z DEBUG 1 --- [ntContainer#1-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'{"callerId":1,"resources":{"money":0.0}}' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.hrs.model.HrsResponse}, contentType=application/json, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=hrs-to-brt.exchange, receivedRoutingKey=hrs-to-brt.routingkey, deliveryTag=11, consumerTag=amq.ctag-ZOQh0lehbsPYlRvs7wlPNA, consumerQueue=hrs-to-brt.queue])
+brt  | 2025-05-11T23:09:06.660Z DEBUG 1 --- [ntContainer#1-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=HrsRequest(callId=null, callerId=1, resources={money=0.0}), headers={amqp_receivedDeliveryMode=PERSISTENT, amqp_receivedExchange=hrs-to-brt.exchange, amqp_deliveryTag=11, amqp_consumerQueue=hrs-to-brt.queue, amqp_redelivered=false, amqp_receivedRoutingKey=hrs-to-brt.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=fbedbf4d-3719-6630-41d8-1db3227d1564, amqp_consumerTag=amq.ctag-ZOQh0lehbsPYlRvs7wlPNA, amqp_lastInBatch=false, contentType=application/json, __TypeId__=com.romashka.romashka_telecom.hrs.model.HrsResponse, timestamp=1747004946660}]]
+brt  | 2025-05-11T23:09:06.661Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Получен запрос от HRS: HrsRequest(callId=null, callerId=1, resources={money=0.0})
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.caller_id=?
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         money_transactions
+brt  |         (caller_id, resource_amount, transaction_date, transaction_type) 
+brt  |     values
+brt  |         (?, ?, ?, ?)
+brt  | 2025-05-11T23:09:06.667Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Обработка запроса от HRS завершена успешно

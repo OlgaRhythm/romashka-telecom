@@ -1,0 +1,37 @@
+spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    connection-timeout: 5000
+    listener:
+      simple:
+        retry:
+          enabled: true
+          initial-interval: 2000ms
+          max-interval: 10000ms
+          max-attempts: 3
+        missing-queues-fatal: false
+    template:
+      retry:
+        enabled: true
+        initial-interval: 2000ms
+        max-interval: 10000ms
+        max-attempts: 3
+
+rabbitmq:
+  cdr:
+    exchange:
+      name: cdr.exchange
+    queue:
+      name: cdr.queue
+    routing:
+      key: cdr.routingkey
+  brt-to-hrs:
+    exchange:
+      name: brt-to-hrs.exchange
+    queue:
+      name: brt-to-hrs.queue
+    routing:
+      key: brt-to-hrs.routingkey 

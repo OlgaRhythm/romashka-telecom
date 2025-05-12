@@ -1,0 +1,1001 @@
+time="2025-05-11T11:53:21+03:00" level=warning msg="C:\\Users\\Rudenches\\IdeaProjects\\romashka-telecom-main\\docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.caller_id=?
+brt  | 2025-05-11T08:45:59.568Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Абонплата для абонента 7 не требуется
+brt  | 2025-05-11T08:45:59.570Z DEBUG 1 --- [pool-2-thread-9] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-zKzADB-yRGhYkdrPKAVwww' with deliveryTag: '1306' in Consumer@68317dc0: tags=[[amq.ctag-zKzADB-yRGhYkdrPKAVwww]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,3), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T08:45:59.570Z DEBUG 1 --- [ntContainer#2-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'{"callerId":9,"feeAmount":0,"resources":{}}' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.hrs.model.MonthlyFeeResponse}, contentType=application/json, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=monthly-fee-hrs-to-brt.exchange, receivedRoutingKey=monthly-fee-hrs-to-brt.routingkey, deliveryTag=1306, consumerTag=amq.ctag-zKzADB-yRGhYkdrPKAVwww, consumerQueue=monthly-fee-hrs-to-brt.queue])
+brt  | 2025-05-11T08:45:59.570Z DEBUG 1 --- [ntContainer#2-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=byte[43], headers={amqp_receivedDeliveryMode=PERSISTENT, amqp_receivedExchange=monthly-fee-hrs-to-brt.exchange, amqp_deliveryTag=1306, amqp_consumerQueue=monthly-fee-hrs-to-brt.queue, amqp_redelivered=false, amqp_receivedRoutingKey=monthly-fee-hrs-to-brt.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=8b8eefee-7af5-86d4-199f-c9f69d7b25cc, amqp_consumerTag=amq.ctag-zKzADB-yRGhYkdrPKAVwww, amqp_lastInBatch=false, contentType=application/json, __TypeId__=com.romashka.romashka_telecom.hrs.model.MonthlyFeeResponse, timestamp=1746953159570}]]
+brt  | 2025-05-11T08:45:59.570Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Получен ответ на запрос абонплаты: MonthlyFeeResponse(callerId=9, feeAmount=0, resources={})
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.caller_id=?
+brt  | 2025-05-11T08:45:59.571Z DEBUG 1 --- [ool-2-thread-10] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-zKzADB-yRGhYkdrPKAVwww' with deliveryTag: '1307' in Consumer@68317dc0: tags=[[amq.ctag-zKzADB-yRGhYkdrPKAVwww]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,3), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T08:45:59.571Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Абонплата для абонента 9 не требуется
+brt  | 2025-05-11T08:45:59.571Z DEBUG 1 --- [ntContainer#2-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'{"callerId":10,"feeAmount":0,"resources":{}}' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.hrs.model.MonthlyFeeResponse}, contentType=application/json, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=monthly-fee-hrs-to-brt.exchange, receivedRoutingKey=monthly-fee-hrs-to-brt.routingkey, deliveryTag=1307, consumerTag=amq.ctag-zKzADB-yRGhYkdrPKAVwww, consumerQueue=monthly-fee-hrs-to-brt.queue])
+brt  | 2025-05-11T08:45:59.572Z DEBUG 1 --- [ntContainer#2-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=byte[44], headers={amqp_receivedDeliveryMode=PERSISTENT, amqp_receivedExchange=monthly-fee-hrs-to-brt.exchange, amqp_deliveryTag=1307, amqp_consumerQueue=monthly-fee-hrs-to-brt.queue, amqp_redelivered=false, amqp_receivedRoutingKey=monthly-fee-hrs-to-brt.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=72f03c58-69f8-53e5-1598-0c253176dbef, amqp_consumerTag=amq.ctag-zKzADB-yRGhYkdrPKAVwww, amqp_lastInBatch=false, contentType=application/json, __TypeId__=com.romashka.romashka_telecom.hrs.model.MonthlyFeeResponse, timestamp=1746953159572}]]
+brt  | 2025-05-11T08:45:59.572Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Получен ответ на запрос абонплаты: MonthlyFeeResponse(callerId=10, feeAmount=0, resources={})
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.caller_id=?
+brt  | 2025-05-11T08:45:59.572Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Абонплата для абонента 10 не требуется
+brt  | 2025-05-11T08:45:59.573Z DEBUG 1 --- [pool-2-thread-3] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-zKzADB-yRGhYkdrPKAVwww' with deliveryTag: '1308' in Consumer@68317dc0: tags=[[amq.ctag-zKzADB-yRGhYkdrPKAVwww]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,3), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T08:45:59.573Z DEBUG 1 --- [ntContainer#2-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'{"callerId":2,"feeAmount":0,"resources":{}}' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.hrs.model.MonthlyFeeResponse}, contentType=application/json, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=monthly-fee-hrs-to-brt.exchange, receivedRoutingKey=monthly-fee-hrs-to-brt.routingkey, deliveryTag=1308, consumerTag=amq.ctag-zKzADB-yRGhYkdrPKAVwww, consumerQueue=monthly-fee-hrs-to-brt.queue])
+brt  | 2025-05-11T08:45:59.573Z DEBUG 1 --- [ntContainer#2-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=byte[43], headers={amqp_receivedDeliveryMode=PERSISTENT, amqp_receivedExchange=monthly-fee-hrs-to-brt.exchange, amqp_deliveryTag=1308, amqp_consumerQueue=monthly-fee-hrs-to-brt.queue, amqp_redelivered=false, amqp_receivedRoutingKey=monthly-fee-hrs-to-brt.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=b91940a6-b83d-175d-d476-16951e4669ab, amqp_consumerTag=amq.ctag-zKzADB-yRGhYkdrPKAVwww, amqp_lastInBatch=false, contentType=application/json, __TypeId__=com.romashka.romashka_telecom.hrs.model.MonthlyFeeResponse, timestamp=1746953159573}]]
+brt  | 2025-05-11T08:45:59.573Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Получен ответ на запрос абонплаты: MonthlyFeeResponse(callerId=2, feeAmount=0, resources={})
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.caller_id=?
+brt  | 2025-05-11T08:45:59.574Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Абонплата для абонента 2 не требуется
+brt  | 2025-05-11T08:45:59.575Z DEBUG 1 --- [pool-2-thread-5] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-zKzADB-yRGhYkdrPKAVwww' with deliveryTag: '1309' in Consumer@68317dc0: tags=[[amq.ctag-zKzADB-yRGhYkdrPKAVwww]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,3), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T08:45:59.575Z DEBUG 1 --- [ntContainer#2-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'{"callerId":5,"feeAmount":0,"resources":{}}' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.hrs.model.MonthlyFeeResponse}, contentType=application/json, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=monthly-fee-hrs-to-brt.exchange, receivedRoutingKey=monthly-fee-hrs-to-brt.routingkey, deliveryTag=1309, consumerTag=amq.ctag-zKzADB-yRGhYkdrPKAVwww, consumerQueue=monthly-fee-hrs-to-brt.queue])
+brt  | 2025-05-11T08:45:59.575Z DEBUG 1 --- [ntContainer#2-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=byte[43], headers={amqp_receivedDeliveryMode=PERSISTENT, amqp_receivedExchange=monthly-fee-hrs-to-brt.exchange, amqp_deliveryTag=1309, amqp_consumerQueue=monthly-fee-hrs-to-brt.queue, amqp_redelivered=false, amqp_receivedRoutingKey=monthly-fee-hrs-to-brt.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=0d621386-dd24-2730-99f4-8de94db5f2ca, amqp_consumerTag=amq.ctag-zKzADB-yRGhYkdrPKAVwww, amqp_lastInBatch=false, contentType=application/json, __TypeId__=com.romashka.romashka_telecom.hrs.model.MonthlyFeeResponse, timestamp=1746953159575}]]
+brt  | 2025-05-11T08:45:59.576Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Получен ответ на запрос абонплаты: MonthlyFeeResponse(callerId=5, feeAmount=0, resources={})
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.caller_id=?
+brt  | 2025-05-11T08:45:59.577Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Абонплата для абонента 5 не требуется
+brt  | 2025-05-11T08:45:59.577Z DEBUG 1 --- [pool-2-thread-8] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-zKzADB-yRGhYkdrPKAVwww' with deliveryTag: '1310' in Consumer@68317dc0: tags=[[amq.ctag-zKzADB-yRGhYkdrPKAVwww]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,3), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T08:45:59.577Z DEBUG 1 --- [ntContainer#2-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'{"callerId":8,"feeAmount":0,"resources":{}}' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.hrs.model.MonthlyFeeResponse}, contentType=application/json, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=monthly-fee-hrs-to-brt.exchange, receivedRoutingKey=monthly-fee-hrs-to-brt.routingkey, deliveryTag=1310, consumerTag=amq.ctag-zKzADB-yRGhYkdrPKAVwww, consumerQueue=monthly-fee-hrs-to-brt.queue])
+brt  | 2025-05-11T08:45:59.578Z DEBUG 1 --- [ntContainer#2-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=byte[43], headers={amqp_receivedDeliveryMode=PERSISTENT, amqp_receivedExchange=monthly-fee-hrs-to-brt.exchange, amqp_deliveryTag=1310, amqp_consumerQueue=monthly-fee-hrs-to-brt.queue, amqp_redelivered=false, amqp_receivedRoutingKey=monthly-fee-hrs-to-brt.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=9f3d76d7-83c9-75fc-caa4-6f7ff8c655e4, amqp_consumerTag=amq.ctag-zKzADB-yRGhYkdrPKAVwww, amqp_lastInBatch=false, contentType=application/json, __TypeId__=com.romashka.romashka_telecom.hrs.model.MonthlyFeeResponse, timestamp=1746953159578}]]
+brt  | 2025-05-11T08:45:59.578Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Получен ответ на запрос абонплаты: MonthlyFeeResponse(callerId=8, feeAmount=0, resources={})
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.caller_id=?
+brt  | 2025-05-11T08:45:59.578Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Абонплата для абонента 8 не требуется
+brt  | 2025-05-11T08:46:02.483Z DEBUG 1 --- [pool-2-thread-4] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-x_Bsq-pZZn0vM0HQXCs_6w' with deliveryTag: '128' in Consumer@704a0f9: tags=[[amq.ctag-x_Bsq-pZZn0vM0HQXCs_6w]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,1), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T08:46:02.484Z DEBUG 1 --- [ntContainer#0-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'[B@61a30480(byte[809])' MessageProperties [headers={fileName=cdr_2025-12-26T20:23:30.418.csv}, contentType=text/csv, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=cdr.exchange, receivedRoutingKey=cdr.routingkey, deliveryTag=128, consumerTag=amq.ctag-x_Bsq-pZZn0vM0HQXCs_6w, consumerQueue=cdr.queue])
+brt  | 2025-05-11T08:46:02.484Z DEBUG 1 --- [ntContainer#0-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=call_type,caller_number,contact_number,start_time,end_time
+brt  | 01,79002223344,79010000011,2025-12-21T09:28:39.555,2025-12-21T09:36:42.555
+brt  | 02,79010000011,79002223344,2025-12-21T09:28:39.555,2025-12-21T09:36:42.555
+brt  | 01,79010000013,79010000001,2025-12-22T00:35:02.797,2025-12-22T00:42:11.797
+brt  | 02,79010000001,79010000013,2025-12-22T00:35:02.797,2025-12-22T00:42:11.797
+brt  | 01,79010000049,79010000039,2025-12-22T18:24:36.404,2025-12-22T18:30:45.404
+brt  | 02,79010000039,79010000049,2025-12-22T18:24:36.404,2025-12-22T18:30:45.404
+brt  | 01,79010000028,79010000013,2025-12-25T01:34:42.226,2025-12-25T01:42:42.226
+brt  | 02,79010000013,79010000028,2025-12-25T01:34:42.226,2025-12-25T01:42:42.226
+brt  | 01,79010000008,79010000042,2025-12-26T20:13:24.418,2025-12-26T20:23:30.418
+brt  | 02,79010000042,79010000008,2025-12-26T20:13:24.418,2025-12-26T20:23:30.418
+brt  | , headers={amqp_receivedDeliveryMode=PERSISTENT, fileName=cdr_2025-12-26T20:23:30.418.csv, amqp_receivedExchange=cdr.exchange, amqp_deliveryTag=128, amqp_consumerQueue=cdr.queue, amqp_redelivered=false, amqp_receivedRoutingKey=cdr.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=a5c93aa9-08d6-7076-7195-79ee300e31ad, amqp_consumerTag=amq.ctag-x_Bsq-pZZn0vM0HQXCs_6w, amqp_lastInBatch=false, contentType=text/csv, timestamp=1746953162484}]]
+brt  | 2025-05-11T08:46:02.484Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataListenerServiceImpl   : Получили CSV-пакет (809 байт)
+brt  | 2025-05-11T08:46:02.485Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataListenerServiceImpl   : Распарсили 10 записей
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.number 
+brt  |     from
+brt  |         callers c1_0
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.number in (?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | 2025-05-11T08:46:02.495Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataProcessorServiceImpl  : Сохранено 1 звонков в таблицу calls
+brt  | 2025-05-11T08:46:02.495Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataProcessorServiceImpl  : 🟢 Начата обработка звонков за 2025-12-19
+brt  | 2025-05-11T08:46:02.495Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataProcessorServiceImpl  : 📊 Всего звонков для обработки за 2025-12-19: 2
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.number=?
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.number=?
+brt  | Hibernate: 
+brt  |     select
+brt  |         cr1_0.caller_id,
+brt  |         cr1_0.current_balance,
+brt  |         cr1_0.resource_id 
+brt  |     from
+brt  |         caller_resources cr1_0 
+brt  |     where
+brt  |         cr1_0.caller_id=?
+brt  | Hibernate: 
+brt  |     select
+brt  |         r1_0.resource_id,
+brt  |         r1_0.resource_name 
+brt  |     from
+brt  |         resources r1_0 
+brt  |     where
+brt  |         r1_0.resource_id=?
+brt  | 2025-05-11T08:46:02.505Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataProcessorServiceImpl  : 🚀 Сформировано сообщение для биллинга: BillingMessage(callerId=5, rateId=12, durationMinutes=12, callType=OUTGOING, networkType=EXTERNAL, resources={money=-500.0, minutes=260.0})
+brt  | 2025-05-11T08:46:02.505Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.service.impl.BillingServiceImpl  : Отправка сообщения в HRS: BillingMessage(callerId=5, rateId=12, durationMinutes=12, callType=OUTGOING, networkType=EXTERNAL, resources={money=-500.0, minutes=260.0})
+brt  | 2025-05-11T08:46:02.506Z DEBUG 1 --- [ntContainer#0-1] o.s.amqp.rabbit.core.RabbitTemplate      : Executing callback RabbitTemplate$$Lambda$2341/0x00007f1328d25e98 on RabbitMQ Channel: Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,4), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368]
+brt  | 2025-05-11T08:46:02.506Z DEBUG 1 --- [ntContainer#0-1] o.s.amqp.rabbit.core.RabbitTemplate      : Publishing message [(Body:'[B@5072ac1d(byte[139])' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.brt.model.BillingMessage}, contentType=application/json, contentEncoding=UTF-8, contentLength=139, deliveryMode=PERSISTENT, priority=0, deliveryTag=0])] on exchange [brt-to-hrs.exchange], routingKey = [brt-to-hrs.routingkey]
+brt  | 2025-05-11T08:46:02.506Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.service.impl.BillingServiceImpl  : Successfully sent billing message
+brt  | 2025-05-11T08:46:02.506Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataProcessorServiceImpl  : 📞 Сформирован и отправлен биллинг для звонка: BillingMessage(callerId=5, rateId=12, durationMinutes=12, callType=OUTGOING, networkType=EXTERNAL, resources={money=-500.0, minutes=260.0})
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.number=?
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.number=?
+brt  | Hibernate: 
+brt  |     select
+brt  |         cr1_0.caller_id,
+brt  |         cr1_0.current_balance,
+brt  |         cr1_0.resource_id 
+brt  |     from
+brt  |         caller_resources cr1_0 
+brt  |     where
+brt  |         cr1_0.caller_id=?
+brt  | 2025-05-11T08:46:02.514Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataProcessorServiceImpl  : 🚀 Сформировано сообщение для биллинга: BillingMessage(callerId=2, rateId=12, durationMinutes=10, callType=OUTGOING, networkType=EXTERNAL, resources={money=-500.0, minutes=221.0})
+brt  | 2025-05-11T08:46:02.514Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.service.impl.BillingServiceImpl  : Отправка сообщения в HRS: BillingMessage(callerId=2, rateId=12, durationMinutes=10, callType=OUTGOING, networkType=EXTERNAL, resources={money=-500.0, minutes=221.0})
+brt  | 2025-05-11T08:46:02.514Z DEBUG 1 --- [ntContainer#0-1] o.s.amqp.rabbit.core.RabbitTemplate      : Executing callback RabbitTemplate$$Lambda$2341/0x00007f1328d25e98 on RabbitMQ Channel: Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,4), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368]
+brt  | 2025-05-11T08:46:02.515Z DEBUG 1 --- [ntContainer#0-1] o.s.amqp.rabbit.core.RabbitTemplate      : Publishing message [(Body:'[B@c34c5ac(byte[139])' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.brt.model.BillingMessage}, contentType=application/json, contentEncoding=UTF-8, contentLength=139, deliveryMode=PERSISTENT, priority=0, deliveryTag=0])] on exchange [brt-to-hrs.exchange], routingKey = [brt-to-hrs.routingkey]
+brt  | 2025-05-11T08:46:02.515Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.service.impl.BillingServiceImpl  : Successfully sent billing message
+brt  | 2025-05-11T08:46:02.515Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataProcessorServiceImpl  : 📞 Сформирован и отправлен биллинг для звонка: BillingMessage(callerId=2, rateId=12, durationMinutes=10, callType=OUTGOING, networkType=EXTERNAL, resources={money=-500.0, minutes=221.0})
+brt  | 2025-05-11T08:46:02.515Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataProcessorServiceImpl  : 🔵 Успешно обработано звонков за 2025-12-19: 2
+brt  | 2025-05-11T08:46:02.515Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.service.impl.BillingServiceImpl  : ⏰ [BillingService] Инициирована проверка и списание абонплаты за модельный день: 2025-12-19
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0
+brt  | 2025-05-11T08:46:02.517Z DEBUG 1 --- [pool-2-thread-7] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-ZdRQJZayj708WaeGf9lBNw' with deliveryTag: '191' in Consumer@3bbb5b2: tags=[[amq.ctag-ZdRQJZayj708WaeGf9lBNw]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,2), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T08:46:02.517Z DEBUG 1 --- [ntContainer#1-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'{"callerId":5,"resources":{"minutes":12.0}}' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.hrs.model.HrsResponse}, contentType=application/json, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=hrs-to-brt.exchange, receivedRoutingKey=hrs-to-brt.routingkey, deliveryTag=191, consumerTag=amq.ctag-ZdRQJZayj708WaeGf9lBNw, consumerQueue=hrs-to-brt.queue])
+brt  | 2025-05-11T08:46:02.517Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.service.impl.BillingServiceImpl  : Отправка запроса на проверку абонплаты для абонента 1: MonthlyFeeRequest(callerId=1, rateId=11, daysSinceActivation=352)
+brt  | 2025-05-11T08:46:02.517Z DEBUG 1 --- [ntContainer#1-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=HrsRequest(callId=null, callerId=5, resources={minutes=12.0}), headers={amqp_receivedDeliveryMode=PERSISTENT, amqp_receivedExchange=hrs-to-brt.exchange, amqp_deliveryTag=191, amqp_consumerQueue=hrs-to-brt.queue, amqp_redelivered=false, amqp_receivedRoutingKey=hrs-to-brt.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=d768289c-ff25-1962-bd7f-3a225754ee01, amqp_consumerTag=amq.ctag-ZdRQJZayj708WaeGf9lBNw, amqp_lastInBatch=false, contentType=application/json, __TypeId__=com.romashka.romashka_telecom.hrs.model.HrsResponse, timestamp=1746953162517}]]
+brt  | 2025-05-11T08:46:02.517Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.service.impl.BillingServiceImpl  : Информация об абоненте: Caller(callerId=1, subscriberId=1, number=79001112233, rateId=11, rateDate=2025-01-01T00:00, balance=100.00)
+brt  | 2025-05-11T08:46:02.517Z DEBUG 1 --- [ntContainer#0-1] o.s.amqp.rabbit.core.RabbitTemplate      : Executing callback RabbitTemplate$$Lambda$2341/0x00007f1328d25e98 on RabbitMQ Channel: Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,4), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368]
+brt  | 2025-05-11T08:46:02.518Z DEBUG 1 --- [ntContainer#0-1] o.s.amqp.rabbit.core.RabbitTemplate      : Publishing message [(Body:'[B@1f195410(byte[52])' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.brt.model.MonthlyFeeRequest}, contentType=application/json, contentEncoding=UTF-8, contentLength=52, deliveryMode=PERSISTENT, priority=0, deliveryTag=0])] on exchange [monthly-fee-brt-to-hrs.exchange], routingKey = [monthly-fee-brt-to-hrs.routingkey]
+brt  | 2025-05-11T08:46:02.518Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.service.impl.BillingServiceImpl  : Отправка запроса на проверку абонплаты для абонента 3: MonthlyFeeRequest(callerId=3, rateId=11, daysSinceActivation=352)
+brt  | 2025-05-11T08:46:02.518Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.service.impl.BillingServiceImpl  : Информация об абоненте: Caller(callerId=3, subscriberId=3, number=79003334455, rateId=11, rateDate=2025-01-01T00:00, balance=100.00)
+brt  | 2025-05-11T08:46:02.518Z DEBUG 1 --- [ntContainer#0-1] o.s.amqp.rabbit.core.RabbitTemplate      : Executing callback RabbitTemplate$$Lambda$2341/0x00007f1328d25e98 on RabbitMQ Channel: Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,4), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368]
+brt  | 2025-05-11T08:46:02.518Z DEBUG 1 --- [ntContainer#0-1] o.s.amqp.rabbit.core.RabbitTemplate      : Publishing message [(Body:'[B@5026fad9(byte[52])' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.brt.model.MonthlyFeeRequest}, contentType=application/json, contentEncoding=UTF-8, contentLength=52, deliveryMode=PERSISTENT, priority=0, deliveryTag=0])] on exchange [monthly-fee-brt-to-hrs.exchange], routingKey = [monthly-fee-brt-to-hrs.routingkey]
+brt  | 2025-05-11T08:46:02.518Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.service.impl.BillingServiceImpl  : Отправка запроса на проверку абонплаты для абонента 4: MonthlyFeeRequest(callerId=4, rateId=11, daysSinceActivation=352)
+brt  | 2025-05-11T08:46:02.518Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Получен запрос от HRS: HrsRequest(callId=null, callerId=5, resources={minutes=12.0})
+brt  | 2025-05-11T08:46:02.518Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.service.impl.BillingServiceImpl  : Информация об абоненте: Caller(callerId=4, subscriberId=4, number=79004445566, rateId=11, rateDate=2025-01-01T00:00, balance=100.00)
+brt  | 2025-05-11T08:46:02.518Z DEBUG 1 --- [ntContainer#0-1] o.s.amqp.rabbit.core.RabbitTemplate      : Executing callback RabbitTemplate$$Lambda$2341/0x00007f1328d25e98 on RabbitMQ Channel: Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,4), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368]
+brt  | 2025-05-11T08:46:02.518Z DEBUG 1 --- [ntContainer#0-1] o.s.amqp.rabbit.core.RabbitTemplate      : Publishing message [(Body:'[B@22b8617e(byte[52])' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.brt.model.MonthlyFeeRequest}, contentType=application/json, contentEncoding=UTF-8, contentLength=52, deliveryMode=PERSISTENT, priority=0, deliveryTag=0])] on exchange [monthly-fee-brt-to-hrs.exchange], routingKey = [monthly-fee-brt-to-hrs.routingkey]
+brt  | 2025-05-11T08:46:02.518Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.service.impl.BillingServiceImpl  : Отправка запроса на проверку абонплаты для абонента 6: MonthlyFeeRequest(callerId=6, rateId=11, daysSinceActivation=352)
+brt  | 2025-05-11T08:46:02.519Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.service.impl.BillingServiceImpl  : Информация об абоненте: Caller(callerId=6, subscriberId=6, number=79006667788, rateId=11, rateDate=2025-01-01T00:00, balance=100.00)
+brt  | 2025-05-11T08:46:02.519Z DEBUG 1 --- [ntContainer#0-1] o.s.amqp.rabbit.core.RabbitTemplate      : Executing callback RabbitTemplate$$Lambda$2341/0x00007f1328d25e98 on RabbitMQ Channel: Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,4), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368]
+brt  | 2025-05-11T08:46:02.519Z DEBUG 1 --- [ntContainer#0-1] o.s.amqp.rabbit.core.RabbitTemplate      : Publishing message [(Body:'[B@5a17025b(byte[52])' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.brt.model.MonthlyFeeRequest}, contentType=application/json, contentEncoding=UTF-8, contentLength=52, deliveryMode=PERSISTENT, priority=0, deliveryTag=0])] on exchange [monthly-fee-brt-to-hrs.exchange], routingKey = [monthly-fee-brt-to-hrs.routingkey]
+brt  | 2025-05-11T08:46:02.519Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.service.impl.BillingServiceImpl  : Отправка запроса на проверку абонплаты для абонента 7: MonthlyFeeRequest(callerId=7, rateId=11, daysSinceActivation=352)
+brt  | 2025-05-11T08:46:02.519Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.service.impl.BillingServiceImpl  : Информация об абоненте: Caller(callerId=7, subscriberId=7, number=79007778899, rateId=11, rateDate=2025-01-01T00:00, balance=100.00)
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.caller_id=?
+brt  | 2025-05-11T08:46:02.519Z DEBUG 1 --- [ntContainer#0-1] o.s.amqp.rabbit.core.RabbitTemplate      : Executing callback RabbitTemplate$$Lambda$2341/0x00007f1328d25e98 on RabbitMQ Channel: Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,4), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368]
+brt  | 2025-05-11T08:46:02.519Z DEBUG 1 --- [ntContainer#0-1] o.s.amqp.rabbit.core.RabbitTemplate      : Publishing message [(Body:'[B@ffb64dd(byte[52])' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.brt.model.MonthlyFeeRequest}, contentType=application/json, contentEncoding=UTF-8, contentLength=52, deliveryMode=PERSISTENT, priority=0, deliveryTag=0])] on exchange [monthly-fee-brt-to-hrs.exchange], routingKey = [monthly-fee-brt-to-hrs.routingkey]
+brt  | 2025-05-11T08:46:02.519Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.service.impl.BillingServiceImpl  : Отправка запроса на проверку абонплаты для абонента 9: MonthlyFeeRequest(callerId=9, rateId=11, daysSinceActivation=352)
+brt  | 2025-05-11T08:46:02.519Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.service.impl.BillingServiceImpl  : Информация об абоненте: Caller(callerId=9, subscriberId=3, number=79009990011, rateId=11, rateDate=2025-01-01T00:00, balance=100.00)
+brt  | 2025-05-11T08:46:02.519Z DEBUG 1 --- [ntContainer#0-1] o.s.amqp.rabbit.core.RabbitTemplate      : Executing callback RabbitTemplate$$Lambda$2341/0x00007f1328d25e98 on RabbitMQ Channel: Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,4), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368]
+brt  | 2025-05-11T08:46:02.519Z DEBUG 1 --- [ntContainer#0-1] o.s.amqp.rabbit.core.RabbitTemplate      : Publishing message [(Body:'[B@686ca7c9(byte[52])' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.brt.model.MonthlyFeeRequest}, contentType=application/json, contentEncoding=UTF-8, contentLength=52, deliveryMode=PERSISTENT, priority=0, deliveryTag=0])] on exchange [monthly-fee-brt-to-hrs.exchange], routingKey = [monthly-fee-brt-to-hrs.routingkey]
+brt  | 2025-05-11T08:46:02.519Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.service.impl.BillingServiceImpl  : Отправка запроса на проверку абонплаты для абонента 10: MonthlyFeeRequest(callerId=10, rateId=11, daysSinceActivation=352)
+brt  | 2025-05-11T08:46:02.519Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.service.impl.BillingServiceImpl  : Информация об абоненте: Caller(callerId=10, subscriberId=3, number=79001001122, rateId=11, rateDate=2025-01-01T00:00, balance=100.00)
+brt  | 2025-05-11T08:46:02.519Z DEBUG 1 --- [ntContainer#0-1] o.s.amqp.rabbit.core.RabbitTemplate      : Executing callback RabbitTemplate$$Lambda$2341/0x00007f1328d25e98 on RabbitMQ Channel: Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,4), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368]
+brt  | 2025-05-11T08:46:02.519Z DEBUG 1 --- [ntContainer#0-1] o.s.amqp.rabbit.core.RabbitTemplate      : Publishing message [(Body:'[B@9be882b(byte[53])' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.brt.model.MonthlyFeeRequest}, contentType=application/json, contentEncoding=UTF-8, contentLength=53, deliveryMode=PERSISTENT, priority=0, deliveryTag=0])] on exchange [monthly-fee-brt-to-hrs.exchange], routingKey = [monthly-fee-brt-to-hrs.routingkey]
+brt  | 2025-05-11T08:46:02.519Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.service.impl.BillingServiceImpl  : Отправка запроса на проверку абонплаты для абонента 2: MonthlyFeeRequest(callerId=2, rateId=12, daysSinceActivation=352)
+brt  | 2025-05-11T08:46:02.520Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.service.impl.BillingServiceImpl  : Информация об абоненте: Caller(callerId=2, subscriberId=2, number=79002223344, rateId=12, rateDate=2025-01-01T00:00, balance=-500.00)
+brt  | 2025-05-11T08:46:02.520Z DEBUG 1 --- [ntContainer#0-1] o.s.amqp.rabbit.core.RabbitTemplate      : Executing callback RabbitTemplate$$Lambda$2341/0x00007f1328d25e98 on RabbitMQ Channel: Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,4), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368]
+brt  | 2025-05-11T08:46:02.520Z DEBUG 1 --- [ntContainer#0-1] o.s.amqp.rabbit.core.RabbitTemplate      : Publishing message [(Body:'[B@6b59569d(byte[52])' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.brt.model.MonthlyFeeRequest}, contentType=application/json, contentEncoding=UTF-8, contentLength=52, deliveryMode=PERSISTENT, priority=0, deliveryTag=0])] on exchange [monthly-fee-brt-to-hrs.exchange], routingKey = [monthly-fee-brt-to-hrs.routingkey]
+brt  | 2025-05-11T08:46:02.520Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.service.impl.BillingServiceImpl  : Отправка запроса на проверку абонплаты для абонента 5: MonthlyFeeRequest(callerId=5, rateId=12, daysSinceActivation=352)
+brt  | 2025-05-11T08:46:02.520Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.service.impl.BillingServiceImpl  : Информация об абоненте: Caller(callerId=5, subscriberId=5, number=79005556677, rateId=12, rateDate=2025-01-01T00:00, balance=-500.00)
+brt  | 2025-05-11T08:46:02.520Z DEBUG 1 --- [ntContainer#0-1] o.s.amqp.rabbit.core.RabbitTemplate      : Executing callback RabbitTemplate$$Lambda$2341/0x00007f1328d25e98 on RabbitMQ Channel: Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,4), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368]
+brt  | 2025-05-11T08:46:02.520Z DEBUG 1 --- [ntContainer#0-1] o.s.amqp.rabbit.core.RabbitTemplate      : Publishing message [(Body:'[B@3f501aa7(byte[52])' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.brt.model.MonthlyFeeRequest}, contentType=application/json, contentEncoding=UTF-8, contentLength=52, deliveryMode=PERSISTENT, priority=0, deliveryTag=0])] on exchange [monthly-fee-brt-to-hrs.exchange], routingKey = [monthly-fee-brt-to-hrs.routingkey]
+brt  | 2025-05-11T08:46:02.520Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.service.impl.BillingServiceImpl  : Отправка запроса на проверку абонплаты для абонента 8: MonthlyFeeRequest(callerId=8, rateId=12, daysSinceActivation=352)
+brt  | 2025-05-11T08:46:02.520Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.service.impl.BillingServiceImpl  : Информация об абоненте: Caller(callerId=8, subscriberId=2, number=79008889900, rateId=12, rateDate=2025-01-01T00:00, balance=-500.00)
+brt  | Hibernate: 
+brt  |     select
+brt  |         r1_0.resource_id,
+brt  |         r1_0.resource_name 
+brt  |     from
+brt  |         resources r1_0 
+brt  |     where
+brt  |         r1_0.resource_name=?
+brt  | 2025-05-11T08:46:02.520Z DEBUG 1 --- [ntContainer#0-1] o.s.amqp.rabbit.core.RabbitTemplate      : Executing callback RabbitTemplate$$Lambda$2341/0x00007f1328d25e98 on RabbitMQ Channel: Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,4), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368]
+brt  | 2025-05-11T08:46:02.520Z DEBUG 1 --- [ntContainer#0-1] o.s.amqp.rabbit.core.RabbitTemplate      : Publishing message [(Body:'[B@320fa06b(byte[52])' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.brt.model.MonthlyFeeRequest}, contentType=application/json, contentEncoding=UTF-8, contentLength=52, deliveryMode=PERSISTENT, priority=0, deliveryTag=0])] on exchange [monthly-fee-brt-to-hrs.exchange], routingKey = [monthly-fee-brt-to-hrs.routingkey]
+brt  | Hibernate: 
+brt  |     select
+brt  |         cr1_0.caller_id,
+brt  |         cr1_0.current_balance,
+brt  |         cr1_0.resource_id 
+brt  |     from
+brt  |         caller_resources cr1_0 
+brt  |     where
+brt  |         cr1_0.caller_id=? 
+brt  |         and cr1_0.resource_id=?
+brt  | 2025-05-11T08:46:02.522Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Баланс 248.00 для ресурса minutes абонента 5 после списания 12.0
+brt  | 2025-05-11T08:46:02.522Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Баланс 248.00 для ресурса minutes абонента 5 после списания 12.0
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         transactions
+brt  |         (caller_id, resource_amount, resource_id, transaction_date, transaction_type) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | 2025-05-11T08:46:02.524Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Обработка запроса от HRS завершена успешно
+brt  | 2025-05-11T08:46:02.525Z DEBUG 1 --- [pool-2-thread-6] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-ZdRQJZayj708WaeGf9lBNw' with deliveryTag: '192' in Consumer@3bbb5b2: tags=[[amq.ctag-ZdRQJZayj708WaeGf9lBNw]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,2), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368], acknowledgeMode=AUTO local queue size=0
+brt  | Hibernate: 
+brt  |     update
+brt  |         caller_resources 
+brt  |     set
+brt  |         current_balance=?,
+brt  |         resource_id=? 
+brt  |     where
+brt  |         caller_id=?
+brt  | 2025-05-11T08:46:02.525Z DEBUG 1 --- [pool-2-thread-9] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-zKzADB-yRGhYkdrPKAVwww' with deliveryTag: '1311' in Consumer@68317dc0: tags=[[amq.ctag-zKzADB-yRGhYkdrPKAVwww]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,3), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T08:46:02.526Z DEBUG 1 --- [ntContainer#2-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'{"callerId":1,"feeAmount":0,"resources":{}}' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.hrs.model.MonthlyFeeResponse}, contentType=application/json, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=monthly-fee-hrs-to-brt.exchange, receivedRoutingKey=monthly-fee-hrs-to-brt.routingkey, deliveryTag=1311, consumerTag=amq.ctag-zKzADB-yRGhYkdrPKAVwww, consumerQueue=monthly-fee-hrs-to-brt.queue])
+brt  | 2025-05-11T08:46:02.526Z DEBUG 1 --- [ntContainer#2-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=byte[43], headers={amqp_receivedDeliveryMode=PERSISTENT, amqp_receivedExchange=monthly-fee-hrs-to-brt.exchange, amqp_deliveryTag=1311, amqp_consumerQueue=monthly-fee-hrs-to-brt.queue, amqp_redelivered=false, amqp_receivedRoutingKey=monthly-fee-hrs-to-brt.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=f26fe57f-b038-7c59-7f88-a686a68f0bfc, amqp_consumerTag=amq.ctag-zKzADB-yRGhYkdrPKAVwww, amqp_lastInBatch=false, contentType=application/json, __TypeId__=com.romashka.romashka_telecom.hrs.model.MonthlyFeeResponse, timestamp=1746953162526}]]
+brt  | 2025-05-11T08:46:02.527Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Получен ответ на запрос абонплаты: MonthlyFeeResponse(callerId=1, feeAmount=0, resources={})
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.caller_id=?
+brt  | 2025-05-11T08:46:02.528Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Абонплата для абонента 1 не требуется
+brt  | 2025-05-11T08:46:02.528Z DEBUG 1 --- [ool-2-thread-10] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-zKzADB-yRGhYkdrPKAVwww' with deliveryTag: '1312' in Consumer@68317dc0: tags=[[amq.ctag-zKzADB-yRGhYkdrPKAVwww]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,3), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T08:46:02.528Z DEBUG 1 --- [ntContainer#1-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'{"callerId":2,"resources":{"minutes":10.0}}' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.hrs.model.HrsResponse}, contentType=application/json, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=hrs-to-brt.exchange, receivedRoutingKey=hrs-to-brt.routingkey, deliveryTag=192, consumerTag=amq.ctag-ZdRQJZayj708WaeGf9lBNw, consumerQueue=hrs-to-brt.queue])
+brt  | 2025-05-11T08:46:02.528Z DEBUG 1 --- [ntContainer#2-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'{"callerId":3,"feeAmount":0,"resources":{}}' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.hrs.model.MonthlyFeeResponse}, contentType=application/json, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=monthly-fee-hrs-to-brt.exchange, receivedRoutingKey=monthly-fee-hrs-to-brt.routingkey, deliveryTag=1312, consumerTag=amq.ctag-zKzADB-yRGhYkdrPKAVwww, consumerQueue=monthly-fee-hrs-to-brt.queue])
+brt  | 2025-05-11T08:46:02.528Z DEBUG 1 --- [ntContainer#2-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=byte[43], headers={amqp_receivedDeliveryMode=PERSISTENT, amqp_receivedExchange=monthly-fee-hrs-to-brt.exchange, amqp_deliveryTag=1312, amqp_consumerQueue=monthly-fee-hrs-to-brt.queue, amqp_redelivered=false, amqp_receivedRoutingKey=monthly-fee-hrs-to-brt.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=c7c43cce-0aba-3fe8-98ed-3413d752ed33, amqp_consumerTag=amq.ctag-zKzADB-yRGhYkdrPKAVwww, amqp_lastInBatch=false, contentType=application/json, __TypeId__=com.romashka.romashka_telecom.hrs.model.MonthlyFeeResponse, timestamp=1746953162528}]]
+brt  | 2025-05-11T08:46:02.529Z DEBUG 1 --- [ntContainer#1-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=HrsRequest(callId=null, callerId=2, resources={minutes=10.0}), headers={amqp_receivedDeliveryMode=PERSISTENT, amqp_receivedExchange=hrs-to-brt.exchange, amqp_deliveryTag=192, amqp_consumerQueue=hrs-to-brt.queue, amqp_redelivered=false, amqp_receivedRoutingKey=hrs-to-brt.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=ee3d3d0d-d934-fd8c-e315-bf12bd953cf9, amqp_consumerTag=amq.ctag-ZdRQJZayj708WaeGf9lBNw, amqp_lastInBatch=false, contentType=application/json, __TypeId__=com.romashka.romashka_telecom.hrs.model.HrsResponse, timestamp=1746953162528}]]
+brt  | 2025-05-11T08:46:02.529Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Получен ответ на запрос абонплаты: MonthlyFeeResponse(callerId=3, feeAmount=0, resources={})
+brt  | 2025-05-11T08:46:02.529Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Получен запрос от HRS: HrsRequest(callId=null, callerId=2, resources={minutes=10.0})
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.caller_id=?
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.caller_id=?
+brt  | Hibernate: 
+brt  |     select
+brt  |         r1_0.resource_id,
+brt  |         r1_0.resource_name 
+brt  |     from
+brt  |         resources r1_0 
+brt  |     where
+brt  |         r1_0.resource_name=?
+brt  | 2025-05-11T08:46:02.530Z DEBUG 1 --- [pool-2-thread-3] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-zKzADB-yRGhYkdrPKAVwww' with deliveryTag: '1313' in Consumer@68317dc0: tags=[[amq.ctag-zKzADB-yRGhYkdrPKAVwww]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,3), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T08:46:02.530Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Абонплата для абонента 3 не требуется
+brt  | 2025-05-11T08:46:02.531Z DEBUG 1 --- [ntContainer#2-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'{"callerId":4,"feeAmount":0,"resources":{}}' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.hrs.model.MonthlyFeeResponse}, contentType=application/json, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=monthly-fee-hrs-to-brt.exchange, receivedRoutingKey=monthly-fee-hrs-to-brt.routingkey, deliveryTag=1313, consumerTag=amq.ctag-zKzADB-yRGhYkdrPKAVwww, consumerQueue=monthly-fee-hrs-to-brt.queue])
+brt  | Hibernate: 
+brt  |     select
+brt  |         cr1_0.caller_id,
+brt  |         cr1_0.current_balance,
+brt  |         cr1_0.resource_id 
+brt  |     from
+brt  |         caller_resources cr1_0 
+brt  |     where
+brt  |         cr1_0.caller_id=? 
+brt  |         and cr1_0.resource_id=?
+brt  | 2025-05-11T08:46:02.531Z DEBUG 1 --- [ntContainer#2-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=byte[43], headers={amqp_receivedDeliveryMode=PERSISTENT, amqp_receivedExchange=monthly-fee-hrs-to-brt.exchange, amqp_deliveryTag=1313, amqp_consumerQueue=monthly-fee-hrs-to-brt.queue, amqp_redelivered=false, amqp_receivedRoutingKey=monthly-fee-hrs-to-brt.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=dd58411f-e3b5-1bf8-dda2-3fb59837f240, amqp_consumerTag=amq.ctag-zKzADB-yRGhYkdrPKAVwww, amqp_lastInBatch=false, contentType=application/json, __TypeId__=com.romashka.romashka_telecom.hrs.model.MonthlyFeeResponse, timestamp=1746953162531}]]
+brt  | 2025-05-11T08:46:02.531Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Получен ответ на запрос абонплаты: MonthlyFeeResponse(callerId=4, feeAmount=0, resources={})
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.caller_id=?
+brt  | 2025-05-11T08:46:02.532Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Баланс 211.00 для ресурса minutes абонента 2 после списания 10.0
+brt  | 2025-05-11T08:46:02.532Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Баланс 211.00 для ресурса minutes абонента 2 после списания 10.0
+brt  | 2025-05-11T08:46:02.532Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Абонплата для абонента 4 не требуется
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         transactions
+brt  |         (caller_id, resource_amount, resource_id, transaction_date, transaction_type) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | 2025-05-11T08:46:02.532Z DEBUG 1 --- [pool-2-thread-5] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-zKzADB-yRGhYkdrPKAVwww' with deliveryTag: '1314' in Consumer@68317dc0: tags=[[amq.ctag-zKzADB-yRGhYkdrPKAVwww]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,3), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T08:46:02.532Z DEBUG 1 --- [ntContainer#2-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'{"callerId":6,"feeAmount":0,"resources":{}}' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.hrs.model.MonthlyFeeResponse}, contentType=application/json, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=monthly-fee-hrs-to-brt.exchange, receivedRoutingKey=monthly-fee-hrs-to-brt.routingkey, deliveryTag=1314, consumerTag=amq.ctag-zKzADB-yRGhYkdrPKAVwww, consumerQueue=monthly-fee-hrs-to-brt.queue])
+brt  | 2025-05-11T08:46:02.533Z DEBUG 1 --- [ntContainer#2-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=byte[43], headers={amqp_receivedDeliveryMode=PERSISTENT, amqp_receivedExchange=monthly-fee-hrs-to-brt.exchange, amqp_deliveryTag=1314, amqp_consumerQueue=monthly-fee-hrs-to-brt.queue, amqp_redelivered=false, amqp_receivedRoutingKey=monthly-fee-hrs-to-brt.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=d24c8c63-c8bd-b51b-ffcf-8381c299b15f, amqp_consumerTag=amq.ctag-zKzADB-yRGhYkdrPKAVwww, amqp_lastInBatch=false, contentType=application/json, __TypeId__=com.romashka.romashka_telecom.hrs.model.MonthlyFeeResponse, timestamp=1746953162533}]]
+brt  | 2025-05-11T08:46:02.533Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Получен ответ на запрос абонплаты: MonthlyFeeResponse(callerId=6, feeAmount=0, resources={})
+brt  | 2025-05-11T08:46:02.533Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Обработка запроса от HRS завершена успешно
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.caller_id=?
+brt  | Hibernate: 
+brt  |     update
+brt  |         caller_resources 
+brt  |     set
+brt  |         current_balance=?,
+brt  |         resource_id=? 
+brt  |     where
+brt  |         caller_id=?
+brt  | 2025-05-11T08:46:02.534Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Абонплата для абонента 6 не требуется
+brt  | 2025-05-11T08:46:02.535Z DEBUG 1 --- [pool-2-thread-8] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-zKzADB-yRGhYkdrPKAVwww' with deliveryTag: '1315' in Consumer@68317dc0: tags=[[amq.ctag-zKzADB-yRGhYkdrPKAVwww]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,3), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T08:46:02.535Z DEBUG 1 --- [ntContainer#2-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'{"callerId":7,"feeAmount":0,"resources":{}}' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.hrs.model.MonthlyFeeResponse}, contentType=application/json, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=monthly-fee-hrs-to-brt.exchange, receivedRoutingKey=monthly-fee-hrs-to-brt.routingkey, deliveryTag=1315, consumerTag=amq.ctag-zKzADB-yRGhYkdrPKAVwww, consumerQueue=monthly-fee-hrs-to-brt.queue])
+brt  | 2025-05-11T08:46:02.535Z DEBUG 1 --- [ntContainer#2-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=byte[43], headers={amqp_receivedDeliveryMode=PERSISTENT, amqp_receivedExchange=monthly-fee-hrs-to-brt.exchange, amqp_deliveryTag=1315, amqp_consumerQueue=monthly-fee-hrs-to-brt.queue, amqp_redelivered=false, amqp_receivedRoutingKey=monthly-fee-hrs-to-brt.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=1f74330e-d423-9190-cdd3-c09215f484ed, amqp_consumerTag=amq.ctag-zKzADB-yRGhYkdrPKAVwww, amqp_lastInBatch=false, contentType=application/json, __TypeId__=com.romashka.romashka_telecom.hrs.model.MonthlyFeeResponse, timestamp=1746953162535}]]
+brt  | 2025-05-11T08:46:02.535Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Получен ответ на запрос абонплаты: MonthlyFeeResponse(callerId=7, feeAmount=0, resources={})
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.caller_id=?
+brt  | 2025-05-11T08:46:02.536Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Абонплата для абонента 7 не требуется
+brt  | 2025-05-11T08:46:02.537Z DEBUG 1 --- [pool-2-thread-4] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-zKzADB-yRGhYkdrPKAVwww' with deliveryTag: '1316' in Consumer@68317dc0: tags=[[amq.ctag-zKzADB-yRGhYkdrPKAVwww]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,3), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T08:46:02.537Z DEBUG 1 --- [ntContainer#2-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'{"callerId":9,"feeAmount":0,"resources":{}}' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.hrs.model.MonthlyFeeResponse}, contentType=application/json, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=monthly-fee-hrs-to-brt.exchange, receivedRoutingKey=monthly-fee-hrs-to-brt.routingkey, deliveryTag=1316, consumerTag=amq.ctag-zKzADB-yRGhYkdrPKAVwww, consumerQueue=monthly-fee-hrs-to-brt.queue])
+brt  | 2025-05-11T08:46:02.537Z DEBUG 1 --- [ntContainer#2-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=byte[43], headers={amqp_receivedDeliveryMode=PERSISTENT, amqp_receivedExchange=monthly-fee-hrs-to-brt.exchange, amqp_deliveryTag=1316, amqp_consumerQueue=monthly-fee-hrs-to-brt.queue, amqp_redelivered=false, amqp_receivedRoutingKey=monthly-fee-hrs-to-brt.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=1776a989-0322-0f60-73a3-f2a641028d57, amqp_consumerTag=amq.ctag-zKzADB-yRGhYkdrPKAVwww, amqp_lastInBatch=false, contentType=application/json, __TypeId__=com.romashka.romashka_telecom.hrs.model.MonthlyFeeResponse, timestamp=1746953162537}]]
+brt  | 2025-05-11T08:46:02.538Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Получен ответ на запрос абонплаты: MonthlyFeeResponse(callerId=9, feeAmount=0, resources={})
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.caller_id=?
+brt  | 2025-05-11T08:46:02.538Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Абонплата для абонента 9 не требуется
+brt  | 2025-05-11T08:46:02.538Z DEBUG 1 --- [pool-2-thread-7] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-zKzADB-yRGhYkdrPKAVwww' with deliveryTag: '1317' in Consumer@68317dc0: tags=[[amq.ctag-zKzADB-yRGhYkdrPKAVwww]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,3), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T08:46:02.539Z DEBUG 1 --- [ntContainer#2-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'{"callerId":10,"feeAmount":0,"resources":{}}' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.hrs.model.MonthlyFeeResponse}, contentType=application/json, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=monthly-fee-hrs-to-brt.exchange, receivedRoutingKey=monthly-fee-hrs-to-brt.routingkey, deliveryTag=1317, consumerTag=amq.ctag-zKzADB-yRGhYkdrPKAVwww, consumerQueue=monthly-fee-hrs-to-brt.queue])
+brt  | 2025-05-11T08:46:02.539Z DEBUG 1 --- [ntContainer#2-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=byte[44], headers={amqp_receivedDeliveryMode=PERSISTENT, amqp_receivedExchange=monthly-fee-hrs-to-brt.exchange, amqp_deliveryTag=1317, amqp_consumerQueue=monthly-fee-hrs-to-brt.queue, amqp_redelivered=false, amqp_receivedRoutingKey=monthly-fee-hrs-to-brt.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=9563d1d2-8a77-eaa9-3ea3-cf514a2a5638, amqp_consumerTag=amq.ctag-zKzADB-yRGhYkdrPKAVwww, amqp_lastInBatch=false, contentType=application/json, __TypeId__=com.romashka.romashka_telecom.hrs.model.MonthlyFeeResponse, timestamp=1746953162539}]]
+brt  | 2025-05-11T08:46:02.539Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Получен ответ на запрос абонплаты: MonthlyFeeResponse(callerId=10, feeAmount=0, resources={})
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.caller_id=?
+brt  | 2025-05-11T08:46:02.540Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Абонплата для абонента 10 не требуется
+brt  | 2025-05-11T08:46:02.541Z DEBUG 1 --- [pool-2-thread-6] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-zKzADB-yRGhYkdrPKAVwww' with deliveryTag: '1318' in Consumer@68317dc0: tags=[[amq.ctag-zKzADB-yRGhYkdrPKAVwww]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,3), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T08:46:02.541Z DEBUG 1 --- [ntContainer#2-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'{"callerId":2,"feeAmount":0,"resources":{}}' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.hrs.model.MonthlyFeeResponse}, contentType=application/json, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=monthly-fee-hrs-to-brt.exchange, receivedRoutingKey=monthly-fee-hrs-to-brt.routingkey, deliveryTag=1318, consumerTag=amq.ctag-zKzADB-yRGhYkdrPKAVwww, consumerQueue=monthly-fee-hrs-to-brt.queue])
+brt  | 2025-05-11T08:46:02.541Z DEBUG 1 --- [ntContainer#2-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=byte[43], headers={amqp_receivedDeliveryMode=PERSISTENT, amqp_receivedExchange=monthly-fee-hrs-to-brt.exchange, amqp_deliveryTag=1318, amqp_consumerQueue=monthly-fee-hrs-to-brt.queue, amqp_redelivered=false, amqp_receivedRoutingKey=monthly-fee-hrs-to-brt.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=76e3a8d4-4f5b-a795-20e7-51eb08f33bae, amqp_consumerTag=amq.ctag-zKzADB-yRGhYkdrPKAVwww, amqp_lastInBatch=false, contentType=application/json, __TypeId__=com.romashka.romashka_telecom.hrs.model.MonthlyFeeResponse, timestamp=1746953162541}]]
+brt  | 2025-05-11T08:46:02.541Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Получен ответ на запрос абонплаты: MonthlyFeeResponse(callerId=2, feeAmount=0, resources={})
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.caller_id=?
+brt  | 2025-05-11T08:46:02.542Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Абонплата для абонента 2 не требуется
+brt  | 2025-05-11T08:46:02.542Z DEBUG 1 --- [pool-2-thread-9] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-zKzADB-yRGhYkdrPKAVwww' with deliveryTag: '1319' in Consumer@68317dc0: tags=[[amq.ctag-zKzADB-yRGhYkdrPKAVwww]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,3), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T08:46:02.543Z DEBUG 1 --- [ntContainer#2-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'{"callerId":5,"feeAmount":0,"resources":{}}' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.hrs.model.MonthlyFeeResponse}, contentType=application/json, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=monthly-fee-hrs-to-brt.exchange, receivedRoutingKey=monthly-fee-hrs-to-brt.routingkey, deliveryTag=1319, consumerTag=amq.ctag-zKzADB-yRGhYkdrPKAVwww, consumerQueue=monthly-fee-hrs-to-brt.queue])
+brt  | 2025-05-11T08:46:02.543Z DEBUG 1 --- [ntContainer#2-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=byte[43], headers={amqp_receivedDeliveryMode=PERSISTENT, amqp_receivedExchange=monthly-fee-hrs-to-brt.exchange, amqp_deliveryTag=1319, amqp_consumerQueue=monthly-fee-hrs-to-brt.queue, amqp_redelivered=false, amqp_receivedRoutingKey=monthly-fee-hrs-to-brt.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=1a6f5bd9-6c3e-1f86-3003-f860a5ca54e5, amqp_consumerTag=amq.ctag-zKzADB-yRGhYkdrPKAVwww, amqp_lastInBatch=false, contentType=application/json, __TypeId__=com.romashka.romashka_telecom.hrs.model.MonthlyFeeResponse, timestamp=1746953162543}]]
+brt  | 2025-05-11T08:46:02.543Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Получен ответ на запрос абонплаты: MonthlyFeeResponse(callerId=5, feeAmount=0, resources={})
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.caller_id=?
+brt  | 2025-05-11T08:46:02.543Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Абонплата для абонента 5 не требуется
+brt  | 2025-05-11T08:46:02.544Z DEBUG 1 --- [ool-2-thread-10] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-zKzADB-yRGhYkdrPKAVwww' with deliveryTag: '1320' in Consumer@68317dc0: tags=[[amq.ctag-zKzADB-yRGhYkdrPKAVwww]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,3), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T08:46:02.544Z DEBUG 1 --- [ntContainer#2-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'{"callerId":8,"feeAmount":0,"resources":{}}' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.hrs.model.MonthlyFeeResponse}, contentType=application/json, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=monthly-fee-hrs-to-brt.exchange, receivedRoutingKey=monthly-fee-hrs-to-brt.routingkey, deliveryTag=1320, consumerTag=amq.ctag-zKzADB-yRGhYkdrPKAVwww, consumerQueue=monthly-fee-hrs-to-brt.queue])
+brt  | 2025-05-11T08:46:02.544Z DEBUG 1 --- [ntContainer#2-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=byte[43], headers={amqp_receivedDeliveryMode=PERSISTENT, amqp_receivedExchange=monthly-fee-hrs-to-brt.exchange, amqp_deliveryTag=1320, amqp_consumerQueue=monthly-fee-hrs-to-brt.queue, amqp_redelivered=false, amqp_receivedRoutingKey=monthly-fee-hrs-to-brt.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=e79ed04e-b05e-d228-286c-1f13231da07f, amqp_consumerTag=amq.ctag-zKzADB-yRGhYkdrPKAVwww, amqp_lastInBatch=false, contentType=application/json, __TypeId__=com.romashka.romashka_telecom.hrs.model.MonthlyFeeResponse, timestamp=1746953162544}]]
+brt  | 2025-05-11T08:46:02.544Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Получен ответ на запрос абонплаты: MonthlyFeeResponse(callerId=8, feeAmount=0, resources={})
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.caller_id=?
+brt  | 2025-05-11T08:46:02.545Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Абонплата для абонента 8 не требуется
+brt  | 2025-05-11T08:46:04.511Z DEBUG 1 --- [pool-2-thread-3] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-x_Bsq-pZZn0vM0HQXCs_6w' with deliveryTag: '129' in Consumer@704a0f9: tags=[[amq.ctag-x_Bsq-pZZn0vM0HQXCs_6w]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,1), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T08:46:04.511Z DEBUG 1 --- [ntContainer#0-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'[B@4f0d89d1(byte[809])' MessageProperties [headers={fileName=cdr_2025-12-30T23:14:32.639.csv}, contentType=text/csv, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=cdr.exchange, receivedRoutingKey=cdr.routingkey, deliveryTag=129, consumerTag=amq.ctag-x_Bsq-pZZn0vM0HQXCs_6w, consumerQueue=cdr.queue])
+brt  | 2025-05-11T08:46:04.511Z DEBUG 1 --- [ntContainer#0-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=call_type,caller_number,contact_number,start_time,end_time
+brt  | 01,79010000030,79010000008,2025-12-27T17:49:22.123,2025-12-27T17:55:12.123
+brt  | 02,79010000008,79010000030,2025-12-27T17:49:22.123,2025-12-27T17:55:12.123
+brt  | 01,79010000030,79010000031,2025-12-27T19:10:00.594,2025-12-27T19:16:57.594
+brt  | 02,79010000031,79010000030,2025-12-27T19:10:00.594,2025-12-27T19:16:57.594
+brt  | 01,79010000041,79010000022,2025-12-29T19:16:02.819,2025-12-29T19:22:35.819
+brt  | 02,79010000022,79010000041,2025-12-29T19:16:02.819,2025-12-29T19:22:35.819
+brt  | 01,79010000046,79010000004,2025-12-30T20:29:33.336,2025-12-30T20:39:54.336
+brt  | 02,79010000004,79010000046,2025-12-30T20:29:33.336,2025-12-30T20:39:54.336
+brt  | 01,79007778899,79010000024,2025-12-30T23:05:58.639,2025-12-30T23:14:32.639
+brt  | 02,79010000024,79007778899,2025-12-30T23:05:58.639,2025-12-30T23:14:32.639
+brt  | , headers={amqp_receivedDeliveryMode=PERSISTENT, fileName=cdr_2025-12-30T23:14:32.639.csv, amqp_receivedExchange=cdr.exchange, amqp_deliveryTag=129, amqp_consumerQueue=cdr.queue, amqp_redelivered=false, amqp_receivedRoutingKey=cdr.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=c686070d-1d29-e9c5-e567-1af2d4ba7063, amqp_consumerTag=amq.ctag-x_Bsq-pZZn0vM0HQXCs_6w, amqp_lastInBatch=false, contentType=text/csv, timestamp=1746953164511}]]
+brt  | 2025-05-11T08:46:04.511Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataListenerServiceImpl   : Получили CSV-пакет (809 байт)
+brt  | 2025-05-11T08:46:04.511Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataListenerServiceImpl   : Распарсили 10 записей
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.number 
+brt  |     from
+brt  |         callers c1_0
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.number in (?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | 2025-05-11T08:46:04.514Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataProcessorServiceImpl  : Сохранено 1 звонков в таблицу calls
+brt  | 2025-05-11T08:46:04.514Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataProcessorServiceImpl  : 🟢 Начата обработка звонков за 2025-12-21
+brt  | 2025-05-11T08:46:04.514Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataProcessorServiceImpl  : 📊 Всего звонков для обработки за 2025-12-21: 1
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.number=?
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.number=?
+brt  | Hibernate: 
+brt  |     select
+brt  |         cr1_0.caller_id,
+brt  |         cr1_0.current_balance,
+brt  |         cr1_0.resource_id 
+brt  |     from
+brt  |         caller_resources cr1_0 
+brt  |     where
+brt  |         cr1_0.caller_id=?
+brt  | Hibernate: 
+brt  |     select
+brt  |         r1_0.resource_id,
+brt  |         r1_0.resource_name 
+brt  |     from
+brt  |         resources r1_0 
+brt  |     where
+brt  |         r1_0.resource_id=?
+brt  | 2025-05-11T08:46:04.517Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataProcessorServiceImpl  : 🚀 Сформировано сообщение для биллинга: BillingMessage(callerId=2, rateId=12, durationMinutes=8, callType=OUTGOING, networkType=EXTERNAL, resources={money=-500.0, minutes=211.0})
+brt  | 2025-05-11T08:46:04.517Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.service.impl.BillingServiceImpl  : Отправка сообщения в HRS: BillingMessage(callerId=2, rateId=12, durationMinutes=8, callType=OUTGOING, networkType=EXTERNAL, resources={money=-500.0, minutes=211.0})
+brt  | 2025-05-11T08:46:04.517Z DEBUG 1 --- [ntContainer#0-1] o.s.amqp.rabbit.core.RabbitTemplate      : Executing callback RabbitTemplate$$Lambda$2341/0x00007f1328d25e98 on RabbitMQ Channel: Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,4), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368]
+brt  | 2025-05-11T08:46:04.517Z DEBUG 1 --- [ntContainer#0-1] o.s.amqp.rabbit.core.RabbitTemplate      : Publishing message [(Body:'[B@6c70bc0d(byte[138])' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.brt.model.BillingMessage}, contentType=application/json, contentEncoding=UTF-8, contentLength=138, deliveryMode=PERSISTENT, priority=0, deliveryTag=0])] on exchange [brt-to-hrs.exchange], routingKey = [brt-to-hrs.routingkey]
+brt  | 2025-05-11T08:46:04.517Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.service.impl.BillingServiceImpl  : Successfully sent billing message
+brt  | 2025-05-11T08:46:04.517Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataProcessorServiceImpl  : 📞 Сформирован и отправлен биллинг для звонка: BillingMessage(callerId=2, rateId=12, durationMinutes=8, callType=OUTGOING, networkType=EXTERNAL, resources={money=-500.0, minutes=211.0})
+brt  | 2025-05-11T08:46:04.517Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataProcessorServiceImpl  : 🔵 Успешно обработано звонков за 2025-12-21: 1
+brt  | 2025-05-11T08:46:04.517Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.service.impl.BillingServiceImpl  : ⏰ [BillingService] Инициирована проверка и списание абонплаты за модельный день: 2025-12-21
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0
+brt  | 2025-05-11T08:46:04.518Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.service.impl.BillingServiceImpl  : Отправка запроса на проверку абонплаты для абонента 1: MonthlyFeeRequest(callerId=1, rateId=11, daysSinceActivation=354)
+brt  | 2025-05-11T08:46:04.518Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.service.impl.BillingServiceImpl  : Информация об абоненте: Caller(callerId=1, subscriberId=1, number=79001112233, rateId=11, rateDate=2025-01-01T00:00, balance=100.00)
+brt  | 2025-05-11T08:46:04.518Z DEBUG 1 --- [ntContainer#0-1] o.s.amqp.rabbit.core.RabbitTemplate      : Executing callback RabbitTemplate$$Lambda$2341/0x00007f1328d25e98 on RabbitMQ Channel: Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,4), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368]
+brt  | 2025-05-11T08:46:04.518Z DEBUG 1 --- [ntContainer#0-1] o.s.amqp.rabbit.core.RabbitTemplate      : Publishing message [(Body:'[B@1ee5816d(byte[52])' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.brt.model.MonthlyFeeRequest}, contentType=application/json, contentEncoding=UTF-8, contentLength=52, deliveryMode=PERSISTENT, priority=0, deliveryTag=0])] on exchange [monthly-fee-brt-to-hrs.exchange], routingKey = [monthly-fee-brt-to-hrs.routingkey]
+brt  | 2025-05-11T08:46:04.518Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.service.impl.BillingServiceImpl  : Отправка запроса на проверку абонплаты для абонента 3: MonthlyFeeRequest(callerId=3, rateId=11, daysSinceActivation=354)
+brt  | 2025-05-11T08:46:04.518Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.service.impl.BillingServiceImpl  : Информация об абоненте: Caller(callerId=3, subscriberId=3, number=79003334455, rateId=11, rateDate=2025-01-01T00:00, balance=100.00)
+brt  | 2025-05-11T08:46:04.518Z DEBUG 1 --- [ntContainer#0-1] o.s.amqp.rabbit.core.RabbitTemplate      : Executing callback RabbitTemplate$$Lambda$2341/0x00007f1328d25e98 on RabbitMQ Channel: Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,4), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368]
+brt  | 2025-05-11T08:46:04.518Z DEBUG 1 --- [ntContainer#0-1] o.s.amqp.rabbit.core.RabbitTemplate      : Publishing message [(Body:'[B@322b4a92(byte[52])' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.brt.model.MonthlyFeeRequest}, contentType=application/json, contentEncoding=UTF-8, contentLength=52, deliveryMode=PERSISTENT, priority=0, deliveryTag=0])] on exchange [monthly-fee-brt-to-hrs.exchange], routingKey = [monthly-fee-brt-to-hrs.routingkey]
+brt  | 2025-05-11T08:46:04.518Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.service.impl.BillingServiceImpl  : Отправка запроса на проверку абонплаты для абонента 4: MonthlyFeeRequest(callerId=4, rateId=11, daysSinceActivation=354)
+brt  | 2025-05-11T08:46:04.518Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.service.impl.BillingServiceImpl  : Информация об абоненте: Caller(callerId=4, subscriberId=4, number=79004445566, rateId=11, rateDate=2025-01-01T00:00, balance=100.00)
+brt  | 2025-05-11T08:46:04.519Z DEBUG 1 --- [ntContainer#0-1] o.s.amqp.rabbit.core.RabbitTemplate      : Executing callback RabbitTemplate$$Lambda$2341/0x00007f1328d25e98 on RabbitMQ Channel: Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,4), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368]
+brt  | 2025-05-11T08:46:04.519Z DEBUG 1 --- [ntContainer#0-1] o.s.amqp.rabbit.core.RabbitTemplate      : Publishing message [(Body:'[B@65366a0(byte[52])' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.brt.model.MonthlyFeeRequest}, contentType=application/json, contentEncoding=UTF-8, contentLength=52, deliveryMode=PERSISTENT, priority=0, deliveryTag=0])] on exchange [monthly-fee-brt-to-hrs.exchange], routingKey = [monthly-fee-brt-to-hrs.routingkey]
+brt  | 2025-05-11T08:46:04.519Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.service.impl.BillingServiceImpl  : Отправка запроса на проверку абонплаты для абонента 6: MonthlyFeeRequest(callerId=6, rateId=11, daysSinceActivation=354)
+brt  | 2025-05-11T08:46:04.519Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.service.impl.BillingServiceImpl  : Информация об абоненте: Caller(callerId=6, subscriberId=6, number=79006667788, rateId=11, rateDate=2025-01-01T00:00, balance=100.00)
+brt  | 2025-05-11T08:46:04.519Z DEBUG 1 --- [ntContainer#0-1] o.s.amqp.rabbit.core.RabbitTemplate      : Executing callback RabbitTemplate$$Lambda$2341/0x00007f1328d25e98 on RabbitMQ Channel: Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,4), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368]
+brt  | 2025-05-11T08:46:04.519Z DEBUG 1 --- [ntContainer#0-1] o.s.amqp.rabbit.core.RabbitTemplate      : Publishing message [(Body:'[B@e8d4ca2(byte[52])' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.brt.model.MonthlyFeeRequest}, contentType=application/json, contentEncoding=UTF-8, contentLength=52, deliveryMode=PERSISTENT, priority=0, deliveryTag=0])] on exchange [monthly-fee-brt-to-hrs.exchange], routingKey = [monthly-fee-brt-to-hrs.routingkey]
+brt  | 2025-05-11T08:46:04.519Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.service.impl.BillingServiceImpl  : Отправка запроса на проверку абонплаты для абонента 7: MonthlyFeeRequest(callerId=7, rateId=11, daysSinceActivation=354)
+brt  | 2025-05-11T08:46:04.519Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.service.impl.BillingServiceImpl  : Информация об абоненте: Caller(callerId=7, subscriberId=7, number=79007778899, rateId=11, rateDate=2025-01-01T00:00, balance=100.00)
+brt  | 2025-05-11T08:46:04.519Z DEBUG 1 --- [ntContainer#0-1] o.s.amqp.rabbit.core.RabbitTemplate      : Executing callback RabbitTemplate$$Lambda$2341/0x00007f1328d25e98 on RabbitMQ Channel: Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,4), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368]
+brt  | 2025-05-11T08:46:04.519Z DEBUG 1 --- [ntContainer#0-1] o.s.amqp.rabbit.core.RabbitTemplate      : Publishing message [(Body:'[B@3cd15af7(byte[52])' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.brt.model.MonthlyFeeRequest}, contentType=application/json, contentEncoding=UTF-8, contentLength=52, deliveryMode=PERSISTENT, priority=0, deliveryTag=0])] on exchange [monthly-fee-brt-to-hrs.exchange], routingKey = [monthly-fee-brt-to-hrs.routingkey]
+brt  | 2025-05-11T08:46:04.519Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.service.impl.BillingServiceImpl  : Отправка запроса на проверку абонплаты для абонента 9: MonthlyFeeRequest(callerId=9, rateId=11, daysSinceActivation=354)
+brt  | 2025-05-11T08:46:04.519Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.service.impl.BillingServiceImpl  : Информация об абоненте: Caller(callerId=9, subscriberId=3, number=79009990011, rateId=11, rateDate=2025-01-01T00:00, balance=100.00)
+brt  | 2025-05-11T08:46:04.519Z DEBUG 1 --- [ntContainer#0-1] o.s.amqp.rabbit.core.RabbitTemplate      : Executing callback RabbitTemplate$$Lambda$2341/0x00007f1328d25e98 on RabbitMQ Channel: Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,4), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368]
+brt  | 2025-05-11T08:46:04.519Z DEBUG 1 --- [ntContainer#0-1] o.s.amqp.rabbit.core.RabbitTemplate      : Publishing message [(Body:'[B@54c6f825(byte[52])' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.brt.model.MonthlyFeeRequest}, contentType=application/json, contentEncoding=UTF-8, contentLength=52, deliveryMode=PERSISTENT, priority=0, deliveryTag=0])] on exchange [monthly-fee-brt-to-hrs.exchange], routingKey = [monthly-fee-brt-to-hrs.routingkey]
+brt  | 2025-05-11T08:46:04.519Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.service.impl.BillingServiceImpl  : Отправка запроса на проверку абонплаты для абонента 10: MonthlyFeeRequest(callerId=10, rateId=11, daysSinceActivation=354)
+brt  | 2025-05-11T08:46:04.519Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.service.impl.BillingServiceImpl  : Информация об абоненте: Caller(callerId=10, subscriberId=3, number=79001001122, rateId=11, rateDate=2025-01-01T00:00, balance=100.00)
+brt  | 2025-05-11T08:46:04.519Z DEBUG 1 --- [ntContainer#0-1] o.s.amqp.rabbit.core.RabbitTemplate      : Executing callback RabbitTemplate$$Lambda$2341/0x00007f1328d25e98 on RabbitMQ Channel: Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,4), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368]
+brt  | 2025-05-11T08:46:04.519Z DEBUG 1 --- [ntContainer#0-1] o.s.amqp.rabbit.core.RabbitTemplate      : Publishing message [(Body:'[B@49bdf27b(byte[53])' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.brt.model.MonthlyFeeRequest}, contentType=application/json, contentEncoding=UTF-8, contentLength=53, deliveryMode=PERSISTENT, priority=0, deliveryTag=0])] on exchange [monthly-fee-brt-to-hrs.exchange], routingKey = [monthly-fee-brt-to-hrs.routingkey]
+brt  | 2025-05-11T08:46:04.519Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.service.impl.BillingServiceImpl  : Отправка запроса на проверку абонплаты для абонента 2: MonthlyFeeRequest(callerId=2, rateId=12, daysSinceActivation=354)
+brt  | 2025-05-11T08:46:04.519Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.service.impl.BillingServiceImpl  : Информация об абоненте: Caller(callerId=2, subscriberId=2, number=79002223344, rateId=12, rateDate=2025-01-01T00:00, balance=-500.00)
+brt  | 2025-05-11T08:46:04.519Z DEBUG 1 --- [ntContainer#0-1] o.s.amqp.rabbit.core.RabbitTemplate      : Executing callback RabbitTemplate$$Lambda$2341/0x00007f1328d25e98 on RabbitMQ Channel: Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,4), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368]
+brt  | 2025-05-11T08:46:04.519Z DEBUG 1 --- [ntContainer#0-1] o.s.amqp.rabbit.core.RabbitTemplate      : Publishing message [(Body:'[B@2db14fb2(byte[52])' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.brt.model.MonthlyFeeRequest}, contentType=application/json, contentEncoding=UTF-8, contentLength=52, deliveryMode=PERSISTENT, priority=0, deliveryTag=0])] on exchange [monthly-fee-brt-to-hrs.exchange], routingKey = [monthly-fee-brt-to-hrs.routingkey]
+brt  | 2025-05-11T08:46:04.519Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.service.impl.BillingServiceImpl  : Отправка запроса на проверку абонплаты для абонента 5: MonthlyFeeRequest(callerId=5, rateId=12, daysSinceActivation=354)
+brt  | 2025-05-11T08:46:04.519Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.service.impl.BillingServiceImpl  : Информация об абоненте: Caller(callerId=5, subscriberId=5, number=79005556677, rateId=12, rateDate=2025-01-01T00:00, balance=-500.00)
+brt  | 2025-05-11T08:46:04.519Z DEBUG 1 --- [ntContainer#0-1] o.s.amqp.rabbit.core.RabbitTemplate      : Executing callback RabbitTemplate$$Lambda$2341/0x00007f1328d25e98 on RabbitMQ Channel: Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,4), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368]
+brt  | 2025-05-11T08:46:04.519Z DEBUG 1 --- [ntContainer#0-1] o.s.amqp.rabbit.core.RabbitTemplate      : Publishing message [(Body:'[B@1b01be11(byte[52])' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.brt.model.MonthlyFeeRequest}, contentType=application/json, contentEncoding=UTF-8, contentLength=52, deliveryMode=PERSISTENT, priority=0, deliveryTag=0])] on exchange [monthly-fee-brt-to-hrs.exchange], routingKey = [monthly-fee-brt-to-hrs.routingkey]
+brt  | 2025-05-11T08:46:04.519Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.service.impl.BillingServiceImpl  : Отправка запроса на проверку абонплаты для абонента 8: MonthlyFeeRequest(callerId=8, rateId=12, daysSinceActivation=354)
+brt  | 2025-05-11T08:46:04.519Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.service.impl.BillingServiceImpl  : Информация об абоненте: Caller(callerId=8, subscriberId=2, number=79008889900, rateId=12, rateDate=2025-01-01T00:00, balance=-500.00)
+brt  | 2025-05-11T08:46:04.519Z DEBUG 1 --- [ntContainer#0-1] o.s.amqp.rabbit.core.RabbitTemplate      : Executing callback RabbitTemplate$$Lambda$2341/0x00007f1328d25e98 on RabbitMQ Channel: Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,4), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368]
+brt  | 2025-05-11T08:46:04.519Z DEBUG 1 --- [ntContainer#0-1] o.s.amqp.rabbit.core.RabbitTemplate      : Publishing message [(Body:'[B@78656a84(byte[52])' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.brt.model.MonthlyFeeRequest}, contentType=application/json, contentEncoding=UTF-8, contentLength=52, deliveryMode=PERSISTENT, priority=0, deliveryTag=0])] on exchange [monthly-fee-brt-to-hrs.exchange], routingKey = [monthly-fee-brt-to-hrs.routingkey]
+brt  | 2025-05-11T08:46:04.522Z DEBUG 1 --- [pool-2-thread-5] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-ZdRQJZayj708WaeGf9lBNw' with deliveryTag: '193' in Consumer@3bbb5b2: tags=[[amq.ctag-ZdRQJZayj708WaeGf9lBNw]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,2), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T08:46:04.522Z DEBUG 1 --- [ntContainer#1-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'{"callerId":2,"resources":{"minutes":8.0}}' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.hrs.model.HrsResponse}, contentType=application/json, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=hrs-to-brt.exchange, receivedRoutingKey=hrs-to-brt.routingkey, deliveryTag=193, consumerTag=amq.ctag-ZdRQJZayj708WaeGf9lBNw, consumerQueue=hrs-to-brt.queue])
+brt  | 2025-05-11T08:46:04.523Z DEBUG 1 --- [ntContainer#1-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=HrsRequest(callId=null, callerId=2, resources={minutes=8.0}), headers={amqp_receivedDeliveryMode=PERSISTENT, amqp_receivedExchange=hrs-to-brt.exchange, amqp_deliveryTag=193, amqp_consumerQueue=hrs-to-brt.queue, amqp_redelivered=false, amqp_receivedRoutingKey=hrs-to-brt.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=a422d104-6b6c-0f29-eb8d-e320e08e4dbd, amqp_consumerTag=amq.ctag-ZdRQJZayj708WaeGf9lBNw, amqp_lastInBatch=false, contentType=application/json, __TypeId__=com.romashka.romashka_telecom.hrs.model.HrsResponse, timestamp=1746953164523}]]
+brt  | 2025-05-11T08:46:04.523Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Получен запрос от HRS: HrsRequest(callId=null, callerId=2, resources={minutes=8.0})
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.caller_id=?
+brt  | Hibernate: 
+brt  |     select
+brt  |         r1_0.resource_id,
+brt  |         r1_0.resource_name 
+brt  |     from
+brt  |         resources r1_0 
+brt  |     where
+brt  |         r1_0.resource_name=?
+brt  | Hibernate: 
+brt  |     select
+brt  |         cr1_0.caller_id,
+brt  |         cr1_0.current_balance,
+brt  |         cr1_0.resource_id 
+brt  |     from
+brt  |         caller_resources cr1_0 
+brt  |     where
+brt  |         cr1_0.caller_id=? 
+brt  |         and cr1_0.resource_id=?
+brt  | 2025-05-11T08:46:04.525Z DEBUG 1 --- [pool-2-thread-8] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-zKzADB-yRGhYkdrPKAVwww' with deliveryTag: '1321' in Consumer@68317dc0: tags=[[amq.ctag-zKzADB-yRGhYkdrPKAVwww]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,3), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T08:46:04.525Z DEBUG 1 --- [ntContainer#2-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'{"callerId":1,"feeAmount":0,"resources":{}}' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.hrs.model.MonthlyFeeResponse}, contentType=application/json, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=monthly-fee-hrs-to-brt.exchange, receivedRoutingKey=monthly-fee-hrs-to-brt.routingkey, deliveryTag=1321, consumerTag=amq.ctag-zKzADB-yRGhYkdrPKAVwww, consumerQueue=monthly-fee-hrs-to-brt.queue])
+brt  | 2025-05-11T08:46:04.525Z DEBUG 1 --- [ntContainer#2-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=byte[43], headers={amqp_receivedDeliveryMode=PERSISTENT, amqp_receivedExchange=monthly-fee-hrs-to-brt.exchange, amqp_deliveryTag=1321, amqp_consumerQueue=monthly-fee-hrs-to-brt.queue, amqp_redelivered=false, amqp_receivedRoutingKey=monthly-fee-hrs-to-brt.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=f3d2bbbd-845b-9396-dfd7-907dc2a5c2af, amqp_consumerTag=amq.ctag-zKzADB-yRGhYkdrPKAVwww, amqp_lastInBatch=false, contentType=application/json, __TypeId__=com.romashka.romashka_telecom.hrs.model.MonthlyFeeResponse, timestamp=1746953164525}]]
+brt  | 2025-05-11T08:46:04.525Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Баланс 203.00 для ресурса minutes абонента 2 после списания 8.0
+brt  | 2025-05-11T08:46:04.525Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Баланс 203.00 для ресурса minutes абонента 2 после списания 8.0
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         transactions
+brt  |         (caller_id, resource_amount, resource_id, transaction_date, transaction_type) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | 2025-05-11T08:46:04.525Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Получен ответ на запрос абонплаты: MonthlyFeeResponse(callerId=1, feeAmount=0, resources={})
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.caller_id=?
+brt  | 2025-05-11T08:46:04.526Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Абонплата для абонента 1 не требуется
+brt  | 2025-05-11T08:46:04.526Z  INFO 1 --- [ntContainer#1-1] c.r.r.b.s.impl.HrsListenerServiceImpl    : Обработка запроса от HRS завершена успешно
+brt  | Hibernate: 
+brt  |     update
+brt  |         caller_resources 
+brt  |     set
+brt  |         current_balance=?,
+brt  |         resource_id=? 
+brt  |     where
+brt  |         caller_id=?
+brt  | 2025-05-11T08:46:04.527Z DEBUG 1 --- [pool-2-thread-4] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-zKzADB-yRGhYkdrPKAVwww' with deliveryTag: '1322' in Consumer@68317dc0: tags=[[amq.ctag-zKzADB-yRGhYkdrPKAVwww]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,3), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T08:46:04.527Z DEBUG 1 --- [ntContainer#2-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'{"callerId":3,"feeAmount":0,"resources":{}}' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.hrs.model.MonthlyFeeResponse}, contentType=application/json, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=monthly-fee-hrs-to-brt.exchange, receivedRoutingKey=monthly-fee-hrs-to-brt.routingkey, deliveryTag=1322, consumerTag=amq.ctag-zKzADB-yRGhYkdrPKAVwww, consumerQueue=monthly-fee-hrs-to-brt.queue])
+brt  | 2025-05-11T08:46:04.527Z DEBUG 1 --- [ntContainer#2-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=byte[43], headers={amqp_receivedDeliveryMode=PERSISTENT, amqp_receivedExchange=monthly-fee-hrs-to-brt.exchange, amqp_deliveryTag=1322, amqp_consumerQueue=monthly-fee-hrs-to-brt.queue, amqp_redelivered=false, amqp_receivedRoutingKey=monthly-fee-hrs-to-brt.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=26e94152-0660-7283-0b42-e891cb83dc40, amqp_consumerTag=amq.ctag-zKzADB-yRGhYkdrPKAVwww, amqp_lastInBatch=false, contentType=application/json, __TypeId__=com.romashka.romashka_telecom.hrs.model.MonthlyFeeResponse, timestamp=1746953164527}]]
+brt  | 2025-05-11T08:46:04.527Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Получен ответ на запрос абонплаты: MonthlyFeeResponse(callerId=3, feeAmount=0, resources={})
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.caller_id=?
+brt  | 2025-05-11T08:46:04.528Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Абонплата для абонента 3 не требуется
+brt  | 2025-05-11T08:46:04.529Z DEBUG 1 --- [pool-2-thread-7] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-zKzADB-yRGhYkdrPKAVwww' with deliveryTag: '1323' in Consumer@68317dc0: tags=[[amq.ctag-zKzADB-yRGhYkdrPKAVwww]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,3), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T08:46:04.529Z DEBUG 1 --- [ntContainer#2-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'{"callerId":4,"feeAmount":0,"resources":{}}' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.hrs.model.MonthlyFeeResponse}, contentType=application/json, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=monthly-fee-hrs-to-brt.exchange, receivedRoutingKey=monthly-fee-hrs-to-brt.routingkey, deliveryTag=1323, consumerTag=amq.ctag-zKzADB-yRGhYkdrPKAVwww, consumerQueue=monthly-fee-hrs-to-brt.queue])
+brt  | 2025-05-11T08:46:04.529Z DEBUG 1 --- [ntContainer#2-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=byte[43], headers={amqp_receivedDeliveryMode=PERSISTENT, amqp_receivedExchange=monthly-fee-hrs-to-brt.exchange, amqp_deliveryTag=1323, amqp_consumerQueue=monthly-fee-hrs-to-brt.queue, amqp_redelivered=false, amqp_receivedRoutingKey=monthly-fee-hrs-to-brt.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=38448da9-c4bc-3d32-ddfb-b7989ecb4792, amqp_consumerTag=amq.ctag-zKzADB-yRGhYkdrPKAVwww, amqp_lastInBatch=false, contentType=application/json, __TypeId__=com.romashka.romashka_telecom.hrs.model.MonthlyFeeResponse, timestamp=1746953164529}]]
+brt  | 2025-05-11T08:46:04.529Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Получен ответ на запрос абонплаты: MonthlyFeeResponse(callerId=4, feeAmount=0, resources={})
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.caller_id=?
+brt  | 2025-05-11T08:46:04.530Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Абонплата для абонента 4 не требуется
+brt  | 2025-05-11T08:46:04.530Z DEBUG 1 --- [pool-2-thread-6] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-zKzADB-yRGhYkdrPKAVwww' with deliveryTag: '1324' in Consumer@68317dc0: tags=[[amq.ctag-zKzADB-yRGhYkdrPKAVwww]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,3), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T08:46:04.530Z DEBUG 1 --- [ntContainer#2-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'{"callerId":6,"feeAmount":0,"resources":{}}' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.hrs.model.MonthlyFeeResponse}, contentType=application/json, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=monthly-fee-hrs-to-brt.exchange, receivedRoutingKey=monthly-fee-hrs-to-brt.routingkey, deliveryTag=1324, consumerTag=amq.ctag-zKzADB-yRGhYkdrPKAVwww, consumerQueue=monthly-fee-hrs-to-brt.queue])
+brt  | 2025-05-11T08:46:04.530Z DEBUG 1 --- [ntContainer#2-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=byte[43], headers={amqp_receivedDeliveryMode=PERSISTENT, amqp_receivedExchange=monthly-fee-hrs-to-brt.exchange, amqp_deliveryTag=1324, amqp_consumerQueue=monthly-fee-hrs-to-brt.queue, amqp_redelivered=false, amqp_receivedRoutingKey=monthly-fee-hrs-to-brt.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=26fd6186-4500-01ea-6728-d476b2344f56, amqp_consumerTag=amq.ctag-zKzADB-yRGhYkdrPKAVwww, amqp_lastInBatch=false, contentType=application/json, __TypeId__=com.romashka.romashka_telecom.hrs.model.MonthlyFeeResponse, timestamp=1746953164530}]]
+brt  | 2025-05-11T08:46:04.531Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Получен ответ на запрос абонплаты: MonthlyFeeResponse(callerId=6, feeAmount=0, resources={})
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.caller_id=?
+brt  | 2025-05-11T08:46:04.531Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Абонплата для абонента 6 не требуется
+brt  | 2025-05-11T08:46:04.532Z DEBUG 1 --- [pool-2-thread-9] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-zKzADB-yRGhYkdrPKAVwww' with deliveryTag: '1325' in Consumer@68317dc0: tags=[[amq.ctag-zKzADB-yRGhYkdrPKAVwww]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,3), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T08:46:04.532Z DEBUG 1 --- [ntContainer#2-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'{"callerId":7,"feeAmount":0,"resources":{}}' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.hrs.model.MonthlyFeeResponse}, contentType=application/json, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=monthly-fee-hrs-to-brt.exchange, receivedRoutingKey=monthly-fee-hrs-to-brt.routingkey, deliveryTag=1325, consumerTag=amq.ctag-zKzADB-yRGhYkdrPKAVwww, consumerQueue=monthly-fee-hrs-to-brt.queue])
+brt  | 2025-05-11T08:46:04.532Z DEBUG 1 --- [ntContainer#2-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=byte[43], headers={amqp_receivedDeliveryMode=PERSISTENT, amqp_receivedExchange=monthly-fee-hrs-to-brt.exchange, amqp_deliveryTag=1325, amqp_consumerQueue=monthly-fee-hrs-to-brt.queue, amqp_redelivered=false, amqp_receivedRoutingKey=monthly-fee-hrs-to-brt.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=702302a3-4447-9437-e12e-dcc0d4d131c1, amqp_consumerTag=amq.ctag-zKzADB-yRGhYkdrPKAVwww, amqp_lastInBatch=false, contentType=application/json, __TypeId__=com.romashka.romashka_telecom.hrs.model.MonthlyFeeResponse, timestamp=1746953164532}]]
+brt  | 2025-05-11T08:46:04.532Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Получен ответ на запрос абонплаты: MonthlyFeeResponse(callerId=7, feeAmount=0, resources={})
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.caller_id=?
+brt  | 2025-05-11T08:46:04.533Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Абонплата для абонента 7 не требуется
+brt  | 2025-05-11T08:46:04.533Z DEBUG 1 --- [ool-2-thread-10] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-zKzADB-yRGhYkdrPKAVwww' with deliveryTag: '1326' in Consumer@68317dc0: tags=[[amq.ctag-zKzADB-yRGhYkdrPKAVwww]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,3), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T08:46:04.534Z DEBUG 1 --- [ntContainer#2-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'{"callerId":9,"feeAmount":0,"resources":{}}' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.hrs.model.MonthlyFeeResponse}, contentType=application/json, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=monthly-fee-hrs-to-brt.exchange, receivedRoutingKey=monthly-fee-hrs-to-brt.routingkey, deliveryTag=1326, consumerTag=amq.ctag-zKzADB-yRGhYkdrPKAVwww, consumerQueue=monthly-fee-hrs-to-brt.queue])
+brt  | 2025-05-11T08:46:04.534Z DEBUG 1 --- [ntContainer#2-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=byte[43], headers={amqp_receivedDeliveryMode=PERSISTENT, amqp_receivedExchange=monthly-fee-hrs-to-brt.exchange, amqp_deliveryTag=1326, amqp_consumerQueue=monthly-fee-hrs-to-brt.queue, amqp_redelivered=false, amqp_receivedRoutingKey=monthly-fee-hrs-to-brt.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=9c891c7a-2e4f-048d-239b-2929a2a78beb, amqp_consumerTag=amq.ctag-zKzADB-yRGhYkdrPKAVwww, amqp_lastInBatch=false, contentType=application/json, __TypeId__=com.romashka.romashka_telecom.hrs.model.MonthlyFeeResponse, timestamp=1746953164534}]]
+brt  | 2025-05-11T08:46:04.534Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Получен ответ на запрос абонплаты: MonthlyFeeResponse(callerId=9, feeAmount=0, resources={})
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.caller_id=?
+brt  | 2025-05-11T08:46:04.535Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Абонплата для абонента 9 не требуется
+brt  | 2025-05-11T08:46:04.536Z DEBUG 1 --- [pool-2-thread-3] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-zKzADB-yRGhYkdrPKAVwww' with deliveryTag: '1327' in Consumer@68317dc0: tags=[[amq.ctag-zKzADB-yRGhYkdrPKAVwww]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,3), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T08:46:04.536Z DEBUG 1 --- [ntContainer#2-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'{"callerId":10,"feeAmount":0,"resources":{}}' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.hrs.model.MonthlyFeeResponse}, contentType=application/json, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=monthly-fee-hrs-to-brt.exchange, receivedRoutingKey=monthly-fee-hrs-to-brt.routingkey, deliveryTag=1327, consumerTag=amq.ctag-zKzADB-yRGhYkdrPKAVwww, consumerQueue=monthly-fee-hrs-to-brt.queue])
+brt  | 2025-05-11T08:46:04.536Z DEBUG 1 --- [ntContainer#2-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=byte[44], headers={amqp_receivedDeliveryMode=PERSISTENT, amqp_receivedExchange=monthly-fee-hrs-to-brt.exchange, amqp_deliveryTag=1327, amqp_consumerQueue=monthly-fee-hrs-to-brt.queue, amqp_redelivered=false, amqp_receivedRoutingKey=monthly-fee-hrs-to-brt.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=b3a1188d-a758-fa9d-2c8e-8afb1093cab7, amqp_consumerTag=amq.ctag-zKzADB-yRGhYkdrPKAVwww, amqp_lastInBatch=false, contentType=application/json, __TypeId__=com.romashka.romashka_telecom.hrs.model.MonthlyFeeResponse, timestamp=1746953164536}]]
+brt  | 2025-05-11T08:46:04.537Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Получен ответ на запрос абонплаты: MonthlyFeeResponse(callerId=10, feeAmount=0, resources={})
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.caller_id=?
+brt  | 2025-05-11T08:46:04.537Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Абонплата для абонента 10 не требуется
+brt  | 2025-05-11T08:46:04.537Z DEBUG 1 --- [pool-2-thread-5] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-zKzADB-yRGhYkdrPKAVwww' with deliveryTag: '1328' in Consumer@68317dc0: tags=[[amq.ctag-zKzADB-yRGhYkdrPKAVwww]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,3), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T08:46:04.538Z DEBUG 1 --- [ntContainer#2-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'{"callerId":2,"feeAmount":0,"resources":{}}' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.hrs.model.MonthlyFeeResponse}, contentType=application/json, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=monthly-fee-hrs-to-brt.exchange, receivedRoutingKey=monthly-fee-hrs-to-brt.routingkey, deliveryTag=1328, consumerTag=amq.ctag-zKzADB-yRGhYkdrPKAVwww, consumerQueue=monthly-fee-hrs-to-brt.queue])
+brt  | 2025-05-11T08:46:04.538Z DEBUG 1 --- [ntContainer#2-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=byte[43], headers={amqp_receivedDeliveryMode=PERSISTENT, amqp_receivedExchange=monthly-fee-hrs-to-brt.exchange, amqp_deliveryTag=1328, amqp_consumerQueue=monthly-fee-hrs-to-brt.queue, amqp_redelivered=false, amqp_receivedRoutingKey=monthly-fee-hrs-to-brt.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=c26951f0-05da-4d0b-9ebe-a99ee77fe9d1, amqp_consumerTag=amq.ctag-zKzADB-yRGhYkdrPKAVwww, amqp_lastInBatch=false, contentType=application/json, __TypeId__=com.romashka.romashka_telecom.hrs.model.MonthlyFeeResponse, timestamp=1746953164538}]]
+brt  | 2025-05-11T08:46:04.538Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Получен ответ на запрос абонплаты: MonthlyFeeResponse(callerId=2, feeAmount=0, resources={})
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.caller_id=?
+brt  | 2025-05-11T08:46:04.539Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Абонплата для абонента 2 не требуется
+brt  | 2025-05-11T08:46:04.539Z DEBUG 1 --- [pool-2-thread-8] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-zKzADB-yRGhYkdrPKAVwww' with deliveryTag: '1329' in Consumer@68317dc0: tags=[[amq.ctag-zKzADB-yRGhYkdrPKAVwww]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,3), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T08:46:04.539Z DEBUG 1 --- [ntContainer#2-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'{"callerId":5,"feeAmount":0,"resources":{}}' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.hrs.model.MonthlyFeeResponse}, contentType=application/json, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=monthly-fee-hrs-to-brt.exchange, receivedRoutingKey=monthly-fee-hrs-to-brt.routingkey, deliveryTag=1329, consumerTag=amq.ctag-zKzADB-yRGhYkdrPKAVwww, consumerQueue=monthly-fee-hrs-to-brt.queue])
+brt  | 2025-05-11T08:46:04.539Z DEBUG 1 --- [ntContainer#2-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=byte[43], headers={amqp_receivedDeliveryMode=PERSISTENT, amqp_receivedExchange=monthly-fee-hrs-to-brt.exchange, amqp_deliveryTag=1329, amqp_consumerQueue=monthly-fee-hrs-to-brt.queue, amqp_redelivered=false, amqp_receivedRoutingKey=monthly-fee-hrs-to-brt.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=5b6811a6-d301-2a4b-3e09-466d41efeb4d, amqp_consumerTag=amq.ctag-zKzADB-yRGhYkdrPKAVwww, amqp_lastInBatch=false, contentType=application/json, __TypeId__=com.romashka.romashka_telecom.hrs.model.MonthlyFeeResponse, timestamp=1746953164539}]]
+brt  | 2025-05-11T08:46:04.539Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Получен ответ на запрос абонплаты: MonthlyFeeResponse(callerId=5, feeAmount=0, resources={})
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.caller_id=?
+brt  | 2025-05-11T08:46:04.540Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Абонплата для абонента 5 не требуется
+brt  | 2025-05-11T08:46:04.541Z DEBUG 1 --- [pool-2-thread-4] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-zKzADB-yRGhYkdrPKAVwww' with deliveryTag: '1330' in Consumer@68317dc0: tags=[[amq.ctag-zKzADB-yRGhYkdrPKAVwww]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,3), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T08:46:04.541Z DEBUG 1 --- [ntContainer#2-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'{"callerId":8,"feeAmount":0,"resources":{}}' MessageProperties [headers={__TypeId__=com.romashka.romashka_telecom.hrs.model.MonthlyFeeResponse}, contentType=application/json, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=monthly-fee-hrs-to-brt.exchange, receivedRoutingKey=monthly-fee-hrs-to-brt.routingkey, deliveryTag=1330, consumerTag=amq.ctag-zKzADB-yRGhYkdrPKAVwww, consumerQueue=monthly-fee-hrs-to-brt.queue])
+brt  | 2025-05-11T08:46:04.541Z DEBUG 1 --- [ntContainer#2-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=byte[43], headers={amqp_receivedDeliveryMode=PERSISTENT, amqp_receivedExchange=monthly-fee-hrs-to-brt.exchange, amqp_deliveryTag=1330, amqp_consumerQueue=monthly-fee-hrs-to-brt.queue, amqp_redelivered=false, amqp_receivedRoutingKey=monthly-fee-hrs-to-brt.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=11b961d9-5009-713e-7991-9b9b0fced3be, amqp_consumerTag=amq.ctag-zKzADB-yRGhYkdrPKAVwww, amqp_lastInBatch=false, contentType=application/json, __TypeId__=com.romashka.romashka_telecom.hrs.model.MonthlyFeeResponse, timestamp=1746953164541}]]
+brt  | 2025-05-11T08:46:04.541Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Получен ответ на запрос абонплаты: MonthlyFeeResponse(callerId=8, feeAmount=0, resources={})
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.caller_id=?
+brt  | 2025-05-11T08:46:04.542Z  INFO 1 --- [ntContainer#2-1] .r.r.b.s.i.MonthlyFeeListenerServiceImpl : Абонплата для абонента 8 не требуется
+brt  | 2025-05-11T08:53:20.059Z DEBUG 1 --- [pool-2-thread-7] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-x_Bsq-pZZn0vM0HQXCs_6w' with deliveryTag: '130' in Consumer@704a0f9: tags=[[amq.ctag-x_Bsq-pZZn0vM0HQXCs_6w]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,1), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T08:53:20.059Z DEBUG 1 --- [ntContainer#0-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'[B@5eed61d9(byte[815])' MessageProperties [headers={fileName=cdr_2025-01-02T15:59:38.289.csv}, contentType=text/csv, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=cdr.exchange, receivedRoutingKey=cdr.routingkey, deliveryTag=130, consumerTag=amq.ctag-x_Bsq-pZZn0vM0HQXCs_6w, consumerQueue=cdr.queue])
+brt  | 2025-05-11T08:53:20.059Z DEBUG 1 --- [ntContainer#0-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=call_type,caller_number,contact_number,start_time,end_time
+brt  | 01,79010000045,79010000034,2025-01-01T05:49:10.764,2025-01-01T05:59:09.764
+brt  | 02,79010000034,79010000045,2025-01-01T05:49:10.764,2025-01-01T05:59:09.764
+brt  | 01,79010000000,79010000008,2025-01-01T10:12:11.06,2025-01-01T10:25:57.06
+brt  | 02,79010000008,79010000000,2025-01-01T10:12:11.06,2025-01-01T10:25:57.06
+brt  | 01,79001112233,79010000035,2025-01-01T16:59:51.737,2025-01-01T17:08:37.737
+brt  | 02,79010000035,79001112233,2025-01-01T16:59:51.737,2025-01-01T17:08:37.737
+brt  | 01,79010000049,79010000013,2025-01-02T05:55:21.073,2025-01-02T06:07:49.073
+brt  | 02,79010000013,79010000049,2025-01-02T05:55:21.073,2025-01-02T06:07:49.073
+brt  | 01,79010000023,79010000035,2025-01-02T15:58:31.289,2025-01-02T15:59:38.289
+brt  | 02,79010000035,79010000023,2025-01-02T15:58:31.289,2025-01-02T15:59:38.289
+brt  | , headers={amqp_receivedDeliveryMode=PERSISTENT, fileName=cdr_2025-01-02T15:59:38.289.csv, amqp_receivedExchange=cdr.exchange, amqp_deliveryTag=130, amqp_consumerQueue=cdr.queue, amqp_redelivered=false, amqp_receivedRoutingKey=cdr.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=0029fe59-ee56-478f-da71-a047939b0b5d, amqp_consumerTag=amq.ctag-x_Bsq-pZZn0vM0HQXCs_6w, amqp_lastInBatch=false, contentType=text/csv, timestamp=1746953600059}]]
+brt  | 2025-05-11T08:53:20.059Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataListenerServiceImpl   : Получили CSV-пакет (815 байт)
+brt  | 2025-05-11T08:53:20.060Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataListenerServiceImpl   : Распарсили 10 записей
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.number 
+brt  |     from
+brt  |         callers c1_0
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.number in (?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | 2025-05-11T08:53:20.064Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataProcessorServiceImpl  : Сохранено 1 звонков в таблицу calls
+brt  | 2025-05-11T08:53:20.153Z DEBUG 1 --- [pool-2-thread-6] o.s.a.r.listener.BlockingQueueConsumer   : Storing delivery for consumerTag: 'amq.ctag-x_Bsq-pZZn0vM0HQXCs_6w' with deliveryTag: '131' in Consumer@704a0f9: tags=[[amq.ctag-x_Bsq-pZZn0vM0HQXCs_6w]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@172.18.0.2:5672/,1), conn: Proxy@7f3964b0 Shared Rabbit Connection: SimpleConnection@2f59f157 [delegate=amqp://guest@172.18.0.2:5672/, localPort=41368], acknowledgeMode=AUTO local queue size=0
+brt  | 2025-05-11T08:53:20.154Z DEBUG 1 --- [ntContainer#0-1] o.s.a.r.listener.BlockingQueueConsumer   : Received message: (Body:'[B@366adaf6(byte[894])' MessageProperties [headers={}, contentType=text/plain, contentEncoding=UTF-8, contentLength=0, receivedDeliveryMode=PERSISTENT, priority=0, redelivered=false, receivedExchange=cdr.exchange, receivedRoutingKey=cdr.routingkey, deliveryTag=131, consumerTag=amq.ctag-x_Bsq-pZZn0vM0HQXCs_6w, consumerQueue=cdr.queue])
+brt  | 2025-05-11T08:53:20.154Z DEBUG 1 --- [ntContainer#0-1] .a.r.l.a.MessagingMessageListenerAdapter : Processing [GenericMessage [payload=call_type,caller_number,contact_number,start_time,end_time
+brt  | 01,79001112233,79872332221,2025-05-05T14:21:52.0190924,2025-05-05T14:31:42.0190924
+brt  | 02,79872332221,79001112233,2025-05-05T14:21:52.0190924,2025-05-05T14:31:42.0190924
+brt  | 01,79001112233,79178748447,2025-05-05T14:04:52.0340908,2025-05-05T14:18:43.0340908
+brt  | 02,79484263179,79001112233,2025-05-05T14:04:52.0340908,2025-05-05T14:18:43.0340908
+brt  | 01,79725978199,79022551726,2025-05-05T14:17:52.0340908,2025-05-05T14:21:03.0340908
+brt  | 02,79022551726,79725978199,2025-05-05T14:17:52.0340908,2025-05-05T14:21:03.0340908
+brt  | 01,79467368437,79786244651,2025-05-05T14:14:52.0340908,2025-05-05T14:16:55.0340908
+brt  | 02,79786244651,79467368437,2025-05-05T14:14:52.0340908,2025-05-05T14:16:55.0340908
+brt  | 01,79632116882,79332542890,2025-05-05T14:37:52.035092,2025-05-05T14:49:26.035092
+brt  | 02,79332542890,79632116882,2025-05-05T14:37:52.035092,2025-05-05T14:49:26.035092, headers={amqp_receivedDeliveryMode=PERSISTENT, amqp_receivedExchange=cdr.exchange, amqp_deliveryTag=131, amqp_consumerQueue=cdr.queue, amqp_redelivered=false, amqp_receivedRoutingKey=cdr.routingkey, amqp_contentEncoding=UTF-8, amqp_retryCount=0, id=426300d3-d370-f0c7-95fc-f644e6df7ef8, amqp_consumerTag=amq.ctag-x_Bsq-pZZn0vM0HQXCs_6w, amqp_lastInBatch=false, contentType=text/plain, timestamp=1746953600154}]]
+brt  | 2025-05-11T08:53:20.154Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataListenerServiceImpl   : Получили CSV-пакет (894 байт)
+brt  | 2025-05-11T08:53:20.154Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataListenerServiceImpl   : Распарсили 10 записей
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.number 
+brt  |     from
+brt  |         callers c1_0
+brt  | Hibernate: 
+brt  |     select
+brt  |         c1_0.caller_id,
+brt  |         c1_0.balance,
+brt  |         c1_0.number,
+brt  |         c1_0.rate_date,
+brt  |         c1_0.rate_id,
+brt  |         c1_0.subscriber_id 
+brt  |     from
+brt  |         callers c1_0 
+brt  |     where
+brt  |         c1_0.number in (?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | Hibernate: 
+brt  |     insert 
+brt  |     into
+brt  |         calls
+brt  |         (call_type, caller_id, contact_number, end_time, start_time) 
+brt  |     values
+brt  |         (?, ?, ?, ?, ?)
+brt  | 2025-05-11T08:53:20.158Z  INFO 1 --- [ntContainer#0-1] c.r.r.b.s.i.CdrDataProcessorServiceImpl  : Сохранено 2 звонков в таблицу calls
