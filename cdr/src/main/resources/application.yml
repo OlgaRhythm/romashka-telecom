@@ -72,6 +72,11 @@ spring:
         max-interval: 10000ms
         max-attempts: 3
 
+  liquibase:
+    enabled: true
+    change-log: classpath:/db/changelog/db.changelog-master.yaml
+
+
 ---
 # ---------------------------------------------------------
 # Docker‑профиль (в контейнере)
@@ -111,6 +116,10 @@ spring:
       settings:
         trace: false
         web-allow-others: true
+  
+  liquibase:
+    enabled:    true
+    change-log: classpath:/db/changelog/db.changelog-master.yaml
 
 # Настройки приложения
 app:

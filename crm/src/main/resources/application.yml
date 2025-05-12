@@ -32,7 +32,7 @@ rabbitmq:
       key: hrs-to-crm.routingkey
 
 app:
-  jwtSecret: "RomashkaTelecomSecretKey"
+  jwtSecret: "RomashkaTelecomSecretKey3cF9D5gH7jK1LmN2pQ4RsT6vU8xY0zA3bC5D"
   jwtExpirationInMs: 86400000 # 24 часа
 
 ---
