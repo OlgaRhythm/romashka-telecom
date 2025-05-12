@@ -1,11 +1,9 @@
-package com.romashka.romashka_telecom.brt.config;
+package com.romashka.romashka_telecom.cdr.config;
 
-import liquibase.Liquibase;
 import liquibase.database.Database;
 import liquibase.database.DatabaseFactory;
 import liquibase.exception.LiquibaseException;
 import liquibase.integration.spring.SpringLiquibase;
-import liquibase.resource.ClassLoaderResourceAccessor;
 import liquibase.lockservice.LockService;
 import liquibase.lockservice.LockServiceFactory;
 
