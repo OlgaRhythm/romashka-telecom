@@ -1,7 +1,13 @@
 package com.romashka.romashka_telecom.brt.enums;
 
+/**
+ * Тип транзакции в системе биллинга.
+ * Определяет направление движения средств или ресурсов.
+ */
 public enum TransactionType {
-    CREDIT, // пополнение
-    DEBIT // списание
+    /** Пополнение баланса или ресурсов */
+    CREDIT,
+    /** Списание средств или ресурсов */
+    DEBIT
 }
 

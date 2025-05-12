@@ -13,7 +13,10 @@ import com.romashka.romashka_telecom.brt.service.CdrCsvParser;
 
 import java.util.List;
 
-
+/**
+ * Реализация сервиса для прослушивания и обработки входящих CDR-записей.
+ * Получает CSV-данные из очереди RabbitMQ, парсит их и передает на обработку.
+ */
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -22,6 +25,13 @@ public class CdrDataListenerServiceImpl implements CdrDataListenerService {
     private final CdrCsvParser parser;
     private final CdrDataProcessorService processor;
     private static final String DEFAULT_QUEUE = "cdr.queue";
+
+    /**
+     * Обрабатывает входящий CSV-файл с CDR-записями.
+     * Метод вызывается автоматически при получении сообщения из очереди RabbitMQ.
+     *
+     * @param csv содержимое CSV-файла с записями о звонках
+     */
     @RabbitListener(
             queues = "${rabbitmq.queue.name:" + DEFAULT_QUEUE + "}",
             containerFactory = "cdrListenerContainerFactory"

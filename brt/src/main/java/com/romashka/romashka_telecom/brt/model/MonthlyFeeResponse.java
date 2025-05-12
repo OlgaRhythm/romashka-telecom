@@ -8,12 +8,29 @@ import java.util.Map;
 
 import java.math.BigDecimal;
 
+/**
+ * Ответ от HRS-сервиса с результатом расчета абонентской платы.
+ * Содержит информацию о сумме к оплате и дополнительных ресурсах, которые будут начислены абоненту.
+ */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class MonthlyFeeResponse {
+    /**
+     * Идентификатор абонента, для которого был выполнен расчет.
+     */
     private Long callerId;
+
+    /**
+     * Сумма абонентской платы к оплате.
+     */
     private BigDecimal feeAmount;
-    private Map<String, Double> resources; // ключ - название ресурса (минуты), значение - сумма добавления
+
+    /**
+     * Карта дополнительных ресурсов, которые будут начислены абоненту.
+     * Ключ - название ресурса (например, "минуты"),
+     * Значение - количество ресурса, которое будет добавлено к текущему балансу.
+     */
+    private Map<String, Double> resources;
 } 

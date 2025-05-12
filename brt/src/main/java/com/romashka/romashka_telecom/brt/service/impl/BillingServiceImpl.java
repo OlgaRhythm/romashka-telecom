@@ -5,7 +5,6 @@ import com.romashka.romashka_telecom.brt.model.BillingMessage;
 import com.romashka.romashka_telecom.brt.model.MonthlyFeeRequest;
 import com.romashka.romashka_telecom.brt.repository.CallerRepository;
 import com.romashka.romashka_telecom.brt.service.BillingService;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +17,10 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
+/**
+ * Реализация сервиса для обработки биллинговых операций.
+ * Отвечает за отправку данных о звонках в HRS и инициацию списания абонентской платы.
+ */
 @Slf4j
 @Service
 public class BillingServiceImpl implements BillingService {
@@ -40,9 +43,12 @@ public class BillingServiceImpl implements BillingService {
     @Value("${rabbitmq.monthly-fee-brt-to-hrs.routing.key}")
     private String monthlyFeeBrtToHrsRoutingKey;
 
-//    @Value("${rabbitmq.monthly-fee-response.queue.name}")
-//    private String monthlyFeeResponseQueueName;
-
+    /**
+     * Конструктор сервиса.
+     *
+     * @param hrsRabbitTemplate шаблон для отправки сообщений в HRS
+     * @param callerRepository репозиторий для работы с абонентами
+     */
     public BillingServiceImpl(
             @Qualifier("hrsRabbitTemplate") RabbitTemplate hrsRabbitTemplate,
             CallerRepository callerRepository
@@ -51,6 +57,13 @@ public class BillingServiceImpl implements BillingService {
         this.callerRepository = callerRepository;
     }
 
+    /**
+     * Обрабатывает и отправляет данные о звонке в HRS.
+     * Отправляет сообщение в очередь для расчета стоимости звонка.
+     *
+     * @param message сообщение с информацией о звонке
+     * @throws RuntimeException если не удалось отправить сообщение
+     */
     @Override
     public void processAndSendBillingData(BillingMessage message) {
         try {
@@ -63,6 +76,12 @@ public class BillingServiceImpl implements BillingService {
         }
     }
 
+    /**
+     * Инициирует проверку и списание абонентской платы для всех абонентов.
+     * Для каждого абонента отправляет запрос в HRS с информацией о тарифе и сроке его действия.
+     *
+     * @param modelDate дата в модельном времени для начисления абонентской платы
+     */
     @Override
     @Transactional
     public void chargeMonthlyFee(LocalDate modelDate) {

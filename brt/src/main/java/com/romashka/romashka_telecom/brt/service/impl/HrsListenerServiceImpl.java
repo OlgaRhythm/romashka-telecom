@@ -21,6 +21,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+/**
+ * Сервис для обработки сообщений от HRS-сервиса.
+ * Отвечает за списание ресурсов (денежных и неденежных) у абонентов
+ * и запись транзакций в базу данных.
+ */
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -32,6 +37,18 @@ public class HrsListenerServiceImpl {
     private final TransactionRepository transactionRepository;
     private final MoneyTransactionRepository moneyTransactionRepository;
 
+    /**
+     * Обрабатывает сообщение от HRS-сервиса о списании ресурсов.
+     * Метод вызывается автоматически при получении сообщения из очереди RabbitMQ.
+     * Выполняет следующие действия:
+     * 1. Находит абонента по ID
+     * 2. Для каждого ресурса в сообщении:
+     *    - Если это денежный ресурс, списывает с баланса абонента и создает денежную транзакцию
+     *    - Если это неденежный ресурс, списывает с соответствующего баланса и создает транзакцию
+     *
+     * @param request сообщение от HRS с информацией о списании ресурсов
+     * @throws RuntimeException если абонент не найден или если ресурс не найден
+     */
     @RabbitListener(
             queues = "${rabbitmq.hrs-to-brt.queue.name}",
             containerFactory = "hrsListenerContainerFactory"

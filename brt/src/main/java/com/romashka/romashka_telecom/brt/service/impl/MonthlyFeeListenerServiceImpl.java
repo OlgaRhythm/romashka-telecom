@@ -20,6 +20,11 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Map;
 
+/**
+ * Сервис для обработки ответов на запросы абонентской платы.
+ * Отвечает за списание абонентской платы с баланса абонента
+ * и пополнение ресурсов (минуты, интернет и т.д.) согласно тарифу.
+ */
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -30,6 +35,20 @@ public class MonthlyFeeListenerServiceImpl {
     private final CallerResourceRepository callerResourceRepository;
     private final ResourceRepository resourceRepository;
 
+    /**
+     * Обрабатывает ответ на запрос абонентской платы от HRS-сервиса.
+     * Метод вызывается автоматически при получении сообщения из очереди RabbitMQ.
+     * Выполняет следующие действия:
+     * 1. Находит абонента по ID
+     * 2. Если сумма абонентской платы больше нуля:
+     *    - Списывает абонентскую плату с баланса абонента
+     *    - Создает денежную транзакцию
+     * 3. Если в ответе есть ресурсы:
+     *    - Для каждого ресурса пополняет соответствующий баланс абонента
+     *
+     * @param response ответ от HRS с информацией об абонентской плате и ресурсах
+     * @throws RuntimeException если абонент не найден или если ресурс не найден
+     */
     @RabbitListener(queues = "${rabbitmq.monthly-fee-hrs-to-brt.queue.name}")
     @Transactional
     public void handleMonthlyFeeResponse(MonthlyFeeResponse response) {

@@ -13,8 +13,9 @@ import java.util.*;
 import java.util.regex.Pattern;
 
 /**
- * Простейшая реализация {@link CdrCsvParser} для формата:
- * call_type,caller_number,contact_number,start_time,end_time\n
+ * Реализация парсера CSV-файлов с CDR-записями.
+ * Поддерживает формат: call_type,caller_number,contact_number,start_time,end_time
+ * Выполняет валидацию всех полей и преобразование в объекты {@link CdrRecord}.
  */
 @Slf4j
 @Component
@@ -29,9 +30,15 @@ public class CdrCsvParserImpl implements CdrCsvParser {
     private static final Pattern CALL_TYPE_PATTERN = Pattern.compile("\\d{2}");
     private static final Pattern PHONE_NUMBER_PATTERN = Pattern.compile("\\d{11,12}");
 
+    /**
+     * Парсит CSV-строку в список CDR-записей.
+     * Пропускает пустые строки и строки, не прошедшие валидацию.
+     *
+     * @param csv CSV-строка с заголовком и данными
+     * @return список валидных CDR-записей
+     */
     @Override
     public List<CdrRecord> parse(String csv) {
-
         if (csv == null || csv.isBlank()) {
             return Collections.emptyList();
         }
@@ -54,6 +61,12 @@ public class CdrCsvParserImpl implements CdrCsvParser {
         }
     }
 
+    /**
+     * Парсит одну строку CSV в объект CDR-записи.
+     *
+     * @param line строка CSV с данными о звонке
+     * @return Optional с CDR-записью, если строка валидна
+     */
     private Optional<CdrRecord> parseLine(String line) {
         try {
             if (!isValid(line)) {
@@ -69,6 +82,12 @@ public class CdrCsvParserImpl implements CdrCsvParser {
         }
     }
 
+    /**
+     * Создает объект CDR-записи из массива полей.
+     *
+     * @param fields массив полей из CSV-строки
+     * @return объект CDR-записи
+     */
     private CdrRecord createRecord(String[] fields) {
         return CdrRecord.builder()
                 .callType(CallType.fromCode(fields[0]))
@@ -79,6 +98,13 @@ public class CdrCsvParserImpl implements CdrCsvParser {
                 .build();
     }
 
+    /**
+     * Проверяет валидность строки CDR.
+     *
+     * @param csvLine строка CSV для проверки
+     * @return true если строка валидна
+     * @throws IllegalArgumentException если входная строка null
+     */
     private Boolean isValid(String csvLine) throws IllegalArgumentException {
         Objects.requireNonNull(csvLine, "Входная строка не может быть null");
 
@@ -94,6 +120,12 @@ public class CdrCsvParserImpl implements CdrCsvParser {
                 && isValidDateTimeRange(fields[3], fields[4]);
     }
 
+    /**
+     * Проверяет валидность типа звонка.
+     *
+     * @param callType строка с типом звонка
+     * @return true если тип звонка валиден
+     */
     private boolean isValidCallType(String callType) {
         if (!CALL_TYPE_PATTERN.matcher(callType).matches()) {
             log.warn("Ошибка валидации: поле call_type '{}' не соответствует формату двух цифр", callType);
@@ -102,6 +134,12 @@ public class CdrCsvParserImpl implements CdrCsvParser {
         return true;
     }
 
+    /**
+     * Проверяет валидность номера телефона.
+     *
+     * @param phoneNumber строка с номером телефона
+     * @return true если номер телефона валиден
+     */
     private boolean isValidPhoneNumber(String phoneNumber) {
         if (!PHONE_NUMBER_PATTERN.matcher(phoneNumber).matches()) {
             log.warn("Ошибка валидации: номер телефона '{}' не соответствует формату (11-12 цифр)", phoneNumber);
@@ -110,6 +148,13 @@ public class CdrCsvParserImpl implements CdrCsvParser {
         return true;
     }
 
+    /**
+     * Проверяет валидность временного диапазона звонка.
+     *
+     * @param startTimeStr строка с временем начала
+     * @param endTimeStr строка с временем окончания
+     * @return true если временной диапазон валиден
+     */
     private boolean isValidDateTimeRange(String startTimeStr, String endTimeStr) {
         try {
             LocalDateTime startTime = LocalDateTime.parse(startTimeStr, DATE_TIME_FORMATTER);

@@ -6,6 +6,11 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
+/**
+ * Сущность, представляющая информацию о звонке в системе.
+ * Содержит данные о вызывающем абоненте, типе звонка, контактном номере
+ * и времени начала и окончания звонка.
+ */
 @Entity
 @Table(name = "calls")
 @Getter
@@ -15,7 +20,7 @@ import java.time.LocalDateTime;
 public class Call {
 
     /**
-     * Уникальный идентификатор записи.
+     * Уникальный идентификатор записи о звонке.
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,25 +28,19 @@ public class Call {
     private Long callId;
 
     /**
-     * Вызывающий абонент.  
+     * Идентификатор вызывающего абонента.
      */
     @Column(name = "caller_id", nullable = false)
     private Long callerId;
 
     /**
-     * Тип звонка.
+     * Тип звонка (исходящий/входящий).
      */
     @Column(name = "call_type", nullable = false)
     private CallType callType;
 
     /**
-     * Номер абонента, который осуществляет звонок
-     */
-//    @Column(name = "caller_number", nullable = false)
-//    private String callerNumber;
-
-    /**
-     * Номер абонента, с которым осуществляется связь
+     * Номер телефона абонента, с которым осуществляется связь.
      */
     @Column(name = "contact_number", nullable = false)
     private String contactNumber;
