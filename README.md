@@ -56,7 +56,3 @@ API-сервис для работы абонентов и менеджеров 
 `docker build -t romashka-telecom/crm crm`
 5. Запустить контейнеры
 `docker-compose up --build`
-
-### Запуск каждого отдельного модуля 
-
-// TODO: доделать
