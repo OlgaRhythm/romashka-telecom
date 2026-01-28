@@ -10,8 +10,8 @@
 Romashka Telecom — это микросервисное приложение, моделирующее процессы мобильного оператора "Ромашка": фиксация звонков, тарификация, управление балансами абонентов и работа CRM.
 #### Технологии разработки:
 - Java 17
-- Spring Boot, Spring Security, Spring Data, Spring Web, Spring Cloud, Spring AMQP
-- Maven/Gradle
+- Spring Boot, Spring Security
+- Gradle
 #### Тестирование:
 - JUnit
 - Mockito
